@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #070B14;
+  --surface: #0B1020;
+  --panel: #0D1225;
+  --accent: #3B82F6;
+  --border: #1E293B;
+  --text-primary: #E1E2EC;
+  --text-secondary: #8C909F;
+  --risk-high: #EF4444;
+  --risk-medium: #F59E0B;
+  --safe: #10B981;
+}
+
+body {
+  @apply bg-[#070B14] text-[#E1E2EC] antialiased;
+  font-family: 'Inter', sans-serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Technical Modernism Utilities */
+@layer components {
+  .panel-border {
+    @apply border border-[#1E293B];
+  }
+  
+  .glass-panel {
+    @apply bg-[#0B1020]/80 backdrop-blur-md border border-white/5;
+  }
+  
+  .technical-card {
+    @apply bg-[#0B1020] border border-[#1E293B] rounded-lg p-4 transition-all hover:border-[#3B82F6]/50;
+  }
+  
+  .data-label {
+    @apply text-[10px] font-bold text-[#8C909F] uppercase tracking-widest font-mono;
+  }
+  
+  .data-value {
+    @apply text-sm font-medium text-white font-mono;
+  }
+}
+
+/* 1px Ghost Border Layout */
+.grid-layout {
+  display: grid;
+  gap: 1px;
+  background-color: #1E293B;
+}
+
+.grid-layout > * {
+  background-color: #070B14;
+}

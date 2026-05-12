@@ -1,0 +1,48 @@
+{
+  "materials": [
+    {
+      "id": "pla",
+      "name": "PLA (3D Printed)",
+      "density_kg_m3": 1240,
+      "youngs_modulus_pa": 3.5e9,
+      "yield_strength_pa": 50e6,
+      "poissons_ratio": 0.33,
+      "cost_index": 1,
+      "printability": 10,
+      "description": "Standard 3D printing material. Rigid but brittle."
+    },
+    {
+      "id": "al6061",
+      "name": "Aluminum 6061-T6",
+      "density_kg_m3": 2700,
+      "youngs_modulus_pa": 68.9e9,
+      "yield_strength_pa": 276e6,
+      "poissons_ratio": 0.33,
+      "cost_index": 5,
+      "printability": 2,
+      "description": "Common aerospace and structural aluminum alloy."
+    },
+    {
+      "id": "steel_a36",
+      "name": "Structural Steel (A36)",
+      "density_kg_m3": 7850,
+      "youngs_modulus_pa": 200e9,
+      "yield_strength_pa": 250e6,
+      "poissons_ratio": 0.26,
+      "cost_index": 3,
+      "printability": 1,
+      "description": "Standard structural steel for construction and heavy parts."
+    },
+    {
+      "id": "abs",
+      "name": "ABS (3D Printed)",
+      "density_kg_m3": 1040,
+      "youngs_modulus_pa": 2.3e9,
+      "yield_strength_pa": 40e6,
+      "poissons_ratio": 0.35,
+      "cost_index": 1.5,
+      "printability": 7,
+      "description": "Tougher and more heat-resistant than PLA."
+    }
+  ]
+}

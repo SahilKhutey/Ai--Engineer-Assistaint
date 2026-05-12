@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+python-multipart
+sqlalchemy
+psycopg2-binary
+redis
+celery
+google-generativeai
+numpy
+scipy
+trimesh
+# cadquery  # Note: CadQuery often needs conda, but adding here for reference
+# pythonocc-core # Note: pythonOCC often needs conda

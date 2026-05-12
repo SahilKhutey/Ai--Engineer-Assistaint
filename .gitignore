@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Production
+build/
+dist/
+.next/
+out/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+.venv
+env/
+instance/
+.pytest_cache/
+
+# Artifacts & Local Data
+artifacts/*.pdf
+artifacts/*.json
+qdrant_storage/
+pgdata/
+redis_data/
+
+# OS
+.DS_Store
+Thumbs.db
