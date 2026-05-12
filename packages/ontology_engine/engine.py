@@ -50,9 +50,16 @@ class OntologyEngine:
             
         return knowledge
 
-    def get_ontology_context(self, material_name: str):
-        related = self.get_related_knowledge(material_name)
-        if not related:
-            return ""
+    def get_ontology_context(self, component_type: str):
+        """
+        Retrieves graph-based context for a specific engineering component.
+        """
+        data = self.ontology_graph.get(component_type, self.ontology_graph["Bracket"])
         
-        return f"Engineering Ontology: {material_name} is related to {', '.join(related)}."
+        context = f"ONTOLOGY CONTEXT ({component_type}):\n"
+        context += f"- Referenced Standards: {', '.join(data['standards'])}\n"
+        context += f"- Known Failure Modes: {', '.join(data['failure_modes'])}\n"
+        if "causal_chains" in data:
+            context += f"- Causal Risks: {', '.join(data['causal_chains'])}\n"
+            
+        return context

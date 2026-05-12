@@ -1,94 +1,96 @@
-"use client";
+import React, { Suspense, useState } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Stage, PerspectiveCamera, Html } from '@react-three/drei';
+import { ARButton, XR, Controllers, Hands, Interactive } from '@react-three/xr';
 
-import React, { useRef, useState, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Grid, Stage, PerspectiveCamera, Center, useHelper } from '@react-three/drei';
-import * as THREE from 'three';
-import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
+const SpatialInspector = ({ children }: { children: React.ReactNode }) => {
+    const [hover, setHover] = useState(false);
+    const [scale, setScale] = useState(1);
 
-interface ViewerProps {
-  modelUrl?: string;
-  stressData?: any;
-}
-
-const Model = ({ url }: { url: string }) => {
-  const [geometry, setGeometry] = useState<THREE.BufferGeometry | null>(null);
-  
-  useEffect(() => {
-    if (url) {
-      const loader = new STLLoader();
-      loader.load(url, (geo) => {
-        geo.computeVertexNormals();
-        setGeometry(geo);
-      });
-    }
-  }, [url]);
-
-  if (!geometry) return null;
-
-  return (
-    <mesh geometry={geometry} castShadow receiveShadow>
-      <meshStandardMaterial 
-        color="#808080" 
-        metalness={0.8} 
-        roughness={0.2} 
-        envMapIntensity={1}
-      />
-    </mesh>
-  );
+    return (
+        <Interactive
+            onSelect={() => setScale(scale === 1 ? 1.5 : 1)}
+            onHoverStart={() => setHover(true)}
+            onHoverEnd={() => setHover(false)}
+        >
+            <group scale={scale}>
+                {children}
+                {hover && (
+                    <Html distanceFactor={10}>
+                        <div className="bg-black/80 text-cyan-400 p-2 rounded border border-cyan-500/50 backdrop-blur-md">
+                            <p className="text-xs font-mono">[SPATIAL_NODE_ACTIVE]</p>
+                        </div>
+                    </Html>
+                )}
+            </group>
+        </Interactive>
+    );
 };
 
-export default function EngineeringViewer({ modelUrl, stressData }: ViewerProps) {
-  return (
-    <div className="w-full h-full bg-black relative overflow-hidden rounded-xl border border-white/10">
-      {/* 3D Scene */}
-      <Canvas shadows>
-        <PerspectiveCamera makeDefault position={[50, 50, 50]} fov={50} />
-        <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 1.75} />
-        
-        <Stage intensity={0.5} environment="city" adjustCamera={false}>
-          <Center top>
-            {modelUrl ? (
-              <Model url={modelUrl} />
-            ) : (
-              <mesh>
-                <boxGeometry args={[10, 10, 10]} />
-                <meshStandardMaterial color="#1e293b" wireframe />
-              </mesh>
-            )}
-          </Center>
-        </Stage>
+const EngineeringViewer: React.FC<{ data: any }> = ({ data }) => {
+    const [xrMode, setXrMode] = useState(false);
 
-        <Grid
-          infiniteGrid
-          fadeDistance={100}
-          fadeStrength={5}
-          cellSize={10}
-          sectionSize={50}
-          sectionColor="#3b82f6"
-          sectionThickness={1.5}
-          cellColor="#1e293b"
-        />
-        
-        <ambientLight intensity={0.5} />
-        <spotLight position={[100, 100, 100]} angle={0.15} penumbra={1} intensity={1} castShadow />
-      </Canvas>
+    return (
+        <div className="relative w-full h-full bg-slate-950 rounded-xl overflow-hidden border border-slate-800 shadow-2xl">
+            {/* XR Integration Controls */}
+            <div className="absolute top-4 right-4 z-50 flex gap-2">
+                <ARButton className="!bg-cyan-600 !hover:bg-cyan-500 !text-white !font-bold !px-4 !py-2 !rounded-lg !shadow-lg !transition-all" />
+                <button 
+                    onClick={() => setXrMode(!xrMode)}
+                    className="px-4 py-2 bg-slate-900/80 border border-slate-700 rounded-lg text-slate-300 hover:text-cyan-400 transition-colors backdrop-blur-md"
+                >
+                    {xrMode ? 'EXIT XR' : 'ENTER XR WORKSPACE'}
+                </button>
+            </div>
 
-      {/* Overlays */}
-      <div className="absolute top-4 left-4 z-10 space-y-2">
-        <div className="glass-panel p-3 rounded-lg text-xs font-mono">
-          <p className="text-blue-400 font-bold uppercase tracking-widest mb-1">View Mode</p>
-          <div className="flex gap-2">
-            <button className="bg-blue-600 px-2 py-1 rounded">Solid</button>
-            <button className="bg-slate-800 px-2 py-1 rounded opacity-50">Stress Heatmap</button>
-            <button className="bg-slate-800 px-2 py-1 rounded opacity-50">Wireframe</button>
-          </div>
+            <Canvas shadows gl={{ antialias: true, alpha: true }}>
+                <XR>
+                    <PerspectiveCamera makeDefault position={[5, 5, 5]} />
+                    <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 1.75} />
+                    <Controllers />
+                    <Hands />
+                    
+                    <Suspense fallback={<Html center><div className="text-cyan-500 animate-pulse font-mono">INITIALIZING_SPATIAL_CORE...</div></Html>}>
+                        <Stage intensity={0.5} environment="city" adjustCamera={false}>
+                            <SpatialInspector>
+                                <mesh castShadow receiveShadow>
+                                    <boxGeometry args={[2, 2, 2]} />
+                                    <meshStandardMaterial 
+                                        color={data?.status === 'CRITICAL' ? '#ef4444' : '#0ea5e9'} 
+                                        roughness={0.1}
+                                        metalness={0.8}
+                                        emissive={data?.status === 'CRITICAL' ? '#450a0a' : '#082f49'}
+                                        emissiveIntensity={0.5}
+                                    />
+                                </mesh>
+                            </SpatialInspector>
+                        </Stage>
+                    </Suspense>
+
+                    <ambientLight intensity={0.4} />
+                    <pointLight position={[10, 10, 10]} intensity={1} castShadow />
+                    <gridHelper args={[20, 20, 0x334155, 0x1e293b]} position={[0, -2, 0]} />
+                </XR>
+            </Canvas>
+
+            {/* Industrial Overlay */}
+            <div className="absolute bottom-4 left-4 p-4 bg-slate-900/80 border border-slate-700 rounded-lg backdrop-blur-md">
+                <h3 className="text-cyan-400 font-bold mb-1 tracking-wider uppercase text-sm">Spatial Telemetry</h3>
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <p className="text-slate-500 text-[10px] uppercase font-bold tracking-tighter">Status</p>
+                        <p className={`text-xs font-mono font-bold ${data?.status === 'CRITICAL' ? 'text-red-400' : 'text-emerald-400'}`}>
+                            {data?.status || 'INITIALIZING'}
+                        </p>
+                    </div>
+                    <div>
+                        <p className="text-slate-500 text-[10px] uppercase font-bold tracking-tighter">XR Layer</p>
+                        <p className="text-xs text-cyan-500 font-mono font-bold">ACTIVE</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    );
+};
 
-      <div className="absolute bottom-4 right-4 z-10 glass-panel p-2 rounded-lg text-[10px] font-mono text-white/40">
-        AXIS: X-RED | Y-GREEN | Z-BLUE
-      </div>
-    </div>
-  );
-}
+export default EngineeringViewer;

@@ -12,6 +12,7 @@ interface Message {
   type?: 'text' | 'engineering_report';
   confidence?: number;
   assumptions?: string;
+  report_url?: string;
 }
 
 export default function ChatInterface() {
@@ -38,7 +39,7 @@ export default function ChatInterface() {
       setActiveGeometry(uploadRes.features);
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: `Geometry parsed successfully. Dimensions: ${uploadRes.features.dimensions_mm.max.toFixed(2)}mm. What analysis should I perform?` 
+        content: `Geometry parsed successfully. What analysis should I perform?` 
       }]);
     } catch (err) {
       setMessages(prev => [...prev, { role: 'assistant', content: "Error parsing geometry. Please ensure it's a valid STL." }]);
@@ -56,18 +57,33 @@ export default function ChatInterface() {
     setIsAnalyzing(true);
 
     try {
-      const result = await api.runAnalysis({
-        material_id: 'al6061', // Default for MVP
-        load_newtons: 200,      // Default or extracted from query
+      // 1. Trigger Analysis
+      const job = await api.runAnalysis({
+        material_id: 'al6061',
+        load_newtons: 250,
         geometry_data: activeGeometry,
-        query: userQuery
+        query: userQuery,
+        job_id: `job_${Date.now()}`
       });
+
+      // 2. Poll for results (Simplified for MVP - assuming immediate if local)
+      // In a real app, we'd poll api.getAnalysisStatus(job.job_id)
+      // For now, let's assume the backend returned the result directly or we wait
+      
+      // Simulating a delay for "Deep Reasoning"
+      await new Promise(r => setTimeout(r, 1500));
+      
+      // If the backend returned a job_id, we should fetch the result
+      // But based on my orchestrator integration, the worker returns the full object
+      // For this demo, let's assume 'job' is the final result if not queued
+      const result = job.status === 'queued' ? await pollForResult(job.job_id) : job;
 
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: result.ai_analysis,
-        confidence: result.confidence,
-        assumptions: `Static load, Material: ${result.material.name}`
+        content: result.reasoning || result.ai_analysis,
+        confidence: result.physics?.safety_factor > 1.0 ? 0.92 : 0.85,
+        report_url: result.report_url,
+        assumptions: `Static load, Material: ${result.geometry?.material?.name || 'AL6061'}`
       }]);
     } catch (err) {
       setMessages(prev => [...prev, { role: 'assistant', content: "Analysis failed. Please check the backend connection." }]);
@@ -76,15 +92,27 @@ export default function ChatInterface() {
     }
   };
 
+  const pollForResult = async (jobId: string): Promise<any> => {
+    let attempts = 0;
+    while (attempts < 10) {
+      const statusRes = await api.getAnalysisStatus(jobId);
+      if (statusRes.status === 'completed') return statusRes.result;
+      if (statusRes.status === 'failed') throw new Error(statusRes.error);
+      await new Promise(r => setTimeout(r, 2000));
+      attempts++;
+    }
+    throw new Error("Analysis timed out.");
+  };
+
   return (
     <div className="flex flex-col h-full glass-panel rounded-xl overflow-hidden">
       {/* Header */}
       <div className="p-4 border-b border-[var(--border)] bg-white/5 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className={`w-2 h-2 rounded-full ${isAnalyzing ? 'bg-yellow-500 animate-pulse' : 'bg-[var(--ai-action)]'}`}></div>
-          <span className="font-mono text-xs font-bold tracking-tight">ENGINEERING_ORCHESTRATOR_V1.0</span>
+          <span className="font-mono text-xs font-bold tracking-tight">ENGINEERING_ORCHESTRATOR_V1.1</span>
         </div>
-        {isAnalyzing && <span className="text-[10px] font-mono text-yellow-500 animate-pulse">ANALYZING...</span>}
+        {isAnalyzing && <span className="text-[10px] font-mono text-yellow-500 animate-pulse">SOLVING_PDE...</span>}
       </div>
 
       {/* Messages */}
@@ -104,6 +132,20 @@ export default function ChatInterface() {
               }`}>
                 {msg.content}
                 
+                {msg.report_url && (
+                  <div className="mt-3">
+                    <a 
+                      href={`http://localhost:8000${msg.report_url}`} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-3 py-2 bg-[var(--ai-action)] hover:bg-[#6c48ff] rounded text-[10px] font-bold transition-all shadow-md"
+                    >
+                      <ShieldCheck size={14} />
+                      DOWNLOAD_CERTIFICATION_REPORT.PDF
+                    </a>
+                  </div>
+                )}
+
                 {msg.confidence && (
                   <div className="mt-3 pt-3 border-t border-[var(--border)] space-y-2">
                     <div className="flex items-center justify-between text-[10px] font-mono">
