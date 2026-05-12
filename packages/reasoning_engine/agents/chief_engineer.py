@@ -11,6 +11,7 @@ from .maintenance_agent import MaintenanceAgent
 from .test_planner import TestPlanningAgent
 from .sustainability_agent import SustainabilityAgent
 from .regulatory_agent import RegulatoryEvolutionAgent
+from ..manufacturing_engine.mes_engine import ManufacturingExecutionEngine
 from ..optimization_engine.design_explorer import DesignExplorer
 from ..geometry_engine.assembly_synthesis import AssemblySynthesisEngine
 from ..optimization_engine.assembly_optimizer import AssemblyOptimizer
@@ -20,7 +21,7 @@ class ChiefEngineeringAgent:
     """
     Primary Orchestrator for Engineering Reasoning.
     Synthesizes outputs from specialists into a coherent engineering summary.
-    Enforces Hierarchy, Ethics, Compliance, and Future-Proofing.
+    Enforces Hierarchy, Ethics, Compliance, and Production Readiness.
     """
     def __init__(self):
         self.structural = StructuralSpecialist()
@@ -32,6 +33,7 @@ class ChiefEngineeringAgent:
         self.assembly_opt = AssemblyOptimizer()
         self.synthesis = AssemblySynthesisEngine()
         self.explorer = DesignExplorer()
+        self.mes = ManufacturingExecutionEngine()
         self.standards = StandardsAgent()
         self.collaboration = CollaborationAgent()
         self.rca = RootCauseAgent()
@@ -47,31 +49,32 @@ class ChiefEngineeringAgent:
         # 1. Core Reasoning Loop
         structural_report = self.structural.analyze(physics, {})
         
-        # 2. Regulatory Future-Proofing Audit
-        updates = self.regulatory.monitor_standards()
-        reg_report = self.regulatory.propose_rule_updates(updates)
+        # 2. Manufacturing Execution Synthesis (MES)
+        mes_report = self.mes.generate_execution_plan({"complexity": 0.85})
         
         # 3. Global Synthesis
         status = "COMPLIANT"
         summary = f"Autonomous Engineering OS Analysis: {status}\n\n"
         
-        # 15. Regulatory Evolution & Future-Proofing
-        summary += "\n## 15. Regulatory Evolution & Future-Proofing\n"
-        summary += f"> [!TIP]\n> **FUTURE-PROOFING STATUS**: {reg_report['future_proofing_status']}\n\n"
+        # 16. Autonomous Manufacturing Execution (MES)
+        summary += "\n## 16. Autonomous Manufacturing Execution (MES)\n"
+        summary += f"> [!IMPORTANT]\n> **PRODUCTION STATUS**: {mes_report['status']}\n\n"
         
-        summary += "### Detected Standards Updates:\n"
-        for update in reg_report["detected_updates"]:
-            summary += f"- **{update['standard']}**: {update['change']} | Impact: {update['impact_level']}\n"
+        summary += f"Primary Strategy: **{mes_report['primary_strategy']}**\n"
+        summary += f"Estimated Production Cost: **${mes_report['production_metrics']['total_cost_usd']}**\n"
+        summary += f"Estimated Machine Time: **{mes_report['production_metrics']['estimated_time_hrs']} hrs**\n"
         
-        summary += "\n### Proposed Rule Engine Adjustments:\n"
-        for prop in reg_report["rule_proposals"]:
-            summary += f"- **{prop['rule_id']}**: {prop['action']} $\\rightarrow$ {prop['new_value']} | Rationale: {prop['rationale']}\n"
+        summary += "\n### Recommended Tooling Setup:\n"
+        for tool in mes_report["tooling_setup"]:
+            summary += f"- **{tool['op']}**: {tool['tool']} | Feed Rate: {tool['feed_rate']} mm/min\n"
+        
+        summary += f"\n**G-Code Integrity Checksum**: `{mes_report['gcode_checksum']}`\n"
 
         return {
             "summary": summary,
             "status": status,
             "reports": {
                 "structural": structural_report,
-                "regulatory": reg_report
+                "mes": mes_report
             }
         }
