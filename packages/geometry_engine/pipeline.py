@@ -21,7 +21,7 @@ class GeometryPipeline:
         
         # 2. Curvature Analysis (Stress Concentration Predictor)
         # Higher curvature often indicates stress concentrations or sharp corners
-        curvatures = trimesh.curvature.discrete_mean_curvature_sum(mesh, mesh.vertices, radius=0.01)
+        curvatures = trimesh.curvature.discrete_mean_curvature_measure(mesh, mesh.vertices, radius=0.01)
         max_curvature = np.max(np.abs(curvatures)) if len(curvatures) > 0 else 0
         
         # 3. Topology Graph (Feature Connectivity)
@@ -43,8 +43,10 @@ class GeometryPipeline:
         
         features = {
             "bounding_box": dimensions,
+            "volume_cm3": float(mesh.volume * 1e6) if hasattr(mesh, 'volume') else 0,
+            "surface_area_cm2": float(mesh.area * 1e4) if hasattr(mesh, 'area') else 0,
             "wall_thickness_mm": float(min(extents)),
-            "hole_count": len(mesh.body_count) - 1 if hasattr(mesh, 'body_count') else 0,
+            "hole_count": mesh.body_count - 1 if hasattr(mesh, 'body_count') else 0,
             "is_cantilever": (dimensions['max_span'] / (dimensions['z'] + 1e-6)) > 5.0,
             "max_curvature": float(max_curvature),
             "mesh_quality": "High" if mesh.is_watertight else "Needs Repair",

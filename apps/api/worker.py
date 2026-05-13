@@ -3,12 +3,25 @@ import os
 import asyncio
 from orchestrator.engineering_orchestrator import EngineeringOrchestrator
 
+# Import Core Engineering Components
+from packages.physics_engine.engine import PhysicsEngine
+from packages.engineering_rag.memory_engine import DesignMemoryEngine
+from packages.reasoning_engine.agents.chief_engineer import ChiefEngineeringAgent
+
 # Initialize Celery
 redis_url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 celery_app = Celery("engineering_tasks", broker=redis_url, backend=redis_url)
 
-# Initialize Orchestrator (Singleton for the worker)
-orchestrator = EngineeringOrchestrator()
+# Initialize Orchestrator Dependencies (Singleton for the worker)
+engines = {
+    "physics": PhysicsEngine()
+}
+memory = DesignMemoryEngine()
+agents = {
+    "chief": ChiefEngineeringAgent()
+}
+
+orchestrator = EngineeringOrchestrator(engines=engines, memory=memory, agents=agents)
 
 @celery_app.task(name="run_analysis_task")
 def run_analysis_task(payload):
@@ -16,7 +29,12 @@ def run_analysis_task(payload):
     Background worker task to execute the full engineering pipeline.
     """
     # Celery tasks are synchronous by default, so we run the async orchestrator in a loop
-    loop = asyncio.get_event_loop()
+    try:
+        loop = asyncio.get_event_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
     if loop.is_running():
         # This shouldn't happen in a worker process, but just in case
         import nest_asyncio

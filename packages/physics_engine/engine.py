@@ -1,6 +1,6 @@
 import numpy as np
 from skfem import *
-from skfem.models.elasticity import linear_elasticity, displacement_boundary
+from skfem.models.elasticity import linear_elasticity
 from skfem.helpers import dot, grad, sym_grad, eye
 
 class PhysicsEngine:

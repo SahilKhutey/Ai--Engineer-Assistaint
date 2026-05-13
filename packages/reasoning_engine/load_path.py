@@ -22,6 +22,7 @@ class LoadPathAnalyzer:
         aspect_ratios = {
             "x/y": x / max(y, 1),
             "x/z": x / max(z, 1),
+            "y/z": y / max(z, 1),
             "z/x": z / max(x, 1),
             "z/y": z / max(y, 1)
         }

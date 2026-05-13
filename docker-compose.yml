@@ -26,7 +26,7 @@ services:
     depends_on:
       - redis
 
-  # 3. Web Dashboard (XR Workspace & Command Center)
+  # 3. Web Interface (XR Workspace & Command Center)
   web:
     build:
       context: .
