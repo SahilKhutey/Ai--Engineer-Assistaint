@@ -94,26 +94,26 @@ interface EngineeringState {
     intelligenceDensity: number
   }
 
-  // Domain Intelligence Kernels (v3.1 Standardized to 'Engine' suffix)
-  aerospaceEngine: any
-  fluidEngine: any
-  electromagneticEngine: any
-  commsEngine: any
-  molecularEngine: any
-  structuralEngine: any
-  thermalEngine: any
-  acousticEngine: any
-  gravityEngine: any
-  materialEngine: any
-  quantumEngine: any
-  nuclearEngine: any
-  opticsEngine: any
-  motionEngine: any
-  photonicEngine: any
-  roboticsEngine: any
-  securityState: any // Kept for SecurityPanel compatibility
-  spatialEngine: any
-  materializationState: any // Kept for compatibility
+  // Domain Intelligence Kernels (v3.2 Standardized to 'State' suffix for Phase 55)
+  aerospaceState: any
+  fluidState: any
+  electromagneticState: any
+  commsState: any
+  molecularState: any
+  structuralState: any
+  thermalState: any
+  acousticState: any
+  gravityState: any
+  materialState: any
+  quantumState: any
+  nuclearState: any
+  opticsState: any
+  motionState: any
+  photonicState: any
+  roboticsState: any
+  securityState: any
+  spatialState: any
+  materializationState: any
 
   // Mathematical Truth
   intent: {
@@ -163,7 +163,7 @@ interface EngineeringState {
   removeNotification: (id: string) => void
   clearNotifications: () => void
 
-  // Domain Actions (Standardized)
+  // Domain Actions (Standardized to update *State)
   updateAerospace: (p: any) => void
   updateFluid: (p: any) => void
   updateElectromagnetic: (p: any) => void
@@ -184,6 +184,8 @@ interface EngineeringState {
   updateSpatial: (p: any) => void
   updateMaterialization: (p: any) => void
   startMaterialization: () => void
+  updateFlight: (p: any) => void // Alias for updateAerospace
+  runCFD: (p?: any) => void // Alias for updateFluid
 
   // Workflow Actions
   setWorkflow: (workflow: EngineeringState['workflowState']['activeWorkflow']) => void
@@ -268,26 +270,120 @@ export const useEngineeringStore = create<EngineeringState>((set, get) => ({
     intelligenceDensity: 0.85
   },
 
-  // Domain State Defaults
-  aerospaceEngine: { flightDynamics: { machNumber: 0, velocity_mps: 0, attitude: { pitch: 0, roll: 0, yaw: 0 } }, aircraft: { mass_kg: 0 } },
-  fluidEngine: { physics: { reynoldsNumber: 0, machNumber: 0 }, solver: { status: 'IDLE' } },
-  electromagneticEngine: { emFields: { electricField_Vm: 0 }, fdtdSolver: { status: 'IDLE' } },
-  commsEngine: { shannonSolver: { status: 'IDLE' }, signal: { snr_dB: 0 } },
-  molecularEngine: { gromacsSolver: { status: 'IDLE' }, atomic: { bondingEnergy_eV: 0 } },
-  structuralEngine: { stress: 0, safetyFactor: 0, deformation: 0 },
-  thermalEngine: { physics: { temperature: 0, heatFlux: 0 }, solver: { status: 'IDLE' } },
-  acousticEngine: { physics: { spl_db: 0, frequency_hz: 0 }, solver: { status: 'IDLE' } },
-  gravityEngine: { field: { localG_mps2: 9.81 }, relativity: { timeDilationFactor: 1 } },
-  materialEngine: { properties: { youngsModulus: 0, yieldStrength: 0 } },
-  quantumEngine: { fidelity: 0, coherenceTime_ms: 0 },
-  nuclearEngine: { status: 'IDLE', fusion: { plasmaTemp_keV: 0 }, fission: { reactivity: 0 } },
-  opticsEngine: { geometric: { refractiveIndex: 1 }, wavefront: { rmsError_nm: 0 } },
-  motionEngine: { joints: [], lagrangianSolver: { status: 'IDLE' } },
-  photonicEngine: { phaseResidual: 0, status: 'IDLE' },
-  roboticsEngine: { kinematics: { velocity: 0 }, status: 'IDLE' },
-  securityState: { status: 'SECURE', firewall: { blockedRequests: 0 } },
-  spatialEngine: { status: 'IDLE', transforms: { position: { x: 0 }, rotation: { w: 1 } } },
-  materializationState: { status: 'IDLE', buildProgress: 0, depositionRate_mms: 0, activeDepositionResidual: 0, layerIntegrity: 0, thermalStability: 0, depositionProtocol: 'LASER_SINTERING' },
+  // Domain State Defaults (v3.2 Phase 55 Structured)
+  aerospaceState: { 
+    aircraft: { mass_kg: 25000, wingSpan_m: 35, length_m: 40 },
+    flightDynamics: { machNumber: 0.85, velocity_mps: 290, attitude: { pitch: 2.5, roll: 0, yaw: 0 }, altitude_ft: 35000 },
+    propulsion: { thrust_kN: 120, fuelFlow_kgs: 1.2, coreTemp_K: 1450 },
+    orbital: { periapsis_km: 0, apoapsis_km: 0, inclination_deg: 0 },
+    avionics: { status: 'OPTIMAL', redundancy: 3 }
+  },
+  fluidState: { 
+    physics: { reynoldsNumber: 1.2e7, machNumber: 0.82, pressure_Pa: 101325 }, 
+    solver: { status: 'IDLE', iteration: 0, residual: 0.0001 },
+    turbulence: { model: 'SST_KW', kineticEnergy: 0.05, dissipationRate: 0.01 },
+    combustion: { equivalenceRatio: 1.0, flameSpeed_mps: 0.45 }
+  },
+  electromagneticState: { 
+    emFields: { electricField_Vm: 120, magneticField_T: 0.005 }, 
+    fdtdSolver: { status: 'IDLE' },
+    antenna: { gain_dBi: 12, vswr: 1.1 },
+    signal: { snr_dB: 45, ber: 1e-9 }
+  },
+  commsState: { 
+    shannonSolver: { status: 'IDLE' }, 
+    signal: { snr_dB: 38, bandwidth_MHz: 20 },
+    channel: { capacity_Mbps: 150, latency_ms: 2 },
+    protocol: { standard: '5G_SOVEREIGN', status: 'ENCRYPTED' }
+  },
+  molecularState: { 
+    gromacsSolver: { status: 'IDLE' }, 
+    atomic: { bondingEnergy_eV: -4.5, potential_V: 1.2 },
+    lattice: { constant_A: 5.43, symmetry: 'FCC' },
+    solubility: { coefficient: 0.82 }
+  },
+  structuralState: { 
+    mesh: { nodes: 1240500, elements: 450200, quality: 0.998 },
+    stress: { max_MPa: 420.5, yield_MPa: 650.0, factorOfSafety: 1.54 },
+    buckling: { loadFactor: 2.45, mode: 1 },
+    fatigue: { life_cycles: 1.2e7, damage_index: 0.042 },
+    vibration: { naturalFreq_Hz: [14.2, 45.8, 88.2, 124.5], damping: 0.02 }
+  },
+  thermalState: { 
+    physics: { temperature: 298.15, heatFlux: 0 }, 
+    solver: { status: 'IDLE' },
+    thermodynamics: { entropy_JK: 120, enthalpy_J: 450000 },
+    heatTransfer: { conduction_Wmk: 45, convection_Wm2K: 15 },
+    combustion: { adiabaticFlameTemp_K: 2450, pressure_bar: 45 },
+    cryogenics: { boilingPoint_K: 77.3 },
+    materials: { conductivity: 12, emissivity: 0.95 }
+  },
+  acousticState: { 
+    waves: { amplitude_dB: 85, frequency_Hz: 440, impedance_Rayls: 415 }, 
+    vibrations: { displacement_mm: 0.012, velocity_mps: 0.005, acceleration_mps2: 2.4 },
+    metamaterials: { bulkModulus_GPa: 2.1, density_kgm3: 1.2 },
+    environmental: { temperature_C: 22, pressure_Pa: 101325 },
+    solver: { status: 'IDLE' }
+  },
+  gravityState: { 
+    field: { localG_mps2: 9.80665, potential_Jkg: -6.25e7 }, 
+    relativity: { timeDilationFactor: 1.0000000001, curvature: 1e-12 } 
+  },
+  materialState: { 
+    properties: { youngsModulus_GPa: 210, yieldStrength_MPa: 350, toughness_Jm2: 45000 },
+    lattice: { structure: 'BCC', dislocations: 1e8 }
+  },
+  quantumState: { 
+    fidelity: 0.9999, 
+    coherenceTime_ms: 120, 
+    qubits: { count: 128, active: 124 },
+    entanglement: { state: 'BELL_PAIR' }
+  },
+  nuclearState: { 
+    status: 'IDLE', 
+    fusion: { plasmaTemp_keV: 15.2, confinementTime_s: 2.4 }, 
+    fission: { reactivity: 0.0001, neutronFlux: 1e14 } 
+  },
+  opticsState: { 
+    geometric: { refractiveIndex: 1.52, focalLength_mm: 50 }, 
+    wavefront: { rmsError_nm: 0.045 },
+    diffraction: { efficiency: 0.92 }
+  },
+  motionState: { 
+    joints: [ { id: 'j1', angle: 45, torque: 12 }, { id: 'j2', angle: -15, torque: 8 } ], 
+    lagrangianSolver: { status: 'IDLE' },
+    inverseKinematics: { precision_mm: 0.01 }
+  },
+  photonicState: { 
+    phaseResidual: 1e-12, 
+    status: 'IDLE',
+    laser: { power_W: 1.5, wavelength_nm: 1550 },
+    interferometer: { contrast: 0.98 }
+  },
+  roboticsState: { 
+    kinematics: { velocity_mps: 1.2, path_deviation: 0.005 }, 
+    status: 'IDLE',
+    control: { p: 120, i: 15, d: 2 }
+  },
+  securityState: { 
+    status: 'SECURE', 
+    firewall: { blockedRequests: 0, status: 'ACTIVE' },
+    encryption: { level: 'AES_256_SOVEREIGN', quantumSafe: true }
+  },
+  spatialState: { 
+    status: 'IDLE', 
+    transforms: { position: { x: 0, y: 0, z: 0 }, rotation: { w: 1, x: 0, y: 0, z: 0 } },
+    vslam: { featureCount: 120, confidence: 0.99 }
+  },
+  materializationState: { 
+    status: 'IDLE', 
+    buildProgress: 0, 
+    depositionRate_mms: 0, 
+    activeDepositionResidual: 0, 
+    layerIntegrity: 0, 
+    thermalStability: 0, 
+    depositionProtocol: 'LASER_SINTERING' 
+  },
 
   intent: {
     command: '',
@@ -324,25 +420,27 @@ export const useEngineeringStore = create<EngineeringState>((set, get) => ({
   clearNotifications: () => set({ notifications: [] }),
 
   // Domain Actions
-  updateAerospace: (p) => set((state) => ({ aerospaceEngine: { ...state.aerospaceEngine, ...p } })),
-  updateFluid: (p) => set((state) => ({ fluidEngine: { ...state.fluidEngine, ...p } })),
-  updateElectromagnetic: (p) => set((state) => ({ electromagneticEngine: { ...state.electromagneticEngine, ...p } })),
-  updateComms: (p) => set((state) => ({ commsEngine: { ...state.commsEngine, ...p } })),
-  updateMolecular: (p) => set((state) => ({ molecularEngine: { ...state.molecularEngine, ...p } })),
-  updateStructural: (p) => set((state) => ({ structuralEngine: { ...state.structuralEngine, ...p } })),
-  updateThermal: (p) => set((state) => ({ thermalEngine: { ...state.thermalEngine, ...p } })),
-  updateAcoustic: (p) => set((state) => ({ acousticEngine: { ...state.acousticEngine, ...p } })),
-  updateGravity: (p) => set((state) => ({ gravityEngine: { ...state.gravityEngine, ...p } })),
-  updateMaterial: (p) => set((state) => ({ materialEngine: { ...state.materialEngine, ...p } })),
-  updateQuantum: (p) => set((state) => ({ quantumEngine: { ...state.quantumEngine, ...p } })),
-  updateNuclear: (p) => set((state) => ({ nuclearEngine: { ...state.nuclearEngine, ...p } })),
-  updateOptics: (p) => set((state) => ({ opticsEngine: { ...state.opticsEngine, ...p } })),
-  updateMotion: (p) => set((state) => ({ motionEngine: { ...state.motionEngine, ...p } })),
-  updatePhotonic: (p) => set((state) => ({ photonicEngine: { ...state.photonicEngine, ...p } })),
-  updateRobotics: (p) => set((state) => ({ roboticsEngine: { ...state.roboticsEngine, ...p } })),
+  updateAerospace: (p) => set((state) => ({ aerospaceState: { ...state.aerospaceState, ...p } })),
+  updateFluid: (p) => set((state) => ({ fluidState: { ...state.fluidState, ...p } })),
+  updateElectromagnetic: (p) => set((state) => ({ electromagneticState: { ...state.electromagneticState, ...p } })),
+  updateComms: (p) => set((state) => ({ commsState: { ...state.commsState, ...p } })),
+  updateMolecular: (p) => set((state) => ({ molecularState: { ...state.molecularState, ...p } })),
+  updateStructural: (p) => set((state) => ({ structuralState: { ...state.structuralState, ...p } })),
+  updateThermal: (p) => set((state) => ({ thermalState: { ...state.thermalState, ...p } })),
+  updateAcoustic: (p) => set((state) => ({ acousticState: { ...state.acousticState, ...p } })),
+  updateGravity: (p) => set((state) => ({ gravityState: { ...state.gravityState, ...p } })),
+  updateMaterial: (p) => set((state) => ({ materialState: { ...state.materialState, ...p } })),
+  updateQuantum: (p) => set((state) => ({ quantumState: { ...state.quantumState, ...p } })),
+  updateNuclear: (p) => set((state) => ({ nuclearState: { ...state.nuclearState, ...p } })),
+  updateOptics: (p) => set((state) => ({ opticsState: { ...state.opticsState, ...p } })),
+  updateMotion: (p) => set((state) => ({ motionState: { ...state.motionState, ...p } })),
+  updatePhotonic: (p) => set((state) => ({ photonicState: { ...state.photonicState, ...p } })),
+  updateRobotics: (p) => set((state) => ({ roboticsState: { ...state.roboticsState, ...p } })),
   updateSecurity: (p) => set((state) => ({ securityState: { ...state.securityState, ...p } })),
-  updateSpatial: (p) => set((state) => ({ spatialEngine: { ...state.spatialEngine, ...p } })),
+  updateSpatial: (p) => set((state) => ({ spatialState: { ...state.spatialState, ...p } })),
   updateMaterialization: (p) => set((state) => ({ materializationState: { ...state.materializationState, ...p } })),
+  updateFlight: (p) => get().updateAerospace(p),
+  runCFD: (p) => get().updateFluid(p || {}),
   
   startMaterialization: () => {
     const { addNotification } = get();
