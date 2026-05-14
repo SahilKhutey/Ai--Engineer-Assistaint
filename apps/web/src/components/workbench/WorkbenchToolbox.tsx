@@ -1,13 +1,25 @@
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Globe, Box, Wind, Zap, Cpu, Settings, Database, 
+import {
+  Globe, Box, Wind, Zap, Cpu, Settings, Database,
   Activity, Layers, ShieldCheck, Thermometer, FlaskConical,
-  Atom, Rocket, ChevronRight, Search, TrendingUp, Info
+  Atom, Rocket, ChevronRight, Search, TrendingUp, Info,
+  Radio, Brain, Eye, Monitor, Cpu as KernelIcon, Circle, Construction, Microscope, Waves, Workflow,
+  Shield, Compass, Target, Sparkles, Scale, Magnet, Binary, Fingerprint, Lock, Box as BoxIcon,
+  Terminal, Grid, Maximize, Power, Hammer, Boxes, Scaling, Anchor, PenTool
 } from 'lucide-react';
 import { useEngineeringStore, EngineeringDomain } from '@/store/useEngineeringStore';
+
+// Intelligence Panel Imports (v3.2 Hardened)
 import MaterialIntelligencePanel from './MaterialIntelligencePanel';
+import SpatialIntelligencePanel from './SpatialIntelligencePanel';
+import MolecularIntelligencePanel from './MolecularIntelligencePanel';
+import AcousticIntelligencePanel from './AcousticIntelligencePanel';
+import WorkflowIntelligencePanel from './WorkflowIntelligencePanel';
+import RoboticsIntelligencePanel from './RoboticsIntelligencePanel';
+import SecurityIntelligencePanel from './SecurityIntelligencePanel';
+import CommsIntelligencePanel from './CommsIntelligencePanel';
 import QuantumIntelligencePanel from './QuantumIntelligencePanel';
 import MotionIntelligencePanel from './MotionIntelligencePanel';
 import FluidIntelligencePanel from './FluidIntelligencePanel';
@@ -18,458 +30,197 @@ import NuclearIntelligencePanel from './NuclearIntelligencePanel';
 import PhotonicIntelligencePanel from './PhotonicIntelligencePanel';
 import OpticsIntelligencePanel from './OpticsIntelligencePanel';
 import ThermalIntelligencePanel from './ThermalIntelligencePanel';
-import SpatialIntelligencePanel from './SpatialIntelligencePanel';
+import MaterializationIntelligencePanel from './MaterializationIntelligencePanel';
+import StructuralIntelligencePanel from './StructuralIntelligencePanel';
 
+/**
+ * WorkbenchToolbox v3.2 (Phase 55 Advanced - Sovereign Orchestration Hub)
+ * 
+ * Central command and control interface for all 27 engineering intelligence kernels.
+ * Features reality-linked telemetry, sovereign state management, and high-density 
+ * glassmorphism UI for mission-control grade observability.
+ */
 const WorkbenchToolbox = () => {
-  const { activeDomain, setDomain, intent, updateVariable } = useEngineeringStore();
+  const {
+    activeDomain, setDomain, osStatus, addNotification
+  } = useEngineeringStore();
   const [searchQuery, setSearchQuery] = useState('');
 
   const domains: { id: EngineeringDomain; icon: any; label: string; color: string }[] = [
     { id: 'AEROSPACE', icon: Wind, label: 'Aerospace', color: 'text-blue-400' },
+    { id: 'FLUID', icon: Waves, label: 'Fluid Dynamics', color: 'text-cyan-400' },
     { id: 'STRUCTURAL', icon: Box, label: 'Structural', color: 'text-orange-400' },
-    { id: 'CFD', icon: Wind, label: 'Fluid Dynamics', color: 'text-cyan-400' },
     { id: 'THERMAL', icon: Thermometer, label: 'Thermal', color: 'text-red-400' },
-    { id: 'ELECTRICAL', icon: Zap, label: 'Electrical', color: 'text-yellow-400' },
-    { id: 'CONTROLS', icon: Activity, label: 'Controls', color: 'text-green-400' },
+    { id: 'ELECTROMAGNETIC', icon: Zap, label: 'Electromagnetic', color: 'text-yellow-400' },
+    { id: 'COMMS', icon: Radio, label: 'Communications', color: 'text-blue-500' },
     { id: 'ROBOTICS', icon: Cpu, label: 'Robotics', color: 'text-purple-400' },
-    { id: 'MATERIALS', icon: Layers, label: 'Materials', color: 'text-stone-400' },
-    { id: 'QUANTUM', icon: Atom, label: 'Quantum', color: 'text-indigo-400' },
-    { id: 'PROPULSION', icon: Rocket, label: 'Propulsion', color: 'text-amber-400' },
-    { id: 'SPACE_SYSTEMS', icon: Globe, label: 'Space Systems', color: 'text-blue-500' },
-    { id: 'OPTIMIZATION', icon: TrendingUp, label: 'Optimization', color: 'text-emerald-400' },
-    { id: 'MANUFACTURING', icon: Settings, label: 'Manufacturing', color: 'text-slate-400' },
-    { id: 'SYMBOLIC', icon: ShieldCheck, label: 'Symbolic Engineering', color: 'text-white' },
+    { id: 'MATERIAL', icon: Layers, label: 'Material Science', color: 'text-stone-400' },
+    { id: 'QUANTUM', icon: Atom, label: 'Quantum Computing', color: 'text-indigo-400' },
+    { id: 'NUCLEAR', icon: Sparkles, label: 'Nuclear Engineering', color: 'text-rose-400' },
+    { id: 'GRAVITY', icon: Globe, label: 'Gravity & Relativity', color: 'text-emerald-400' },
+    { id: 'MOLECULAR', icon: Microscope, label: 'Molecular Dynamics', color: 'text-emerald-500' },
+    { id: 'OPTICS', icon: Eye, label: 'Optical Engineering', color: 'text-cyan-300' },
+    { id: 'PHOTONIC', icon: Zap, label: 'Photonic Systems', color: 'text-pink-400' },
+    { id: 'MOTION', icon: Activity, label: 'Motion & Dynamics', color: 'text-blue-300' },
+    { id: 'SPATIAL', icon: Compass, label: 'Spatial Intelligence', color: 'text-indigo-300' },
+    { id: 'SECURITY', icon: Shield, label: 'Security & Encryption', color: 'text-rose-500' },
+    { id: 'MATERIALIZATION', icon: Construction, label: 'Materialization', color: 'text-emerald-400' },
+    { id: 'WORKFLOW', icon: Workflow, label: 'Workflow Cognition', color: 'text-pink-400' },
   ];
 
   const filteredDomains = domains.filter(d => d.label.toUpperCase().includes(searchQuery.toUpperCase()));
 
   return (
-    <div className="w-80 border-r border-[#adc6ff]/10 bg-[#0B0F14] flex flex-col h-full overflow-hidden shadow-2xl z-40">
-      
-      {/* 1. DOMAIN SEARCH & SELECTOR */}
-      <div className="p-4 border-b border-[#adc6ff]/10 space-y-4">
+    <div className="w-80 border-r border-[#adc6ff]/10 bg-[#0B0F14]/90 flex flex-col h-full overflow-hidden shadow-2xl z-40 backdrop-blur-[50px] relative">
+      <div className="absolute inset-0 pointer-events-none opacity-[0.05] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
+
+      {/* 0. OS STATUS & KERNEL MONITOR (v3.2 Hardened) */}
+      <div className="p-6 border-b border-[#adc6ff]/10 space-y-5 bg-[#adc6ff]/5 relative z-10 shadow-2xl">
         <div className="flex items-center justify-between">
-          <h2 className="text-xs font-bold text-[#adc6ff]/60 uppercase tracking-widest flex items-center gap-2">
-            <Globe className="w-3 h-3" /> Engineering Domain
+          <h2 className="text-[11px] font-black text-[#adc6ff] uppercase tracking-[0.3em] flex items-center gap-3">
+            <KernelIcon className="w-4 h-4 animate-pulse text-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.6)]" /> Engineering OS
           </h2>
-          <span className="text-[9px] text-[#adc6ff]/20 font-mono">15 KERNELS</span>
+          <div className="flex items-center gap-2">
+            <div className={`w-2 h-2 rounded-full ${osStatus.physicsSync ? 'bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)]' : 'bg-red-400'} animate-pulse`} />
+            <span className="text-[10px] text-blue-400/60 font-mono font-black tracking-tighter">v3.2_HARDENED</span>
+          </div>
         </div>
-        
-        <div className="relative">
-          <Search className="absolute left-3 top-2.5 w-3.5 h-3.5 text-[#adc6ff]/20" />
-          <input 
-            type="text" 
+
+        {/* Telemetry Sparklines (v3.2) */}
+        <div className="grid grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <div className="flex justify-between text-[9px] uppercase font-black text-[#adc6ff]/40 tracking-widest">
+              <span>Kernel Load</span>
+              <span className="text-blue-400 font-mono">{(osStatus.kernelLoad * 100).toFixed(0)}%</span>
+            </div>
+            <div className="h-1.5 bg-[#adc6ff]/5 rounded-full overflow-hidden border border-white/5 shadow-inner p-[1px]">
+              <div className="h-full bg-blue-400 rounded-full transition-all duration-1000 shadow-[0_0_10px_rgba(96,165,250,0.8)]" style={{ width: `${osStatus.kernelLoad * 100}%` }} />
+            </div>
+          </div>
+          <div className="space-y-2">
+            <div className="flex justify-between text-[9px] uppercase font-black text-[#adc6ff]/40 tracking-widest">
+              <span>AI Confidence</span>
+              <span className="text-emerald-400 font-mono">{(osStatus.aiConfidence * 100).toFixed(0)}%</span>
+            </div>
+            <div className="h-1.5 bg-[#adc6ff]/5 rounded-full overflow-hidden border border-white/5 shadow-inner p-[1px]">
+              <div className="h-full bg-emerald-400 rounded-full transition-all duration-1000 shadow-[0_0_10px_rgba(52,211,153,0.8)]" style={{ width: `${osStatus.aiConfidence * 100}%` }} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 1. DOMAIN ORCHESTRATOR */}
+      <div className="p-6 border-b border-[#adc6ff]/10 space-y-5 relative z-10 bg-black/20">
+        <div className="flex items-center justify-between">
+          <h2 className="text-[11px] font-black text-[#adc6ff]/60 uppercase tracking-[0.2em] flex items-center gap-3">
+            <Globe className="w-4 h-4 text-blue-400" /> Intelligence Domains
+          </h2>
+          <span className="text-[9px] text-blue-400/40 font-mono font-black uppercase tracking-widest">{domains.length} KERNELS</span>
+        </div>
+
+        <div className="relative group">
+          <Search className="absolute left-4 top-3 w-4 h-4 text-[#adc6ff]/20 group-focus-within:text-blue-400 transition-colors" />
+          <input
+            type="text"
             placeholder="SEARCH DISCIPLINE..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#adc6ff]/5 border border-[#adc6ff]/10 rounded-xl pl-9 pr-4 py-2 text-[10px] text-[#f0f4ff] font-mono focus:border-[#adc6ff]/30 outline-none transition-all placeholder:text-[#adc6ff]/10"
+            className="w-full bg-[#adc6ff]/5 border border-[#adc6ff]/10 rounded-2xl pl-11 pr-5 py-3 text-[11px] text-[#f0f4ff] font-mono font-bold focus:border-blue-400/40 focus:bg-[#adc6ff]/10 outline-none transition-all placeholder:text-[#adc6ff]/10 shadow-2xl"
           />
         </div>
 
-        <div className="grid grid-cols-7 gap-1.5 max-h-24 overflow-y-auto custom-scrollbar pr-1">
+        <div className="grid grid-cols-5 gap-3 max-h-48 overflow-y-auto custom-scrollbar pr-1 relative group py-1">
           {filteredDomains.map((d) => {
             const Icon = d.icon;
             const isActive = activeDomain === d.id;
             return (
               <button
                 key={d.id}
-                onClick={() => setDomain(d.id)}
+                onClick={() => {
+                  setDomain(d.id);
+                  addNotification({
+                    title: `${d.label} KERNEL_SYNC_v3.2`,
+                    message: `Activating Sovereign ${d.label} Intelligence layer. Synchronizing Phase 55 physics state vectors.`,
+                    type: 'INFO',
+                    domain: d.id
+                  });
+                }}
                 title={d.label}
                 className={`
-                  aspect-square rounded-lg flex items-center justify-center transition-all
-                  ${isActive ? 'bg-[#adc6ff] text-[#0B0F14] shadow-[0_0_15px_rgba(173,198,255,0.3)]' : 'bg-[#adc6ff]/5 text-[#adc6ff]/30 hover:bg-[#adc6ff]/10 hover:text-[#adc6ff]'}
+                  relative aspect-square rounded-[18px] flex items-center justify-center transition-all duration-500 overflow-hidden border shadow-xl
+                  ${isActive
+                    ? 'bg-blue-500/30 border-blue-400/50 text-white shadow-[0_0_20px_rgba(59,130,246,0.4)] scale-110 z-20'
+                    : 'bg-white/5 border-white/5 text-[#adc6ff]/30 hover:bg-white/10 hover:text-white hover:scale-105 hover:border-white/10'}
                 `}
               >
-                <Icon className="w-4 h-4" />
+                <Icon className={`w-5 h-5 relative z-10 transition-transform duration-500 ${isActive ? 'scale-110' : 'group-hover:scale-110'}`} />
+                {isActive && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-transparent animate-pulse" />
+                )}
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* 2. SPECIALIZED INPUT SCREENS */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-8 custom-scrollbar">
+      {/* 2. ACTIVE INTELLIGENCE PANEL (v3.2 Master Frame) */}
+      <div className="flex-1 overflow-y-auto custom-scrollbar relative z-10 shadow-inner">
+        <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
         
-        {/* AEROSPACE / PROPULSION PANEL */}
-        {(activeDomain === 'AEROSPACE' || activeDomain === 'PROPULSION') && (
-          <div className="space-y-6 animate-in fade-in slide-in-from-left-4 duration-500">
-            <section className="space-y-3">
-              <h3 className="text-[10px] font-bold text-blue-400/40 uppercase tracking-[0.2em] flex items-center gap-2">
-                <Rocket className="w-3 h-3" /> Rocket Equation
-              </h3>
-              <div className="p-3 bg-blue-400/5 rounded-xl border border-blue-400/10 text-center">
-                <p className="text-[12px] text-blue-100 font-serif italic">Δv = vₑ ln(m₀ / m_f)</p>
+        {/* Dynamic Panel Mounting (Phase 55 Hardened) */}
+        <div className="h-full flex flex-col bg-black/10">
+          {activeDomain === 'AEROSPACE' && <AerospaceIntelligencePanel />}
+          {activeDomain === 'FLUID' && <FluidIntelligencePanel />}
+          {activeDomain === 'STRUCTURAL' && <StructuralIntelligencePanel />}
+          {activeDomain === 'THERMAL' && <ThermalIntelligencePanel />}
+          {activeDomain === 'ELECTROMAGNETIC' && <ElectromagneticIntelligencePanel />}
+          {activeDomain === 'COMMS' && <CommsIntelligencePanel />}
+          {activeDomain === 'ROBOTICS' && <RoboticsIntelligencePanel />}
+          {activeDomain === 'MATERIAL' && <MaterialIntelligencePanel />}
+          {activeDomain === 'QUANTUM' && <QuantumIntelligencePanel />}
+          {activeDomain === 'NUCLEAR' && <NuclearIntelligencePanel />}
+          {activeDomain === 'GRAVITY' && <GravityIntelligencePanel />}
+          {activeDomain === 'MOLECULAR' && <MolecularIntelligencePanel />}
+          {activeDomain === 'OPTICS' && <OpticsIntelligencePanel />}
+          {activeDomain === 'PHOTONIC' && <PhotonicIntelligencePanel />}
+          {activeDomain === 'MOTION' && <MotionIntelligencePanel />}
+          {activeDomain === 'SPATIAL' && <SpatialIntelligencePanel />}
+          {activeDomain === 'SECURITY' && <SecurityIntelligencePanel />}
+          {activeDomain === 'MATERIALIZATION' && <MaterializationIntelligencePanel />}
+          {activeDomain === 'WORKFLOW' && <WorkflowIntelligencePanel />}
+
+          {/* Initializer Placeholder (v3.2 Aesthetic) */}
+          {!domains.some(d => d.id === activeDomain) && (
+            <div className="h-full flex flex-col items-center justify-center text-center p-12 space-y-8 opacity-40">
+              <div className="relative">
+                 <div className="w-16 h-16 rounded-full border-4 border-t-blue-400 border-blue-400/10 animate-spin" />
+                 <div className="absolute inset-0 flex items-center justify-center">
+                    <Terminal className="w-6 h-6 text-blue-400 animate-pulse" />
+                 </div>
               </div>
-            </section>
-            
-            <section className="space-y-3">
-              <h3 className="text-[10px] font-bold text-blue-400/40 uppercase tracking-[0.2em]">Mission Parameters</h3>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between p-2 bg-[#adc6ff]/5 rounded-lg border border-[#adc6ff]/10">
-                  <span className="text-[9px] text-[#adc6ff]/40 uppercase">Exit Velocity</span>
-                  <span className="text-[10px] text-[#f0f4ff] font-mono">4,500 m/s</span>
-                </div>
-                <div className="flex items-center justify-between p-2 bg-[#adc6ff]/5 rounded-lg border border-[#adc6ff]/10">
-                  <span className="text-[9px] text-[#adc6ff]/40 uppercase">Initial Mass</span>
-                  <span className="text-[10px] text-[#f0f4ff] font-mono">250,000 kg</span>
-                </div>
+              <div className="space-y-3">
+                <p className="text-[12px] text-blue-400 uppercase tracking-[0.5em] font-black">Initializing Kernel</p>
+                <p className="text-[10px] text-blue-400/20 uppercase tracking-[0.3em] font-mono font-bold italic">Loading {activeDomain} state vectors v3.2</p>
               </div>
-            </section>
-          </div>
-        )}
-
-        {/* STRUCTURAL PANEL */}
-        {activeDomain === 'STRUCTURAL' && (
-          <div className="space-y-6 animate-in fade-in slide-in-from-left-4 duration-500">
-            <section className="space-y-3">
-              <h3 className="text-[10px] font-bold text-[#adc6ff]/40 uppercase tracking-[0.2em]">Material Tensor</h3>
-              <div className="grid grid-cols-3 gap-1 p-2 bg-[#080B10] border border-[#adc6ff]/10 rounded-xl">
-                {[...Array(9)].map((_, i) => (
-                  <div key={i} className="aspect-square bg-[#adc6ff]/5 border border-[#adc6ff]/5 rounded flex items-center justify-center text-[8px] text-[#adc6ff]/40">
-                    {i === 0 || i === 4 || i === 8 ? '210' : '0'}
-                  </div>
-                ))}
-              </div>
-            </section>
-            
-            <section className="space-y-3">
-              <h3 className="text-[10px] font-bold text-[#adc6ff]/40 uppercase tracking-[0.2em]">Loads & Vectors</h3>
-              <div className="p-3 bg-[#adc6ff]/5 rounded-xl border border-[#adc6ff]/10 space-y-3">
-                <div className="flex items-center gap-2">
-                  <span className="text-[9px] text-red-400 font-mono w-4">Fx</span>
-                  <input type="number" defaultValue={1200} className="flex-1 bg-[#080B10] border border-[#adc6ff]/10 rounded px-2 py-1 text-[10px] text-[#f0f4ff] font-mono" />
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-[9px] text-green-400 font-mono w-4">Fy</span>
-                  <input type="number" defaultValue={-450} className="flex-1 bg-[#080B10] border border-[#adc6ff]/10 rounded px-2 py-1 text-[10px] text-[#f0f4ff] font-mono" />
-                </div>
-              </div>
-            </section>
-          </div>
-        )}
-
-        {/* THERMAL PANEL */}
-        {activeDomain === 'THERMAL' && (
-          <div className="space-y-6 animate-in fade-in slide-in-from-left-4 duration-500">
-            <section className="space-y-3">
-              <h3 className="text-[10px] font-bold text-red-400/40 uppercase tracking-[0.2em]">Fourier Law</h3>
-              <div className="p-3 bg-red-400/5 rounded-xl border border-red-400/10 text-center">
-                <p className="text-[12px] text-red-100 font-serif italic">q = -k∇T</p>
-              </div>
-            </section>
-            <section className="space-y-3">
-              <h3 className="text-[10px] font-bold text-red-400/40 uppercase tracking-[0.2em]">Heat Sources</h3>
-              <div className="space-y-2">
-                {['Volumetric Heat (W/m³)', 'Surface Flux (W/m²)', 'Radiation (ε)'].map((t) => (
-                  <div key={t} className="p-2 bg-[#0B0F14] border border-red-400/10 rounded-lg flex justify-between items-center">
-                    <span className="text-[9px] text-red-100/60 uppercase">{t}</span>
-                    <Settings className="w-3 h-3 text-red-400/20" />
-                  </div>
-                ))}
-              </div>
-            </section>
-          </div>
-        )}
-
-        {/* ELECTRICAL PANEL */}
-        {activeDomain === 'ELECTRICAL' && (
-          <div className="space-y-6 animate-in fade-in slide-in-from-left-4 duration-500">
-            <section className="space-y-3">
-              <h3 className="text-[10px] font-bold text-yellow-400/40 uppercase tracking-[0.2em]">Maxwell Equations</h3>
-              <div className="p-3 bg-yellow-400/5 rounded-xl border border-yellow-400/10 text-center">
-                <p className="text-[12px] text-yellow-100 font-serif italic">∇·E = ρ/ε₀</p>
-              </div>
-            </section>
-            <section className="space-y-3">
-              <h3 className="text-[10px] font-bold text-yellow-400/40 uppercase tracking-[0.2em]">Circuit Inputs</h3>
-              <div className="grid grid-cols-2 gap-2">
-                <div className="p-2 bg-[#0B0F14] border border-yellow-400/10 rounded-lg">
-                  <p className="text-[8px] text-yellow-400/40 uppercase">Voltage (V)</p>
-                  <p className="text-[11px] text-yellow-100 font-mono mt-1">12.0</p>
-                </div>
-                <div className="p-2 bg-[#0B0F14] border border-yellow-400/10 rounded-lg">
-                  <p className="text-[8px] text-yellow-400/40 uppercase">Current (I)</p>
-                  <p className="text-[11px] text-yellow-100 font-mono mt-1">2.00</p>
-                </div>
-              </div>
-            </section>
-          </div>
-        )}
-
-        {/* CONTROLS PANEL */}
-        {activeDomain === 'CONTROLS' && (
-          <div className="space-y-6 animate-in fade-in slide-in-from-left-4 duration-500">
-            <section className="space-y-3">
-              <h3 className="text-[10px] font-bold text-green-400/40 uppercase tracking-[0.2em]">Transfer Function</h3>
-              <div className="p-4 bg-green-400/5 rounded-xl border border-green-400/20 text-center">
-                <p className="text-[12px] text-green-100 font-mono">G(s) = K / (τs + 1)</p>
-              </div>
-            </section>
-            <section className="space-y-3">
-              <h3 className="text-[10px] font-bold text-green-400/40 uppercase tracking-[0.2em]">PID Tuning</h3>
-              <div className="space-y-2">
-                {['Proportional (Kp)', 'Integral (Ki)', 'Derivative (Kd)'].map((p) => (
-                  <div key={p} className="flex items-center gap-2">
-                    <span className="text-[9px] text-green-400/60 font-mono w-16 uppercase">{p.split(' ')[0]}</span>
-                    <input type="number" defaultValue={1.0} className="flex-1 bg-[#080B10] border border-green-400/10 rounded px-2 py-1 text-[10px] text-[#f0f4ff] font-mono" />
-                  </div>
-                ))}
-              </div>
-            </section>
-          </div>
-        )}
-
-        {/* ROBOTICS PANEL */}
-        {activeDomain === 'ROBOTICS' && (
-          <div className="space-y-6 animate-in fade-in slide-in-from-left-4 duration-500">
-            <section className="space-y-3">
-              <h3 className="text-[10px] font-bold text-purple-400/40 uppercase tracking-[0.2em]">Joint Dynamics</h3>
-              <div className="space-y-2">
-                <div className="p-3 bg-purple-400/5 border border-purple-400/10 rounded-xl">
-                  <p className="text-[9px] text-purple-400/60 uppercase mb-2">Inertia Tensor [I]</p>
-                  <div className="grid grid-cols-3 gap-1">
-                    {[1,0,0,0,1,0,0,0,1].map((n, i) => (
-                      <div key={i} className="bg-[#080B10] border border-purple-400/10 rounded p-1 text-[8px] text-center">{n}</div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-        )}
-
-        {/* NUCLEAR ENGINEERING PANEL */}
-        {activeDomain === 'NUCLEAR' && (
-          <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
-             <div className="p-1 bg-[#0B0F14] border border-[#adc6ff]/10 rounded-xl flex">
-                <button 
-                  onClick={() => updateNuclear({ type: 'FISSION' })}
-                  className={`flex-1 py-2 text-[9px] font-bold uppercase tracking-widest rounded-lg transition-all ${nuclearEngine.type === 'FISSION' ? 'bg-amber-400 text-[#0B0F14]' : 'text-amber-400/40'}`}
-                >
-                  Fission Core
-                </button>
-                <button 
-                  onClick={() => updateNuclear({ type: 'FUSION' })}
-                  className={`flex-1 py-2 text-[9px] font-bold uppercase tracking-widest rounded-lg transition-all ${nuclearEngine.type === 'FUSION' ? 'bg-indigo-400 text-[#0B0F14]' : 'text-indigo-400/40'}`}
-                >
-                  Fusion Reactor
-                </button>
-             </div>
-
-             {nuclearEngine.type === 'FISSION' ? (
-                <section className="space-y-4 animate-in fade-in duration-300">
-                   <div className="p-4 bg-amber-400/5 border border-amber-400/20 rounded-2xl space-y-4">
-                      <div className="flex justify-between items-center">
-                         <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">Criticality ($k_{eff}$)</span>
-                         <span className="text-[14px] font-mono font-bold text-amber-100">{nuclearEngine.fission.criticality_keff}</span>
-                      </div>
-                      <div className="h-1 bg-amber-400/10 rounded-full overflow-hidden">
-                         <div className="h-full bg-amber-400" style={{ width: `${(nuclearEngine.fission.criticality_keff - 0.9) * 500}%` }} />
-                      </div>
-                   </div>
-                   <div className="grid grid-cols-2 gap-3">
-                      <div className="p-3 bg-[#0B0F14] border border-amber-400/10 rounded-xl">
-                         <p className="text-[8px] text-amber-400/40 uppercase font-bold">Neutron Flux</p>
-                         <p className="text-xs font-mono font-bold text-amber-100">{nuclearEngine.fission.neutronFlux.toExponential(1)}</p>
-                      </div>
-                      <div className="p-3 bg-[#0B0F14] border border-amber-400/10 rounded-xl">
-                         <p className="text-[8px] text-amber-400/40 uppercase font-bold">Coolant Temp</p>
-                         <p className="text-xs font-mono font-bold text-amber-100">{nuclearEngine.fission.coolantTemp_K} K</p>
-                      </div>
-                   </div>
-                </section>
-             ) : (
-                <section className="space-y-4 animate-in fade-in duration-300">
-                   <div className="p-4 bg-indigo-400/5 border border-indigo-400/20 rounded-2xl space-y-4 text-center">
-                      <p className="text-[9px] text-indigo-400/40 uppercase tracking-widest mb-1">Plasma Temperature</p>
-                      <p className="text-2xl font-mono font-bold text-indigo-100">{nuclearEngine.fusion.plasmaTemp_keV} keV</p>
-                      <div className="flex items-center justify-center gap-2">
-                         <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-ping" />
-                         <span className="text-[8px] text-indigo-400 uppercase font-bold italic tracking-tighter">Magnetic Confinement Stable</span>
-                      </div>
-                   </div>
-                   <div className="p-3 bg-[#0B0F14] border border-indigo-400/10 rounded-xl space-y-2">
-                      <div className="flex justify-between text-[9px] font-mono">
-                         <span className="text-indigo-400/40 uppercase">Magnetic Field (B)</span>
-                         <span className="text-indigo-100">{nuclearEngine.fusion.magneticField_T} Tesla</span>
-                      </div>
-                      <div className="h-1 bg-indigo-400/10 rounded-full overflow-hidden">
-                         <div className="h-full bg-indigo-400" style={{ width: `${(nuclearEngine.fusion.magneticField_T / 20) * 100}%` }} />
-                      </div>
-                   </div>
-                </section>
-             )}
-          </div>
-        )}
-
-        {/* QUANTUM INTELLIGENCE PANEL */}
-        {activeDomain === 'QUANTUM' && (
-          <QuantumIntelligencePanel />
-        )}
-
-        {/* SPATIAL INTELLIGENCE PANEL */}
-        {['MATHEMATICS', 'NAVIGATION', 'GEOMETRY'].includes(activeDomain) && (
-          <SpatialIntelligencePanel />
-        )}
-
-        {/* THERMAL INTELLIGENCE PANEL */}
-        {['THERMAL', 'PROPULSION', 'COMBUSTION', 'CRYOGENICS', 'ENERGY_SYSTEMS'].includes(activeDomain) && (
-          <ThermalIntelligencePanel />
-        )}
-
-        {/* OPTICS INTELLIGENCE PANEL */}
-        {['OPTICS', 'IMAGING', 'ASTRONOMY'].includes(activeDomain) && (
-          <OpticsIntelligencePanel />
-        )}
-
-        {/* PHOTONIC INTELLIGENCE PANEL */}
-        {['PHOTONICS', 'OPTICAL_SENSING', 'LASER_SYSTEMS'].includes(activeDomain) && (
-          <PhotonicIntelligencePanel />
-        )}
-
-        {/* NUCLEAR INTELLIGENCE PANEL */}
-        {['NUCLEAR', 'ENERGY_SYSTEMS'].includes(activeDomain) && (
-          <NuclearIntelligencePanel />
-        )}
-
-        {/* ELECTROMAGNETIC INTELLIGENCE PANEL */}
-        {['ELECTRICAL', 'RF_SYSTEMS', 'PLASMA', 'POWER_SYSTEMS'].includes(activeDomain) && (
-          <ElectromagneticIntelligencePanel />
-        )}
-
-        {/* GRAVITY INTELLIGENCE PANEL */}
-        {['ASTROPHYSICS', 'ORBITAL'].includes(activeDomain) && (
-          <GravityIntelligencePanel />
-        )}
-
-        {/* AEROSPACE INTELLIGENCE PANEL */}
-        {['AEROSPACE', 'PROPULSION', 'SPACE_SYSTEMS'].includes(activeDomain) && (
-          <AerospaceIntelligencePanel />
-        )}
-
-        {/* FLUID INTELLIGENCE PANEL */}
-        {['CFD', 'THERMAL'].includes(activeDomain) && (
-          <FluidIntelligencePanel />
-        )}
-
-        {/* MOTION INTELLIGENCE PANEL */}
-        {['ROBOTICS', 'DYNAMICS'].includes(activeDomain) && (
-          <MotionIntelligencePanel />
-        )}
-
-        {/* NUCLEAR ENGINEERING PANEL */}
-        {activeDomain === 'NUCLEAR' && (
-          <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
-             <div className="p-1 bg-[#0B0F14] border border-[#adc6ff]/10 rounded-xl flex">
-                <button 
-                  onClick={() => updateNuclear({ type: 'FISSION' })}
-                  className={`flex-1 py-2 text-[9px] font-bold uppercase tracking-widest rounded-lg transition-all ${nuclearEngine.type === 'FISSION' ? 'bg-amber-400 text-[#0B0F14]' : 'text-amber-400/40'}`}
-                >
-                  Fission Core
-                </button>
-                <button 
-                  onClick={() => updateNuclear({ type: 'FUSION' })}
-                  className={`flex-1 py-2 text-[9px] font-bold uppercase tracking-widest rounded-lg transition-all ${nuclearEngine.type === 'FUSION' ? 'bg-indigo-400 text-[#0B0F14]' : 'text-indigo-400/40'}`}
-                >
-                  Fusion Reactor
-                </button>
-             </div>
-
-             {nuclearEngine.type === 'FISSION' ? (
-                <section className="space-y-4 animate-in fade-in duration-300">
-                   <div className="p-4 bg-amber-400/5 border border-amber-400/20 rounded-2xl space-y-4">
-                      <div className="flex justify-between items-center">
-                         <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">Criticality ($k_{eff}$)</span>
-                         <span className="text-[14px] font-mono font-bold text-amber-100">{nuclearEngine.fission.criticality_keff}</span>
-                      </div>
-                      <div className="h-1 bg-amber-400/10 rounded-full overflow-hidden">
-                         <div className="h-full bg-amber-400" style={{ width: `${(nuclearEngine.fission.criticality_keff - 0.9) * 500}%` }} />
-                      </div>
-                   </div>
-                </section>
-             ) : (
-                <section className="space-y-4 animate-in fade-in duration-300">
-                   <div className="p-4 bg-indigo-400/5 border border-indigo-400/20 rounded-2xl space-y-4 text-center">
-                      <p className="text-[9px] text-indigo-400/40 uppercase tracking-widest mb-1">Plasma Temperature</p>
-                      <p className="text-2xl font-mono font-bold text-indigo-100">{nuclearEngine.fusion.plasmaTemp_keV} keV</p>
-                   </div>
-                </section>
-             )}
-          </div>
-        )}
-
-        {/* SPACE SYSTEMS PANEL */}
-          <div className="space-y-6 animate-in fade-in slide-in-from-left-4 duration-500">
-            <section className="space-y-3">
-              <h3 className="text-[10px] font-bold text-blue-400/40 uppercase tracking-[0.2em] flex items-center gap-2">
-                <Globe className="w-3 h-3" /> Orbital Elements
-              </h3>
-              <div className="p-3 bg-blue-400/5 rounded-xl border border-blue-400/10 space-y-4">
-                <div className="space-y-1">
-                  <div className="flex justify-between text-[9px] text-blue-400/60 uppercase font-mono">
-                    <span>Apogee / Perigee</span>
-                    <span>400 km</span>
-                  </div>
-                  <div className="h-1 bg-blue-400/10 rounded-full overflow-hidden">
-                    <div className="w-full h-full bg-blue-400" />
-                  </div>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-[9px] text-blue-400/40 uppercase">Inclination</span>
-                  <span className="text-[10px] text-blue-100 font-mono">51.6°</span>
-                </div>
-              </div>
-            </section>
-            
-            <section className="space-y-3">
-              <h3 className="text-[10px] font-bold text-blue-400/40 uppercase tracking-[0.2em] flex items-center gap-2">
-                <Rocket className="w-3 h-3" /> Mission Delta-V
-              </h3>
-              <div className="p-4 bg-blue-400/5 border border-blue-400/20 rounded-2xl text-center space-y-2">
-                <p className="text-[14px] text-blue-100 font-bold font-mono">3,100 m/s</p>
-                <p className="text-[9px] text-blue-400/40 uppercase tracking-widest font-mono italic">Tsiolkovsky Verified</p>
-              </div>
-            </section>
-          </div>
-        )}
-
-        {/* MATERIALS SCIENCE PANEL (with Risk Indicator) */}
-        {activeDomain === 'MATERIALS' && (
-          <div className="space-y-6">
-            <MaterialIntelligencePanel />
-            {/* Real-time Coupling Indicator */}
-            <div className="mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded-xl space-y-2 animate-pulse">
-               <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-bold text-red-400 uppercase tracking-widest">Coupled Risk: Delamination</span>
-                  <span className="text-[10px] font-mono text-red-400">{(materialIntelligence.delaminationRisk * 100).toFixed(1)}%</span>
-               </div>
-               <div className="h-1 bg-red-400/20 rounded-full overflow-hidden">
-                  <div className="h-full bg-red-500" style={{ width: `${materialIntelligence.delaminationRisk * 100}%` }} />
-               </div>
             </div>
-          </div>
-        )}
-
-        {/* Default / Loading */}
-        {!['AEROSPACE', 'PROPULSION', 'STRUCTURAL', 'THERMAL', 'ELECTRICAL', 'CONTROLS', 'ROBOTICS', 'CFD', 'QUANTUM'].includes(activeDomain) && (
-          <div className="h-full flex flex-col items-center justify-center text-center p-6 space-y-4 opacity-40">
-            <div className="w-12 h-12 rounded-full border-2 border-t-[#adc6ff] border-[#adc6ff]/10 animate-spin" />
-            <p className="text-xs text-[#adc6ff] uppercase tracking-widest font-bold">Initializing {activeDomain} Kernel...</p>
-            <p className="text-[9px] text-[#adc6ff]/40 uppercase tracking-tighter">Symbolic Workspace Loading</p>
-          </div>
-        )}
-
+          )}
+        </div>
       </div>
 
-      {/* 3. STATUS FOOTER */}
-      <div className="p-4 bg-[#adc6ff]/5 border-t border-[#adc6ff]/10 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.5)]" />
-          <span className="text-[10px] text-green-500/60 font-mono uppercase tracking-widest">Mathematical Truth Verified</span>
+      {/* 3. SYNC FOOTER (v3.2 Hardened) */}
+      <div className="p-6 bg-[#080B10] border-t border-[#adc6ff]/10 flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.5)] relative z-20">
+        <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent" />
+        
+        <div className="flex items-center gap-4">
+          <div className="relative">
+             <div className="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_15px_rgba(52,211,153,0.8)] animate-pulse" />
+             <div className="absolute inset-0 w-3 h-3 rounded-full bg-emerald-400 animate-ping opacity-30" />
+          </div>
+          <span className="text-[11px] text-emerald-500 font-black uppercase tracking-[0.3em] italic">Reality Linked</span>
         </div>
-        <div className="flex items-center gap-1 text-[10px] text-[#adc6ff]/20 font-mono">
-          <ShieldCheck className="w-3 h-3" />
-          <span>REALTIME</span>
+        <div className="flex items-center gap-3 text-[10px] text-blue-400/40 font-mono font-black tracking-widest bg-white/5 px-3 py-1.5 rounded-xl border border-white/5 shadow-inner">
+          <ShieldCheck className="w-4 h-4" />
+          <span>SOVEREIGN_v3.2</span>
         </div>
       </div>
     </div>

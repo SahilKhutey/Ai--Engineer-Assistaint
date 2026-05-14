@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Master Engineering OS Color Palette (v3.1 Hardened) */
+  --engos-bg-void: #05070A;
+  --engos-bg-surface: #080B10;
+  --engos-bg-panel: #0B0F14;
+  
+  --engos-blue: #3b82f6;
+  --engos-blue-glow: rgba(59, 130, 246, 0.5);
+  --engos-cyan: #06b6d4;
+  --engos-emerald: #10b981;
+  --engos-rose: #f43f5e;
+  --engos-amber: #f59e0b;
+  
+  --engos-text-primary: #f0f4ff;
+  --engos-text-secondary: #adc6ff;
+  --engos-text-muted: rgba(173, 198, 255, 0.4);
+  
+  --engos-border-dim: rgba(173, 198, 255, 0.05);
+  --engos-border-medium: rgba(173, 198, 255, 0.1);
+  --engos-border-bright: rgba(173, 198, 255, 0.3);
+  
+  --engos-glass-bg: rgba(8, 11, 16, 0.7);
+  --engos-glass-blur: blur(20px) saturate(180%);
+  
+  /* Layout Constants */
+  --engos-topbar-h: 52px;
+  --engos-sidebar-w: 64px;
+  --engos-inspector-w: 360px;
+}
+
+@layer base {
+  * {
+    @apply box-border margin-0 padding-0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--engos-border-medium) transparent;
+  }
+
+  body {
+    @apply bg-[var(--engos-bg-void)] text-[var(--engos-text-primary)] overflow-hidden;
+    font-family: 'Outfit', 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  code, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  /* High-Fidelity Glassmorphism */
+  .glass-panel {
+    @apply bg-[var(--engos-glass-bg)] backdrop-blur-[var(--engos-glass-blur)] border border-[var(--engos-border-medium)] shadow-2xl;
+  }
+
+  .glass-panel-hover {
+    @apply hover:bg-[rgba(173,198,255,0.05)] hover:border-[var(--engos-border-bright)] transition-all duration-500;
+  }
+
+  /* Engineering Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    @apply w-1 h-1;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-[var(--engos-border-medium)] rounded-full hover:bg-[var(--engos-border-bright)] transition-colors;
+  }
+
+  /* Interactive Buttons */
+  .eng-btn-primary {
+    @apply px-6 py-2.5 bg-blue-500/10 border border-blue-500/20 rounded-xl text-blue-400 text-[11px] font-bold uppercase tracking-[0.2em] transition-all hover:bg-blue-500/20 hover:border-blue-400/40 hover:shadow-[0_0_20px_rgba(59,130,246,0.2)];
+  }
+
+  .eng-btn-ghost {
+    @apply p-2.5 text-[#adc6ff]/30 hover:text-[#adc6ff] hover:bg-[#adc6ff]/5 rounded-xl transition-all;
+  }
+}
+
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 8s linear infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .text-glow-blue {
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  }
+
+  .bg-noise {
+    background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Custom Animation for solver convergence */
+@keyframes convergence {
+  0% { transform: scaleY(0.1); opacity: 0.3; }
+  50% { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(0.1); opacity: 0.3; }
+}
+
+.animate-convergence {
+  animation: convergence 2s ease-in-out infinite;
+}
