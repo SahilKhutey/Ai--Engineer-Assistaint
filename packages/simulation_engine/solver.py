@@ -37,8 +37,10 @@ class FEMSolver:
         # Find nodes where x <= min(x) + threshold
         x_coords = nodes[0, :]
         min_x = np.min(x_coords)
-        # Using a larger epsilon (50% of pitch) to ensure we catch the boundary nodes
-        fixed_nodes = np.where(x_coords <= min_x + 5.0)[0] 
+        # Using a self-scaling threshold (5% of the total X-span) to catch boundary nodes robustly
+        max_x = np.max(x_coords)
+        span_x = max_x - min_x
+        fixed_nodes = np.where(x_coords <= min_x + 0.05 * span_x)[0] 
         
         # Get degrees of freedom for fixed nodes (x, y, z components)
         fixed_dofs = basis.nodal_dofs[:, fixed_nodes].flatten()
@@ -46,8 +48,7 @@ class FEMSolver:
         # 6. Load Vector
         f = np.zeros(basis.N)
         # For MVP, apply a vertical (-Z) load on the max-X face
-        max_x = np.max(x_coords)
-        loaded_nodes = np.where(x_coords >= max_x - 5.0)[0]
+        loaded_nodes = np.where(x_coords >= max_x - 0.05 * span_x)[0]
         load_z_dofs = basis.nodal_dofs[2, loaded_nodes] # Z-component dofs
         
         load_n = boundary_conditions.get("force_n", 100.0)
@@ -57,10 +58,7 @@ class FEMSolver:
             f[load_z_dofs] = nodal_force
             
         # 7. Solve Ku = f
-        from scipy.sparse.linalg import spsolve
-        A, b = fem.condense(K, f, D=fixed_dofs)
-        print(f"DEBUG: Solving system with {A.shape[0]} equations...")
-        u = spsolve(A, b)
+        u = fem.solve(*fem.condense(K, f, D=fixed_dofs))
         
         # Extract nodal displacements (magnitude)
         u_vectors = u[basis.nodal_dofs] # shape (3, N_nodes)

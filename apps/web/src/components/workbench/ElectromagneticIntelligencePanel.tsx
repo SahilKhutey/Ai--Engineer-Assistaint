@@ -49,18 +49,16 @@ const EMMetric = ({ label, value, unit, icon: Icon, color = 'blue', status }: an
  */
 const ElectromagneticIntelligencePanel = () => {
   const { 
-    electricalState, 
-    updateElectrical, 
+    electromagneticState, 
+    updateElectromagnetic, 
     pushEvent, 
     addNotification, 
     validationEngine 
   } = useEngineeringStore();
   
-  const [activeTab, setActiveTab] = useState<
-    'CIRCUITS' | 'FIELDS' | 'POWER' | 'RF' | 'POYNTING' | 'TOPOLOGY' | 'QED' | 'PLASMA' | 'MHD' | 'MOM_SOLVER' | 'FEBI_SOLVER' | 'FMM_SOLVER' | 'FDTD_SOLVER' | 'RADAR_SOLVER' | 'ANTENNA_SOLVER' | 'WAVEGUIDE_SOLVER' | 'MAXWELL_SOLVER' | 'POISSON_SOLVER'
-  >('FIELDS');
+  const [activeTab, setActiveTab] = useState<'CIRCUITS' | 'FIELDS' | 'POWER' | 'RF' | 'PLASMA' | 'MAGNETICS' | 'SYSTEM' | 'MAXWELL_SOLVER' | 'KIRCHHOFF_SOLVER' | 'POISSON_SOLVER' | 'AMPERE_SOLVER' | 'FARADAY_SOLVER' | 'LORENTZ_SOLVER' | 'HELMHOLTZ_SOLVER' | 'FDTD_SOLVER' | 'WAVEGUIDE_SOLVER' | 'ANTENNA_SOLVER' | 'RADAR_SOLVER' | 'MHD'>('CIRCUITS');
 
-  const { circuits, emFields, powerSystems, rfSystems, plasma } = electricalState;
+  const { circuits, emFields, powerSystems, rfSystems, plasma } = electromagneticState;
 
   const tabs = useMemo(() => [
     { id: 'FIELDS', label: 'Field Logic', icon: Waves },
@@ -80,7 +78,7 @@ const ElectromagneticIntelligencePanel = () => {
       title: `${type} CONVERGENCE`,
       message: `Solving relativistic field tensors for ${type} verification.`,
       type: 'INFO',
-      domain: 'ELECTRICAL'
+      domain: 'ELECTROMAGNETIC'
     });
   };
 
@@ -179,7 +177,7 @@ const ElectromagneticIntelligencePanel = () => {
                 <div className="space-y-10 relative z-10">
                    <div className="space-y-4">
                       <div className="flex justify-between text-[11px] text-[#adc6ff]/60 uppercase font-black tracking-[0.2em]">
-                         <span>Flux Density ($\vec{S}$)</span>
+                         <span>Flux Density (S Vector)</span>
                          <span className="text-blue-400 font-mono font-bold">1.2488e3 W/m²</span>
                       </div>
                       <div className="h-2.5 bg-[#adc6ff]/5 rounded-full overflow-hidden shadow-inner border border-white/5">
@@ -297,7 +295,7 @@ const ElectromagneticIntelligencePanel = () => {
           <button className="flex-1 bg-gradient-to-r from-blue-600/20 to-blue-500/10 text-blue-400 py-5 rounded-[24px] text-[12px] font-black uppercase tracking-[0.4em] hover:from-blue-600/30 transition-all shadow-[0_0_40px_rgba(96,165,250,0.2)] border border-blue-500/20 flex items-center justify-center gap-4 group overflow-hidden relative"
             onClick={() => {
               pushEvent?.('EM_LOAD_BALANCE_TRIGGERED', { timestamp: Date.now() });
-              updateElectrical?.({});
+              updateElectromagnetic?.({});
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />

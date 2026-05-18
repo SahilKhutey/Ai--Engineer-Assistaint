@@ -176,7 +176,7 @@ const StructuralIntelligencePanel = () => {
                 <div className="space-y-10 relative z-10">
                    <div className="space-y-4">
                       <div className="flex justify-between text-[11px] text-[#adc6ff]/60 uppercase font-black tracking-[0.2em]">
-                         <span>Max Peak Stress ($\sigma_{max}$)</span>
+                         <span>Max Peak Stress (sigma_max)</span>
                          <span className="text-blue-400 font-mono font-bold">{stress.max_MPa.toFixed(4)} MPa</span>
                       </div>
                       <div className="h-2.5 bg-[#adc6ff]/5 rounded-full overflow-hidden shadow-inner border border-white/5">
@@ -185,7 +185,7 @@ const StructuralIntelligencePanel = () => {
                    </div>
                    <div className="space-y-4">
                       <div className="flex justify-between text-[11px] text-[#adc6ff]/60 uppercase font-black tracking-[0.2em]">
-                         <span>Fatigue Damage ($D$)</span>
+                         <span>Fatigue Damage (D)</span>
                          <span className="text-indigo-400 font-mono font-bold">{(fatigue.damage_index * 100).toFixed(4)}%</span>
                       </div>
                       <div className="h-2.5 bg-[#adc6ff]/5 rounded-full overflow-hidden shadow-inner border border-white/5">

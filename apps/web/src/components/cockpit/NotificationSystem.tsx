@@ -30,6 +30,17 @@ const NotificationItem = ({ notification, onRemove }: { notification: Notificati
   const config = typeConfig[type as keyof typeof typeConfig] || typeConfig.INFO;
   const color = config.color;
 
+  const [timeStr, setTimeStr] = React.useState<string>('');
+
+  React.useEffect(() => {
+    setTimeStr(new Date(timestamp).toLocaleTimeString([], { 
+      hour12: false, 
+      hour: '2-digit', 
+      minute: '2-digit', 
+      second: '2-digit' 
+    }));
+  }, [timestamp]);
+
   return (
     <div className={`
       w-[480px] bg-[#080B10]/98 border border-${color}-500/30 rounded-[32px] p-8 shadow-[0_30px_60px_rgba(0,0,0,0.8)] backdrop-blur-[60px] 
@@ -85,7 +96,7 @@ const NotificationItem = ({ notification, onRemove }: { notification: Notificati
             <div className="flex items-center gap-4">
               <div className="flex flex-col">
                  <span className="text-[10px] text-white/40 font-mono font-black uppercase tracking-widest">
-                    TS: {new Date(timestamp).toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' })}.018ms
+                    TS: {timeStr}.018ms
                  </span>
                  <span className="text-[8px] text-[#adc6ff]/10 uppercase font-mono font-black italic mt-0.5">Sovereign_RealTime_Verification</span>
               </div>
@@ -116,7 +127,7 @@ const NotificationSystem = () => {
   const { notifications, removeNotification } = useEngineeringStore();
 
   return (
-    <div className="fixed top-16 right-16 z-[9999] flex flex-col gap-8 pointer-events-none max-h-[90vh] overflow-y-auto scrollbar-hide">
+    <div className="fixed top-[calc(var(--engos-topbar-h)+2rem)] right-12 z-[9999] flex flex-col gap-8 pointer-events-none max-h-[calc(100vh-var(--engos-topbar-h)-4rem)] overflow-y-auto scrollbar-hide">
       <div className="contents pointer-events-auto">
         {notifications.map((n) => (
           <NotificationItem 

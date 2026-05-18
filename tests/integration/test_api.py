@@ -6,7 +6,7 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", "apps", "api"))
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", "packages"))
 
-from app.main import app
+from main import app
 
 client = TestClient(app)
 

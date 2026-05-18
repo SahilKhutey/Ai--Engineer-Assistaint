@@ -47,8 +47,8 @@ const PhotonicMetric = ({ label, value, unit, icon: Icon, color = 'blue', status
  */
 const PhotonicIntelligencePanel = () => {
   const { 
-    opticalState, 
-    updateOptics, 
+    photonicState, 
+    updatePhotonic, 
     pushEvent, 
     addNotification, 
     validationEngine 
@@ -58,7 +58,7 @@ const PhotonicIntelligencePanel = () => {
     'OPTICS' | 'SPECTRUM' | 'LASERS' | 'SENSORS' | 'QUANTUM_SENSING' | 'NANOPHOTONICS' | 'FDTD_SOLVER' | 'BPM_SOLVER' | 'RCWA_SOLVER' | 'PWE_SOLVER' | 'BANDGAP_SOLVER' | 'MAXWELL_SOLVER' | 'KERR_SOLVER'
   >('OPTICS');
 
-  const { geometric, wavefront, lasers, spectrum, sensors } = opticalState;
+  const { geometric, wavefront, lasers, spectrum, sensors } = photonicState;
 
   const tabs = useMemo(() => [
     { id: 'OPTICS', label: 'Optical Path', icon: Eye },
@@ -155,7 +155,7 @@ const PhotonicIntelligencePanel = () => {
                   status="STABLE_PHASE"
                 />
                 <PhotonicMetric 
-                  label="Beam Quality ($M^2$)" 
+                  label="Beam Quality (M2)" 
                   value="1.082" 
                   unit="Index" 
                   icon={Target}
@@ -177,7 +177,7 @@ const PhotonicIntelligencePanel = () => {
                 <div className="space-y-10 relative z-10">
                    <div className="space-y-4">
                       <div className="flex justify-between text-[11px] text-[#adc6ff]/60 uppercase font-black tracking-[0.2em]">
-                         <span>Wavelength ($\lambda$) Equilibrium</span>
+                         <span>Wavelength (lambda) Equilibrium</span>
                          <span className="text-blue-400 font-mono font-bold">{wavefront.wavelength_nm} nm</span>
                       </div>
                       <div className="h-2.5 bg-[#adc6ff]/5 rounded-full overflow-hidden shadow-inner border border-white/5">
@@ -295,7 +295,7 @@ const PhotonicIntelligencePanel = () => {
           <button className="flex-1 bg-gradient-to-r from-blue-600/20 to-blue-500/10 text-blue-400 py-5 rounded-[24px] text-[12px] font-black uppercase tracking-[0.4em] hover:from-blue-600/30 transition-all shadow-[0_0_40px_rgba(96,165,250,0.2)] border border-blue-500/20 flex items-center justify-center gap-4 group overflow-hidden relative"
             onClick={() => {
               pushEvent?.('PHOTONIC_SYNC_TRIGGERED', { timestamp: Date.now() });
-              updateOptics?.({});
+              updatePhotonic?.({});
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />

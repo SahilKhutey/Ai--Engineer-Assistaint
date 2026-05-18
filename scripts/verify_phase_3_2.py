@@ -3,6 +3,8 @@ import sys
 import asyncio
 import trimesh
 import numpy as np
+import traceback
+
 
 # Inject paths
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "packages"))
@@ -25,7 +27,7 @@ async def verify_systems():
     # 1. FEM Simulation Verification
     print("\n[STEP 1/4] Testing True FEM Solver (scikit-fem)...")
     try:
-        box = trimesh.creation.box(extents=[100, 20, 10]) # 100mm x 20mm x 10mm
+        box = trimesh.creation.box(extents=[0.100, 0.020, 0.010]) # 100mm x 20mm x 10mm
         hex_mesh = FEMMesher.generate_hex_mesh(box, pitch_mm=10.0)
         
         material = {"youngs_modulus_pa": 2.1e11, "poissons_ratio": 0.3, "name": "Steel"} # Steel
@@ -40,6 +42,8 @@ async def verify_systems():
             print(f"[OK] FEM Max Displacement: {results['max_displacement_mm']:.4f} mm")
     except Exception as e:
         print(f"[FAIL] FEM Solver crashed: {e}")
+        traceback.print_exc()
+
 
     # 2. Design Memory Verification (Qdrant)
     print("\n[STEP 2/4] Testing Design Memory (Qdrant)...")
@@ -53,10 +57,10 @@ async def verify_systems():
             
         project_id = "test_project_99"
         
-        point_id = memory.store_analysis(project_id, geo, physics, 1000.0)
+        point_id = await memory.store_analysis(project_id, geo, physics, 1000.0)
         print(f"[OK] Stored analysis in Qdrant. ID: {point_id}")
         
-        retrieved = memory.retrieve_similar_cases(geo, 1000.0)
+        retrieved = await memory.retrieve_similar_cases(geo, 1000.0)
         if len(retrieved) > 0:
             print(f"[OK] Retrieved {len(retrieved)} similar cases.")
             print(f"[OK] Match Score: {retrieved[0]['score']:.4f}")

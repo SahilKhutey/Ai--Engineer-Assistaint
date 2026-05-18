@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useRef } from 'react';
 import { useEngineeringStore } from '@/store/useEngineeringStore';
 
@@ -24,53 +26,39 @@ export const EngineeringRuntimeOrchestrator: React.FC = () => {
     materializationState,
     updateMaterialization,
     addNotification,
-    osStatus
+    osStatus,
+    initSocket,
+    startSimulationTicker
   } = useEngineeringStore();
 
   const loopInterval = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     // Initialize the Sovereign Engineering Loop (20Hz for Phase 55 cognition)
+    initSocket();
+    const stopTicker = startSimulationTicker();
+    
     loopInterval.current = setInterval(() => {
       runSovereignCognitionLoop();
     }, 50);
 
     return () => {
       if (loopInterval.current) clearInterval(loopInterval.current);
+      stopTicker();
     };
   }, []);
 
   const runSovereignCognitionLoop = () => {
-    const now = Date.now();
+    const { socket } = useEngineeringStore.getState();
     
-    // 1. Reality-Linked Telemetry Sync (Sub-picowatt Observability)
-    const simulatedTelemetry = {
-      sensorId: 'SOVEREIGN_THERMAL_0x82',
-      value: 293.15 + Math.random() * 0.005, // Sub-nanometer stability
-      timestamp: now,
-      confidence: 0.999998
-    };
-    updateTwinTelemetry(simulatedTelemetry);
+    // If we have a live socket connection, we rely on real backend telemetry
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      return;
+    }
 
     // 2. Sovereign Anomaly Detection (Phase 55 Guardrails)
-    if (simulatedTelemetry.value > 293.154) {
-      pushEvent('SOVEREIGN_ANOMALY_DETECTED', { 
-        component: 'SOVEREIGN_THERMAL_KERNEL', 
-        value: simulatedTelemetry.value,
-        threshold: 293.154,
-        residual: simulatedTelemetry.value - 293.154
-      });
-      
-      // Proactive notification for significant drifts
-      if (Math.random() > 0.995) {
-        addNotification({
-          title: 'SOVEREIGN_DRIFT_DETECTED',
-          message: `Sub-picowatt thermal drift detected in Cluster_0x82. Initiating real-time phase compensation.`,
-          type: 'WARNING',
-          domain: 'REASONING'
-        });
-      }
-    }
+    // Only processed if we have live data from the socket
+    // Since we've removed the mock fallback, this is now a placeholder for real-time edge processing if needed.
 
     // 3. Multiversal Physics State Update (Materialization Convergence)
     if (materializationState.status === 'DEPOSITING') {
@@ -80,7 +68,7 @@ export const EngineeringRuntimeOrchestrator: React.FC = () => {
 
       if (newProgress >= 1) {
         updateMaterialization({ status: 'COMPLETE' });
-        pushEvent('MATERIALIZATION_CONVERGED', { timestamp: now, fidelity: 1.0 });
+        pushEvent('MATERIALIZATION_CONVERGED', { timestamp: Date.now(), fidelity: 1.0 });
         addNotification({
           title: 'SOVEREIGN_MATERIALIZATION_SUCCESS',
           message: 'Autonomous sovereign materialization protocol converged. Reality persistence verified at 0.9999998.',

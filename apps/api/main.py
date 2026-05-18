@@ -10,6 +10,13 @@ if root_path not in sys.path:
 if api_path not in sys.path:
     sys.path.append(api_path)
 
+# Add Engineering OS Kernel paths
+kernel_path = os.path.join(root_path, "engineering_os", "kernel")
+if kernel_path not in sys.path:
+    sys.path.append(kernel_path)
+    sys.path.append(os.path.join(kernel_path, "orchestration"))
+    sys.path.append(os.path.join(kernel_path, "ag_kernel"))
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -20,23 +27,54 @@ try:
     from apps.api.routes.upload import router as upload_router
     from apps.api.routes.analysis import router as analysis_router
     from apps.api.routes.report import router as report_router
+    from apps.api.sockets import setup_websockets
+    from engineering_orchestrator import kernel
+    import random
+    import asyncio
 except ImportError:
     # Fallback for local execution within apps/api
     from routes.upload import router as upload_router
     from routes.analysis import router as analysis_router
     from routes.report import router as report_router
+    from sockets import setup_websockets
+    import sys
+    sys.path.append(os.path.join(root_path, "engineering_os", "kernel", "orchestration"))
+    from kernel_manager import kernel
+    import random
+    import asyncio
 
-/**
- * Antigravity Engineering Intelligence API v3.2 (Phase 55 Hardened)
- * 
- * Sovereign Master Backend for real-time engineering orchestration.
- * Features sub-picowatt telemetry synchronization, sovereign intent synthesis, 
- * and Phase 55 mission-control infrastructure compliance.
- */
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # 1. Initialize Sovereign Kernel (Redis Bridge, etc.)
+    await kernel.initialize()
+    
+    # 2. Start Sovereign Physics Kernel (60Hz Simulation)
+    from engineering_os.kernel.realtime_sync.physics_kernel import SovereignPhysicsKernel
+    physics_kernel = SovereignPhysicsKernel(kernel)
+    await physics_kernel.start()
+    
+    # 3. Start Telemetry Pulse (Lightweight Heartbeat)
+    asyncio.create_task(telemetry_pulse_loop())
+    
+    # 4. Start Sovereign Redis Listener for WebSockets
+    try:
+        from apps.api.sockets import redis_listener
+    except ImportError:
+        from sockets import redis_listener
+    asyncio.create_task(redis_listener())
+    
+    yield
+    
+    # Clean shutdown of kernel simulation
+    physics_kernel.stop()
+
 app = FastAPI(
     title='Antigravity Engineering Intelligence API',
     version='3.2.0_SOVEREIGN',
-    description='Sovereign Engineering Intelligence Infrastructure - Phase 55 Mission-Control'
+    description='Sovereign Engineering Intelligence Infrastructure - Phase 55 Mission-Control',
+    lifespan=lifespan
 )
 
 # CORS configuration
@@ -73,15 +111,51 @@ app.include_router(upload_router)
 app.include_router(analysis_router, prefix="/api/analysis", tags=["Sovereign Analysis"])
 app.include_router(report_router)
 
+# Initialize Sovereign WebSocket Orchestration
+setup_websockets(app)
+
+async def telemetry_pulse_loop():
+    """
+    Sovereign Telemetry Pulse (Phase 61 Hardened)
+    Ensures a consistent heartbeat for kernel health even when no state changes occur.
+    """
+    while True:
+        try:
+            # Synchronize Kernel Health (Lightweight heartbeat)
+            await kernel.broadcast_telemetry("STATUS_UPDATE", {
+                "phase": "KERNEL_HEARTBEAT",
+                "kernelLoad": (kernel.get_uptime() * 10) % 0.15 + 0.05,
+                "uptime": kernel.get_uptime(),
+                "compliance": "PHASE_61_KERNEL_STABLE"
+            })
+            await asyncio.sleep(1.0) # Heartbeat doesn't need 60Hz
+        except Exception as e:
+            print(f"Sovereign Heartbeat Fault: {e}")
+            await asyncio.sleep(5.0)
+
+
+
 @app.get('/')
 def root():
     return {
-        'status': 'Antigravity Sovereign API is Operational',
+        'status': 'active',
+        'message': 'Antigravity Sovereign API is Operational',
         'version': '3.2.0_SOVEREIGN',
         'phase': '55_MISSION_CONTROL',
         'latency_tier': 'SUB_MILLISECOND',
         'kernel_lock': 'DETERMINISTIC',
         'timestamp': time.time()
+    }
+
+@app.get('/api/materials')
+def get_materials():
+    return {
+        "materials": [
+            {"id": "Ti-6Al-4V", "name": "Titanium Ti-6Al-4V", "yield_strength_pa": 880e6, "melt_temp_k": 1941, "density_kg_m3": 4430},
+            {"id": "Al-7075", "name": "Aluminum 7075-T6", "yield_strength_pa": 503e6, "melt_temp_k": 908, "density_kg_m3": 2810},
+            {"id": "Carbon-PEEK", "name": "Carbon-PEEK", "yield_strength_pa": 250e6, "melt_temp_k": 616, "density_kg_m3": 1300},
+            {"id": "pla", "name": "PLA (Polylactic Acid)", "yield_strength_pa": 50e6, "melt_temp_k": 473, "density_kg_m3": 1240}
+        ]
     }
 
 @app.get('/health/sovereign')

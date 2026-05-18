@@ -1,4 +1,5 @@
 import pytest
+import numpy as np
 from packages.math_core.units import units, Q_
 
 def test_unit_dimensional_consistency():
@@ -10,7 +11,7 @@ def test_unit_dimensional_consistency():
     
     # Correct Operation: F = m * a -> a = F / m
     acceleration = force / mass
-    assert acceleration.units == units.meter / units.second**2
+    assert acceleration.to_base_units().units == units.meter / units.second**2
     assert acceleration.magnitude == 5.0
     
     # Invalid Operation: Adding Force to Mass should fail

@@ -47,7 +47,7 @@ const OpticsMetric = ({ label, value, unit, icon: Icon, color = 'blue', status }
  */
 const OpticsIntelligencePanel = () => {
   const { 
-    opticalState, 
+    opticsState, 
     updateOptics, 
     pushEvent, 
     addNotification, 
@@ -58,7 +58,7 @@ const OpticsIntelligencePanel = () => {
     'GEOMETRIC' | 'WAVEFRONT' | 'ADAPTIVE' | 'COMPUTATIONAL' | 'QUANTUM_OPTICS' | 'METAMATERIALS' | 'RAY_SOLVER' | 'DIFFRACTIVE_SOLVER' | 'KIRCHHOFF_SOLVER' | 'GAUSSIAN_SOLVER' | 'ZEMAX_SOLVER' | 'INTERFEROMETRY_SOLVER' | 'LENS_SOLVER' | 'FIBER_SOLVER' | 'MAXWELL_BLOCH_SOLVER' | 'KERR_SOLVER'
   >('GEOMETRIC');
 
-  const { geometric, wavefront, adaptive, lasers, computational } = opticalState;
+  const { geometric, wavefront, adaptive, lasers, computational } = opticsState;
 
   const tabs = useMemo(() => [
     { id: 'GEOMETRIC', label: 'Lens Logic', icon: Eye },
@@ -156,7 +156,7 @@ const OpticsIntelligencePanel = () => {
                   status="ALIGNED_v3.2"
                 />
                 <OpticsMetric 
-                  label="Aperture ($f/$)" 
+                  label="Aperture (f/)" 
                   value={geometric.aperture_f.toFixed(2)} 
                   unit="Ratio" 
                   icon={Camera}
@@ -178,8 +178,8 @@ const OpticsIntelligencePanel = () => {
                 <div className="space-y-10 relative z-10">
                    <div className="space-y-4">
                       <div className="flex justify-between text-[11px] text-[#adc6ff]/60 uppercase font-black tracking-[0.2em]">
-                         <span>Spherical Aberration ($\zeta$)</span>
-                         <span className="text-blue-400 font-mono font-bold">0.0024 λ RMS</span>
+                         <span>Spherical Aberration (zeta)</span>
+                         <span className="text-blue-400 font-mono font-bold">0.0024 lambda RMS</span>
                       </div>
                       <div className="h-2.5 bg-[#adc6ff]/5 rounded-full overflow-hidden shadow-inner border border-white/5">
                          <div className="h-full bg-gradient-to-r from-blue-400 to-blue-600 shadow-[0_0_20px_rgba(96,165,250,0.6)] transition-all duration-1000" style={{ width: '12%' }} />

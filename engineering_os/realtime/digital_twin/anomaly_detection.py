@@ -1,37 +1,65 @@
-from typing import Dict, Any
+from typing import Dict, Any, List
 import logging
+import numpy as np
+import time
 
 class AnomalyDetectionEngine:
     """
     Antigravity OS Anomaly Detection Engine.
-    Detects deviations between physical reality (telemetry) and simulated truth.
+    Monitors the simulation memory pool for statistical deviations and resonance.
+    Provides real-time interrupts to the kernel for physical integrity.
     """
     def __init__(self, kernel):
         self.kernel = kernel
         self.logger = logging.getLogger("ag_anomaly")
+        self.sensitivity = 3.5 # Standard deviations for anomaly trigger
+        self.anomaly_count = 0
 
-    async def check_deviation(self, observed: Dict[str, Any], simulated: Dict[str, Any]) -> Dict[str, Any]:
-        """Compares physical observation with physics-based prediction."""
-        # Example: Observed Temperature vs. Simulated Thermal Distribution
-        obs_val = observed.get("temp_k", 0)
-        sim_val = simulated.get("temp_k", 0)
+    async def monitor_stream(self, sensor_id: str):
+        """Monitors a specific kernel memory buffer for statistical anomalies."""
+        buffer = self.kernel.memory.simulation_pool.get(sensor_id)
+        if not buffer or len(buffer) < 20:
+            return
+
+        data = list(buffer)
+        mean = np.mean(data)
+        std = np.std(data)
+        latest = data[-1]
+
+        # 1. Z-Score Analysis (Statistical Anomaly)
+        z_score = abs(latest - mean) / std if std > 0 else 0
         
-        deviation = abs(obs_val - sim_val) / sim_val if sim_val > 0 else 0
-        threshold = 0.05 # 5% deviation threshold
+        if z_score > self.sensitivity:
+            await self._trigger_anomaly(sensor_id, latest, mean, z_score)
+
+    async def _trigger_anomaly(self, sensor_id: str, val: float, mean: float, z_score: float):
+        """Triggers a kernel-level anomaly event and optional interrupt."""
+        self.anomaly_count += 1
+        self.logger.warning(f"OS Anomaly: Deviation detected in {sensor_id} (Z-Score: {z_score:.2f})")
         
-        is_anomaly = deviation > threshold
-        
-        if is_anomaly:
-            await self.kernel.broadcast_telemetry("SYSTEM_ALERT", {
-                "level": "CRITICAL",
-                "message": f"Physical deviation detected: {deviation*100:.1f}% variance from physics prediction."
+        # Broadcast to UI
+        await self.kernel.broadcast_telemetry("SYSTEM_ALERT", {
+            "level": "CRITICAL" if z_score > 5.0 else "WARNING",
+            "message": f"Physical anomaly detected in {sensor_id}: {val:.4f} (Mean: {mean:.4f})",
+            "metadata": {"z_score": z_score, "sensor_id": sensor_id}
+        })
+
+        # MISSION_ABORT Trigger for extreme deviations
+        if z_score > 10.0:
+            self.logger.error(f"OS Anomaly: Catastrophic divergence in {sensor_id}. Signalling MISSION_ABORT.")
+            await self.kernel.broadcast_telemetry("MISSION_ABORT", {
+                "reason": "CATASTROPHIC_ANOMALY",
+                "source": sensor_id,
+                "confidence": 0.999
             })
 
-        return {
-            "is_anomaly": is_anomaly,
-            "deviation_pct": deviation * 100,
-            "observed": obs_val,
-            "simulated": sim_val
-        }
+    async def check_twin_divergence(self, observed: float, simulated: float):
+        """Detects divergence between physical reality and digital twin prediction."""
+        error = abs(observed - simulated)
+        if error > 0.15: # 15% tolerance
+            await self.kernel.broadcast_telemetry("TWIN_DIVERGENCE", {
+                "error": error,
+                "status": "DIVERGED"
+            })
 
-anomaly_detection = None
+anomaly_detection = None # Initialized by Digital Twin Manager

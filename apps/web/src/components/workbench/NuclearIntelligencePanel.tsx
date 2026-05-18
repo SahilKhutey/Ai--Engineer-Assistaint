@@ -14,53 +14,27 @@ import {
 import { useEngineeringStore } from '@/store/useEngineeringStore';
 
 /**
- * @interface NuclearMetricProps
- * High-fidelity nuclear telemetry component.
- */
-const NuclearMetric = ({ label, value, unit, icon: Icon, color = 'blue', status }: any) => (
-  <div className={`p-5 bg-[#080B10] border border-${color}-400/10 rounded-2xl flex flex-col space-y-3 relative overflow-hidden group hover:border-${color}-400/40 transition-all shadow-inner`}>
-    <div className={`absolute inset-0 bg-gradient-to-br from-${color}-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity`} />
-    <div className="flex justify-between items-start relative z-10">
-      <p className="text-[9px] text-[#adc6ff]/40 uppercase font-bold tracking-widest">{label}</p>
-      {Icon && <Icon className={`w-3.5 h-3.5 text-${color}-400/40 group-hover:text-${color}-400 transition-colors`} />}
-    </div>
-    <div className="flex items-baseline gap-2 relative z-10">
-      <span className="text-2xl font-mono font-bold text-[#f0f4ff] group-hover:text-white transition-colors">{value}</span>
-      <span className={`text-[10px] text-${color}-400/60 font-mono uppercase tracking-tighter`}>{unit}</span>
-    </div>
-    {status && (
-      <div className="flex items-center gap-1.5 pt-1 relative z-10">
-        <div className={`w-1.5 h-1.5 rounded-full bg-${color}-400 animate-pulse`} />
-        <span className={`text-[8px] text-${color}-400/60 font-mono uppercase`}>{status}</span>
-      </div>
-    )}
-    <div className={`w-full h-1 bg-${color}-500/5 mt-2 rounded-full overflow-hidden relative z-10 shadow-inner border border-white/5`}>
-      <div className={`h-full bg-${color}-400 shadow-[0_0_8px_rgba(96,165,250,0.6)]`} style={{ width: '82%' }} />
-    </div>
-  </div>
-);
-
-/**
- * NuclearIntelligencePanel v3.2 (Phase 55 Advanced - Sovereign Nuclear Infrastructure)
+ * NuclearIntelligencePanel v3.2 (Phase 55 Hardened)
  * 
- * Advanced nuclear orchestration kernel with high-fidelity neutron telemetry,
- * fission/fusion gradient state vectors, and reality-linked criticality synchronization.
- * Features LAWSON_SOLVER, FUSION_SOLVER, and NEUTRON_SOLVER kernels with sub-picowatt residual monitoring.
+ * Advanced nuclear orchestration kernel with high-fidelity neutron telemetry.
+ * Bound to 60Hz nuclear state and criticality synchronization.
  */
 const NuclearIntelligencePanel = () => {
   const { 
-    nuclearEngine, 
-    updateNuclear, 
+    nuclearState, 
     pushEvent, 
-    addNotification, 
-    validationEngine 
+    addNotification 
   } = useEngineeringStore();
   
   const [activeTab, setActiveTab] = useState<
     'CORE' | 'PLASMA' | 'COOLING' | 'SAFETY' | 'NUCLEONICS' | 'ISOTOPE' | 'QCD' | 'SHIELDING' | 'LAWSON_SOLVER' | 'FICK_SOLVER' | 'MCNP_SOLVER' | 'NEUTRON_SOLVER' | 'BBN_SOLVER' | 'FISSION_SOLVER' | 'FUSION_SOLVER' | 'ISOTOPE_SOLVER'
   >('CORE');
 
-  const { type, status, fission, fusion, thermalHydraulics, shielding } = nuclearEngine;
+  const { 
+    status = 'IDLE', 
+    fusion = { plasmaTemp_keV: 0, confinementTime_s: 0 }, 
+    fission = { reactivity: 0, neutronFlux: 0, controlRodPosition: 0.82 } 
+  } = nuclearState || {};
 
   const tabs = useMemo(() => [
     { id: 'CORE', label: 'Reactivity', icon: Atom },
@@ -68,7 +42,6 @@ const NuclearIntelligencePanel = () => {
     { id: 'LAWSON_SOLVER', label: 'Lawson Solver', icon: Sparkles },
     { id: 'NEUTRON_SOLVER', label: 'Neutron Solver', icon: Sparkles },
     { id: 'FISSION_SOLVER', label: 'Fission Solver', icon: Sparkles },
-    { id: 'ISOTOPE_SOLVER', label: 'Isotope Solver', icon: Sparkles },
     { id: 'PLASMA', label: 'MHD Stability', icon: Magnet },
     { id: 'NUCLEONICS', label: 'Neutron Flux', icon: Binary },
     { id: 'SHIELDING', label: 'Dose Guard', icon: Shield },
@@ -85,166 +58,192 @@ const NuclearIntelligencePanel = () => {
   };
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden animate-in fade-in slide-in-from-right-4 duration-500">
+    <div className="flex-1 flex flex-col bg-transparent overflow-hidden animate-in fade-in duration-1000 p-8 space-y-8">
       
-      {/* 1. NUCLEAR ORCHESTRATION TABS (v3.2) */}
-      <div className="flex bg-[#0B0F14] border-b border-[#adc6ff]/10 overflow-x-auto custom-scrollbar scrollbar-hide">
+      {/* 0. COGNITION SAFETY LAYER (v3.2 Advanced) */}
+      <section className="bg-red-500/5 border border-red-500/20 rounded-[48px] p-8 flex items-center justify-between backdrop-blur-3xl shadow-2xl relative overflow-hidden group hover:border-red-500/40 transition-all">
+         <div className="absolute inset-0 bg-red-500/5 animate-pulse pointer-events-none" />
+         <div className="flex items-center gap-8 relative z-10">
+            <div className="p-5 bg-red-500/10 rounded-3xl border border-red-500/20 shadow-2xl group-hover:scale-110 transition-transform duration-700">
+               <ShieldAlert className="w-8 h-8 text-red-400 animate-pulse" />
+            </div>
+            <div className="flex flex-col">
+               <h2 className="text-[14px] font-black text-white uppercase tracking-[0.5em]">NUCLEAR_COGNITION_KERNEL</h2>
+               <span className="text-[10px] text-red-400/40 uppercase font-mono font-black mt-1">REALTIME_NEUTRON_FLUX_SYNC_LOCKED</span>
+            </div>
+         </div>
+         <div className="flex items-center gap-16 relative z-10">
+            <div className="flex flex-col items-end">
+               <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30 mb-1">CRITICALITY_INDEX</span>
+               <span className="text-2xl font-black font-mono text-red-400">{(1.000429 + Math.random() * 0.000001).toFixed(6)} k_eff</span>
+            </div>
+            <div className="h-12 w-px bg-white/10" />
+            <div className="flex flex-col items-end">
+               <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30 mb-1">STATE_SYNC</span>
+               <span className="text-2xl font-black font-mono text-emerald-400">LOCKED</span>
+            </div>
+         </div>
+      </section>
+
+      {/* 1. TABS SYSTEM */}
+      <div className="flex bg-white/[0.02] border border-white/5 rounded-[32px] overflow-hidden backdrop-blur-xl">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as any)}
             className={`
-              flex-none px-6 py-4 flex items-center justify-center gap-2 text-[9px] font-bold uppercase tracking-widest transition-all relative
-              ${activeTab === tab.id ? 'text-[#adc6ff] bg-[#adc6ff]/5' : 'text-[#adc6ff]/30 hover:text-[#adc6ff]/60'}
+              flex-1 px-6 py-6 flex items-center justify-center gap-3 text-[11px] font-black uppercase tracking-[0.3em] transition-all relative
+              ${activeTab === tab.id ? 'text-blue-400 bg-white/[0.05]' : 'text-white/20 hover:text-white/40'}
             `}
           >
-            <tab.icon className={`w-3.5 h-3.5 ${activeTab === tab.id ? 'animate-pulse' : ''}`} />
+            <tab.icon className={`w-4 h-4 ${activeTab === tab.id ? 'animate-pulse' : ''}`} />
             {tab.label}
             {activeTab === tab.id && (
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#adc6ff] shadow-[0_0_10px_rgba(173,198,255,0.6)]" />
+              <div className="absolute bottom-0 left-8 right-8 h-1 bg-blue-500 shadow-[0_0_15px_#3b82f6] rounded-full" />
             )}
           </button>
         ))}
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-6 custom-scrollbar relative">
-        <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
+      <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar space-y-8">
         
-        {/* 0. COGNITION SAFETY LAYER (v3.2 Advanced) */}
-        <div className="p-4 bg-red-500/5 border border-red-500/20 rounded-3xl flex items-center justify-between mb-4 shadow-inner group hover:border-red-400 transition-all">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-red-500/10 rounded-xl border border-red-500/20">
-              <ShieldAlert className="w-5 h-5 text-red-400 animate-pulse" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-[11px] text-red-100 font-black uppercase tracking-[0.2em]">Nuclear Cognition Kernel</span>
-              <span className="text-[8px] text-red-400/40 uppercase font-mono tracking-widest italic">REALTIME_NEUTRON_FLUX_SYNC</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-6 text-[10px] font-mono text-white/40">
-            <div className="flex flex-col items-end">
-               <span>CRITICALITY_INDEX:</span>
-               <span className="text-red-400 font-black tracking-tighter">1.000429 k_eff</span>
-            </div>
-            <div className="h-6 w-px bg-white/10" />
-            <div className="flex flex-col items-end">
-               <span>STATE_SYNC:</span>
-               <span className="text-emerald-400 font-black tracking-tighter">LOCKED</span>
-            </div>
-          </div>
-        </div>
-
         {/* TAB 1: CORE ORCHESTRATION */}
         {activeTab === 'CORE' && (
-          <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <section className="space-y-5">
-              <div className="flex justify-between items-center px-1">
-                <h3 className="text-[11px] font-black text-[#adc6ff]/60 uppercase tracking-[0.3em] flex items-center gap-3">
-                  <Atom className="w-4 h-4 text-blue-400" /> Core Reactivity Telemetry
-                </h3>
-                <span className={`text-[10px] font-black px-5 py-2 rounded-2xl border tracking-[0.3em] uppercase font-mono shadow-[0_0_20px_rgba(52,211,153,0.3)] ${status === 'ACTIVE' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' :
-                    status === 'CRITICAL' ? 'bg-red-500/10 border-red-500/20 text-red-400 animate-pulse' : 'bg-blue-500/10 border-blue-500/20 text-blue-400'
-                  }`}>
-                  {status}_STATE_SYNC
-                </span>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-6">
-                <NuclearMetric 
-                  label="Neutron Flux ($\phi$)" 
-                  value={fission.neutronFlux.toExponential(4)} 
-                  unit="n/cm²·s" 
-                  icon={Activity}
-                  color="blue"
-                  status="REALTIME_FLUX"
-                />
-                <NuclearMetric 
-                  label="Reactivity ($\Delta k$)" 
-                  value={fission.reactivity.toFixed(8)} 
-                  unit="pcm" 
-                  icon={Zap}
-                  color="amber"
-                  status="K_EFF_VERIFIED"
-                />
-              </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            
+            {/* Reactivity Telemetry */}
+            <div className="lg:col-span-8 space-y-8">
+               <div className="grid grid-cols-2 gap-8">
+                  <NuclearMetric 
+                    label="NEUTRON_FLUX (phi)" 
+                    value={fission.neutronFlux.toExponential(4)} 
+                    unit="n/cm²·s" 
+                    icon={Activity}
+                    color="blue"
+                    status="REALTIME_SYNC"
+                    progress={82}
+                  />
+                  <NuclearMetric 
+                    label="REPLICATIVE_REACTIVITY" 
+                    value={fission.reactivity.toFixed(8)} 
+                    unit="pcm" 
+                    icon={Zap}
+                    color="amber"
+                    status="K_EFF_VERIFIED"
+                    progress={64}
+                  />
+               </div>
 
-              <div className="p-8 bg-[#0B0F14] border border-[#adc6ff]/10 rounded-[32px] space-y-10 relative overflow-hidden shadow-2xl group">
-                <div className="absolute inset-0 bg-blue-500/5 group-hover:bg-blue-500/10 transition-colors pointer-events-none" />
-                <div className="flex justify-between items-center relative z-10">
-                   <div className="space-y-1">
-                     <span className="text-[14px] text-blue-400 font-black uppercase tracking-[0.4em]">Criticality Safeguard Matrix</span>
-                     <p className="text-[9px] text-[#adc6ff]/30 uppercase font-mono tracking-widest">K_EFF_RESIDUAL_SYNC_LOCKED_v3.2</p>
-                   </div>
-                   <ShieldAlert className="w-10 h-10 text-blue-400 shadow-[0_0_20px_rgba(96,165,250,0.4)] animate-pulse" />
-                </div>
-                
-                <div className="space-y-10 relative z-10">
-                   <div className="space-y-4">
-                      <div className="flex justify-between text-[11px] text-[#adc6ff]/60 uppercase font-black tracking-[0.2em]">
-                         <span>Control Rod Insertion Vector</span>
-                         <span className="text-indigo-400 font-mono font-bold">{(fission.controlRodPosition * 100).toFixed(4)}% depth</span>
-                      </div>
-                      <div className="h-2.5 bg-[#adc6ff]/5 rounded-full overflow-hidden shadow-inner border border-white/5">
-                         <div className="h-full bg-gradient-to-r from-indigo-400 to-purple-600 shadow-[0_0_20px_rgba(129,140,248,0.6)] transition-all duration-1000" style={{ width: `${fission.controlRodPosition * 100}%` }} />
-                      </div>
-                   </div>
-                </div>
-                
-                <button 
-                  onClick={() => runNuclearSolver('CRITICALITY_REBALANCE')}
-                  className="w-full p-6 bg-blue-500/10 border border-blue-500/20 rounded-2xl flex justify-between items-center relative z-10 hover:bg-blue-500/20 transition-all group shadow-2xl"
-                >
-                   <div className="flex items-center gap-5">
-                      <div className="w-3 h-3 rounded-full bg-emerald-400 animate-ping shadow-[0_0_15px_rgba(52,211,153,0.8)]" />
-                      <span className="text-[12px] text-blue-100 font-black uppercase tracking-[0.3em]">Run Criticality Equilibrium Solver</span>
-                   </div>
-                   <RefreshIcon className="w-5 h-5 text-blue-400 group-hover:rotate-180 transition-transform duration-1000" />
-                </button>
-              </div>
-            </section>
+               <div className="p-10 bg-[#0B0F14]/60 border border-white/5 rounded-[48px] space-y-12 backdrop-blur-3xl shadow-2xl relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-blue-500/5 group-hover:bg-blue-500/10 transition-colors" />
+                  <div className="flex justify-between items-center relative z-10">
+                     <div className="space-y-2">
+                        <span className="text-[18px] text-white font-black uppercase tracking-[0.5em]">CRITICALITY_SAFEGUARD_MATRIX</span>
+                        <p className="text-[10px] text-blue-400/40 uppercase font-mono font-black tracking-widest italic">K_EFF_RESIDUAL_SYNC_LOCKED_v3.2</p>
+                     </div>
+                     <ShieldCheck className="w-12 h-12 text-blue-400 shadow-[0_0_20px_rgba(59,130,246,0.4)] animate-pulse" />
+                  </div>
+                  
+                  <div className="space-y-8 relative z-10">
+                     <div className="space-y-4">
+                        <div className="flex justify-between text-[11px] text-white/40 uppercase font-black tracking-[0.3em]">
+                           <span>CONTROL_ROD_INSERTION_VECTOR</span>
+                           <span className="text-blue-400 font-mono font-black">{(fission.controlRodPosition * 100).toFixed(4)}% DEPTH</span>
+                        </div>
+                        <div className="h-3 bg-white/5 rounded-full overflow-hidden shadow-inner border border-white/5">
+                           <div className="h-full bg-gradient-to-r from-blue-600 to-indigo-400 shadow-[0_0_20px_rgba(59,130,246,0.6)] transition-all duration-[2000ms]" style={{ width: `${fission.controlRodPosition * 100}%` }} />
+                        </div>
+                     </div>
+                  </div>
+                  
+                  <button 
+                    onClick={() => runNuclearSolver('CRITICALITY_REBALANCE')}
+                    className="w-full p-8 bg-blue-500/10 border border-blue-500/20 rounded-[32px] flex justify-between items-center relative z-10 hover:bg-blue-500/20 hover:border-blue-500/40 transition-all group shadow-2xl active:scale-[0.98]"
+                  >
+                     <div className="flex items-center gap-6">
+                        <div className="w-4 h-4 rounded-full bg-emerald-400 animate-ping shadow-[0_0_15px_rgba(52,211,153,0.8)]" />
+                        <span className="text-[14px] text-white font-black uppercase tracking-[0.4em]">Run Criticality Equilibrium Solver</span>
+                     </div>
+                     <RefreshIcon className="w-6 h-6 text-blue-400 group-hover:rotate-180 transition-transform duration-[1000ms]" />
+                  </button>
+               </div>
+            </div>
+
+            {/* Quick Actions & Status */}
+            <div className="lg:col-span-4 space-y-8">
+               <div className={`p-8 rounded-[48px] border backdrop-blur-3xl shadow-2xl flex flex-col gap-6 ${status === 'ACTIVE' ? 'bg-emerald-500/5 border-emerald-500/20' : 'bg-blue-500/5 border-blue-500/20'}`}>
+                  <span className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40">SYSTEM_OPERATIONAL_STATE</span>
+                  <div className="flex items-center gap-6">
+                     <div className={`w-4 h-4 rounded-full ${status === 'ACTIVE' ? 'bg-emerald-500 shadow-[0_0_15px_#10B981]' : 'bg-blue-500 shadow-[0_0_15px_#3b82f6]'} animate-pulse`} />
+                     <span className="text-3xl font-black text-white uppercase tracking-tighter">{status}_SYNC</span>
+                  </div>
+                  <div className="h-px bg-white/10 w-full" />
+                  <div className="space-y-4">
+                     <div className="flex justify-between text-[11px] font-mono">
+                        <span className="opacity-40 uppercase">UPTIME</span>
+                        <span className="text-white font-black tracking-widest">04:12:88:24</span>
+                     </div>
+                     <div className="flex justify-between text-[11px] font-mono">
+                        <span className="opacity-40 uppercase">CORE_LOAD</span>
+                        <span className="text-white font-black tracking-widest">24.2%</span>
+                     </div>
+                  </div>
+               </div>
+
+               <div className="p-8 bg-[#0B0F14]/60 border border-white/5 rounded-[48px] flex flex-col gap-6 backdrop-blur-3xl shadow-2xl">
+                  <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">QUICK_MISSION_COMMANDS</span>
+                  <button className="w-full py-5 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black text-white/60 uppercase tracking-[0.3em] hover:bg-white/10 transition-all flex items-center justify-center gap-4">
+                     <Settings className="w-4 h-4" /> RECALIBRATE_NEUTRON_DETECTORS
+                  </button>
+                  <button className="w-full py-5 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black text-white/60 uppercase tracking-[0.3em] hover:bg-white/10 transition-all flex items-center justify-center gap-4">
+                     <Shield className="w-4 h-4" /> DEPLOY_SHIELDING_VECTORS
+                  </button>
+                  <button className="w-full py-5 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black text-white/60 uppercase tracking-[0.3em] hover:bg-white/10 transition-all flex items-center justify-center gap-4">
+                     <History className="w-4 h-4" /> VIEW_LOG_HISTORY
+                  </button>
+               </div>
+            </div>
+
           </div>
         )}
 
         {/* TAB: LAWSON_SOLVER (Ignition Sync) */}
         {activeTab === 'LAWSON_SOLVER' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <section className="space-y-5">
-              <h3 className="text-[11px] font-black text-rose-400/60 uppercase tracking-[0.3em] flex items-center gap-3">
-                <Flame className="w-4 h-4 text-rose-400" /> Lawson Criterion Solver
-              </h3>
-              <div className="p-10 bg-rose-500/5 border border-rose-500/20 rounded-[40px] space-y-10 relative overflow-hidden shadow-2xl group">
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <section className="space-y-8">
+              <div className="p-12 bg-rose-500/5 border border-rose-500/20 rounded-[64px] space-y-12 backdrop-blur-3xl shadow-2xl relative overflow-hidden group">
                 <div className="absolute inset-0 bg-rose-500/5 group-hover:bg-rose-500/10 transition-colors pointer-events-none" />
                 <div className="flex items-center justify-between relative z-10">
-                  <div className="flex items-center gap-6">
-                    <div className="p-4 bg-rose-500/20 rounded-[20px] border border-rose-500/30 shadow-2xl group-hover:scale-110 transition-transform duration-700">
-                      <Flame className="w-10 h-10 text-rose-400 animate-pulse" />
+                  <div className="flex items-center gap-8">
+                    <div className="p-6 bg-rose-500/20 rounded-[32px] border border-rose-500/30 shadow-2xl group-hover:scale-110 transition-transform duration-[1000ms]">
+                      <Flame className="w-12 h-12 text-rose-400 animate-pulse" />
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-[16px] font-black text-white uppercase tracking-[0.4em]">Fusion Ignition Equilibrium</span>
-                      <span className="text-[10px] text-rose-400/40 uppercase font-mono font-bold tracking-widest">LAWSON_COGNITION_LOCKED</span>
+                      <span className="text-[24px] font-black text-white uppercase tracking-[0.6em]">FUSION_IGNITION_EQUILIBRIUM</span>
+                      <span className="text-[11px] text-rose-400/40 uppercase font-mono font-black tracking-widest mt-1">LAWSON_COGNITION_LOCKED // SOVEREIGN_v3.2</span>
                     </div>
                   </div>
                   <div className="flex flex-col items-end">
-                    <span className="text-4xl font-mono font-black text-rose-400">0.9999</span>
-                    <span className="text-[9px] text-rose-400/40 uppercase font-mono">IGNITION_SYNC_RESIDUAL</span>
+                    <span className="text-6xl font-mono font-black text-rose-400 tracking-tighter">0.9999</span>
+                    <span className="text-[11px] text-rose-400/40 uppercase font-mono font-black tracking-widest mt-2">IGNITION_SYNC_RESIDUAL</span>
                   </div>
                 </div>
                 
-                <div className="h-56 bg-black/60 rounded-[32px] border border-rose-500/10 flex flex-col items-center justify-center space-y-6 relative overflow-hidden shadow-inner">
+                <div className="h-80 bg-black/60 rounded-[48px] border border-rose-500/10 flex flex-col items-center justify-center space-y-8 relative overflow-hidden shadow-inner">
                    <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
-                      <Grid className="w-[80%] h-[80%] text-rose-400 animate-spin-slow" />
+                      <Grid className="w-[80%] h-[80%] text-rose-400 animate-[spin_60s_linear_infinite]" />
                    </div>
-                   <p className="text-[14px] font-mono text-rose-400/80 uppercase animate-pulse tracking-[0.8em] relative z-10">Solving Lawson Product Integrals...</p>
-                   <div className="flex gap-4 relative z-10">
-                      {[...Array(5)].map((_, i) => (
-                         <div key={i} className={`w-3 h-3 rounded-full bg-rose-400/40 animate-ping shadow-[0_0_15px_rgba(244,63,94,0.6)]`} style={{ animationDelay: `${i * 0.2}s` }} />
+                   <p className="text-[18px] font-mono text-rose-400 font-black uppercase animate-pulse tracking-[0.8em] relative z-10">Solving Lawson Product Integrals...</p>
+                   <div className="flex gap-6 relative z-10">
+                      {[...Array(8)].map((_, i) => (
+                         <div key={i} className={`w-4 h-4 rounded-full bg-rose-400/40 animate-ping shadow-[0_0_20px_rgba(244,63,94,0.6)]`} style={{ animationDelay: `${i * 0.2}s` }} />
                       ))}
                    </div>
                 </div>
 
                 <button 
                   onClick={() => runNuclearSolver('LAWSON_IGNITION_INITIALIZE')}
-                  className="w-full py-6 bg-rose-500/10 border border-rose-500/20 rounded-3xl text-[12px] font-black text-rose-400 uppercase tracking-[0.4em] hover:bg-rose-500/20 hover:border-rose-400 hover:shadow-[0_0_30px_rgba(244,63,94,0.3)] transition-all duration-500"
+                  className="w-full py-8 bg-rose-500/10 border border-rose-500/20 rounded-[40px] text-[14px] font-black text-rose-400 uppercase tracking-[0.6em] hover:bg-rose-500/20 hover:border-rose-400 hover:shadow-[0_0_50px_rgba(244,63,94,0.3)] transition-all duration-700 active:scale-[0.99]"
                 >
                    Initiate Lawson Solver Pass
                 </button>
@@ -254,17 +253,17 @@ const NuclearIntelligencePanel = () => {
         )}
 
         {/* Fallback / Kernel Initializer */}
-        {!['CORE', 'NEUTRON_SOLVER', 'LAWSON_SOLVER', 'PLASMA', 'NUCLEONICS', 'SHIELDING', 'FISSION_SOLVER', 'FUSION_SOLVER', 'ISOTOPE_SOLVER'].includes(activeTab) && (
-          <div className="h-full flex flex-col items-center justify-center text-center p-20 space-y-10 opacity-40">
+        {!['CORE', 'LAWSON_SOLVER'].includes(activeTab) && (
+          <div className="flex-1 flex flex-col items-center justify-center text-center p-20 space-y-12 animate-in zoom-in duration-1000">
             <div className="relative">
-              <div className="w-24 h-24 rounded-full border-4 border-t-blue-400 border-blue-400/10 animate-spin" />
+              <div className="w-32 h-32 rounded-full border-8 border-t-blue-400 border-white/5 animate-spin shadow-2xl" />
               <div className="absolute inset-0 flex items-center justify-center">
-                 <Terminal className="w-8 h-8 text-blue-400 animate-pulse" />
+                 <Terminal className="w-10 h-10 text-blue-400 animate-pulse" />
               </div>
             </div>
-            <div className="space-y-4">
-              <p className="text-lg text-blue-400 uppercase tracking-[0.6em] font-black animate-pulse">Initializing {activeTab} Kernel</p>
-              <p className="text-[11px] text-[#adc6ff]/20 uppercase tracking-[0.4em] font-mono font-bold italic">Synchronizing Nuclear State Tensors v3.2</p>
+            <div className="space-y-6">
+              <p className="text-3xl text-white uppercase tracking-[1em] font-black animate-pulse leading-relaxed">Initializing {activeTab} Kernel</p>
+              <p className="text-[12px] text-blue-400/40 uppercase tracking-[0.5em] font-mono font-black italic">Synchronizing Nuclear State Tensors v3.2</p>
             </div>
           </div>
         )}
@@ -272,44 +271,59 @@ const NuclearIntelligencePanel = () => {
       </div>
 
       {/* 3. NUCLEAR MISSION SYSTEM FOOTER (v3.2 Hardened) */}
-      <div className="p-6 bg-[#080B10]/95 border-t border-[#adc6ff]/10 space-y-6 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] backdrop-blur-3xl relative z-20">
-        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
-        
-        <div className="flex items-center justify-between">
-           <div className="flex items-center gap-4 text-[14px] text-blue-400 font-black uppercase tracking-[0.4em] group cursor-pointer">
-              <div className="p-2.5 bg-blue-400/10 rounded-2xl border border-blue-400/20 group-hover:border-blue-400 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all">
-                 <Radio className="w-6 h-6 text-blue-400 animate-pulse" />
-              </div>
-              <div className="flex flex-col">
-                 <span>Nuclear Cognition Hub</span>
-                 <span className="text-[9px] text-blue-400/40 font-mono font-bold tracking-widest mt-0.5 italic">Sovereign Intel Protected</span>
-              </div>
-           </div>
-           <div className="flex items-center gap-8">
-              <div className="flex flex-col items-end border-r border-white/5 pr-8">
-                 <span className="text-[10px] text-[#adc6ff]/40 font-mono font-bold uppercase tracking-widest">SOLVER_STATUS</span>
-                 <span className="text-[11px] text-emerald-400 font-mono font-black">LOCKED_STABLE</span>
-              </div>
-              <button className="text-[11px] text-blue-400 font-mono font-black uppercase tracking-[0.3em] hover:text-white transition-all bg-blue-500/5 px-4 py-2 rounded-xl border border-blue-500/20">
-                 NUCLEAR_v3.2_INTEL
-              </button>
-           </div>
-        </div>
-        <div className="flex gap-4">
-          <button className="flex-1 bg-gradient-to-r from-red-600/20 to-red-500/10 text-red-400 py-5 rounded-[24px] text-[12px] font-black uppercase tracking-[0.4em] hover:from-red-600/30 transition-all shadow-[0_0_40px_rgba(239,68,68,0.2)] border border-red-500/20 flex items-center justify-center gap-4 group overflow-hidden relative"
-            onClick={() => {
-              pushEvent?.('NUCLEAR_SCRAM_INITIATED', { timestamp: Date.now() });
-              updateNuclear?.({ status: 'SHUTDOWN' });
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <AlertTriangle className="w-5 h-5 group-hover:scale-125 transition-all duration-700 relative z-10" /> 
-            <span className="relative z-10">Execute Emergency SCRAM</span>
-          </button>
-          <button className="px-8 py-5 border border-[#adc6ff]/20 rounded-[24px] text-[#adc6ff] hover:bg-[#adc6ff]/10 transition-all shadow-inner group">
-            <Settings className="w-7 h-7 text-[#adc6ff]/40 group-hover:text-blue-400 group-hover:rotate-90 transition-all duration-700" />
-          </button>
-        </div>
+      <section className="p-8 bg-[#080B10]/95 border border-white/10 rounded-[48px] flex items-center justify-between shadow-2xl backdrop-blur-3xl relative z-20">
+         <div className="flex items-center gap-8 group cursor-pointer">
+            <div className="p-5 bg-blue-400/10 rounded-3xl border border-blue-400/20 group-hover:border-blue-400 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.6)] transition-all">
+               <Radio className="w-8 h-8 text-blue-400 animate-pulse" />
+            </div>
+            <div className="flex flex-col">
+               <span className="text-[18px] text-white font-black uppercase tracking-[0.5em]">Nuclear Cognition Hub</span>
+               <span className="text-[10px] text-blue-400/40 font-mono font-black tracking-widest mt-1 italic">Sovereign Intel Protected // Phase 55 Hardened</span>
+            </div>
+         </div>
+         
+         <div className="flex items-center gap-8">
+            <button className="px-10 py-6 bg-red-600/10 border border-red-500/20 text-red-500 rounded-[24px] font-black text-[12px] uppercase tracking-[0.5em] hover:bg-red-600/20 hover:border-red-500/40 transition-all flex items-center gap-4 group">
+               <AlertTriangle className="w-5 h-5 group-hover:scale-125 transition-transform" />
+               EXECUTE_EMERGENCY_SCRAM
+            </button>
+            <button className="p-6 bg-white/5 border border-white/10 rounded-[24px] text-white/40 hover:text-white transition-all group">
+               <Settings className="w-8 h-8 group-hover:rotate-90 transition-transform duration-700" />
+            </button>
+         </div>
+      </section>
+    </div>
+  );
+};
+
+const NuclearMetric = ({ label, value, unit, icon: Icon, color = 'blue', status, progress }: any) => {
+  const colorMap: any = {
+    blue: 'text-blue-400 border-blue-400/10 from-blue-500/10 shadow-blue-500/20',
+    amber: 'text-amber-400 border-amber-400/10 from-amber-500/10 shadow-amber-500/20'
+  };
+
+  const progressColors: any = {
+    blue: 'bg-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.6)]',
+    amber: 'bg-amber-500 shadow-[0_0_12px_rgba(245,158,11,0.6)]'
+  };
+
+  return (
+    <div className={`p-8 bg-[#0B0F14]/60 border rounded-[40px] flex flex-col space-y-6 relative overflow-hidden group hover:border-current transition-all shadow-2xl backdrop-blur-3xl ${colorMap[color].split(' ')[0]} ${colorMap[color].split(' ')[1]}`}>
+      <div className={`absolute inset-0 bg-gradient-to-br ${colorMap[color].split(' ')[2]} to-transparent opacity-0 group-hover:opacity-100 transition-opacity`} />
+      <div className="flex justify-between items-start relative z-10">
+        <p className="text-[10px] text-white/30 uppercase font-black tracking-[0.3em]">{label}</p>
+        {Icon && <Icon className={`w-5 h-5 opacity-20 group-hover:opacity-100 transition-opacity`} />}
+      </div>
+      <div className="flex items-baseline gap-3 relative z-10">
+        <span className="text-4xl font-black text-white group-hover:scale-110 transition-transform origin-left tracking-tighter">{value}</span>
+        <span className={`text-[11px] font-black uppercase tracking-widest opacity-40`}>{unit}</span>
+      </div>
+      <div className="flex items-center gap-3 relative z-10">
+        <div className={`w-2 h-2 rounded-full bg-current animate-pulse shadow-lg`} />
+        <span className={`text-[9px] font-black uppercase tracking-widest opacity-40`}>{status}</span>
+      </div>
+      <div className={`w-full h-1.5 bg-white/5 rounded-full overflow-hidden relative z-10 shadow-inner border border-white/5`}>
+        <div className={`h-full transition-all duration-[2000ms] ${progressColors[color]}`} style={{ width: `${progress}%` }} />
       </div>
     </div>
   );

@@ -49,8 +49,8 @@ const MaterialMetric = ({ label, value, unit, icon: Icon, color = 'blue', status
  */
 const MaterialIntelligencePanel = () => {
   const { 
-    materialIntelligence, 
-    updateCompositePly, 
+    materialState, 
+    updateMaterial, 
     pushEvent, 
     addNotification, 
     validationEngine 
@@ -60,8 +60,14 @@ const MaterialIntelligencePanel = () => {
     'PROPERTIES' | 'MICROSTRUCTURE' | 'COMPOSITE' | 'SPINTRONICS' | 'DISCOVERY' | 'METALLURGY' | 'LATTICE_SOLVER' | 'DFT_SOLVER' | 'PLASTICITY_SOLVER' | 'MD_SOLVER' | 'NANO_SOLVER' | 'METALLURGY_SOLVER' | 'CORROSION_SOLVER' | 'FATIGUE_SOLVER'
   >('PROPERTIES');
 
-  const material = materialIntelligence.activeMaterialData;
-  const { microstructure, compositeStack } = materialIntelligence;
+  const {
+    density = 4500,
+    youngsModulus = 114,
+    yieldStrength = 880,
+    thermalConductivity = 6.7,
+    microstructureFidelity = 0.9997,
+    activeMaterial = 'Ti-6Al-4V'
+  } = materialState || {};
 
   const tabs = useMemo(() => [
     { id: 'PROPERTIES', label: 'Constitutive', icon: Database },
@@ -141,7 +147,7 @@ const MaterialIntelligencePanel = () => {
             <section className="space-y-5">
               <div className="flex justify-between items-center px-1">
                 <div className="space-y-1">
-                  <h1 className="text-[16px] font-black text-white uppercase tracking-tight">{material?.name}</h1>
+                  <h1 className="text-[16px] font-black text-white uppercase tracking-tight">{activeMaterial}</h1>
                   <p className="text-[9px] text-[#adc6ff]/40 uppercase font-mono italic">Primary Structural Alloy | State: ATOMIC_SYNC_LOCKED_v3.2</p>
                 </div>
                 <span className="text-[10px] font-black px-5 py-2 rounded-2xl border tracking-[0.3em] uppercase font-mono bg-blue-500/10 border-blue-500/20 text-blue-400 shadow-[0_0_20px_rgba(59,130,246,0.3)]">
@@ -151,16 +157,16 @@ const MaterialIntelligencePanel = () => {
               
               <div className="grid grid-cols-2 gap-6">
                 <MaterialMetric 
-                  label="Young's Modulus ($E$)" 
-                  value={(material?.youngs_modulus / 1e9).toFixed(4)} 
+                  label="Young's Modulus (E)" 
+                  value={youngsModulus.toFixed(4)} 
                   unit="GPa" 
                   icon={Activity}
                   color="blue"
                   status="STIFFNESS_LOCKED"
                 />
                 <MaterialMetric 
-                  label="Yield Strength ($σ_y$)" 
-                  value={(material?.yield_strength / 1e6).toFixed(2)} 
+                  label="Yield Strength (sigma_y)" 
+                  value={yieldStrength.toFixed(2)} 
                   unit="MPa" 
                   icon={Zap}
                   color="amber"
@@ -181,11 +187,11 @@ const MaterialIntelligencePanel = () => {
                 <div className="space-y-10 relative z-10">
                    <div className="space-y-4">
                       <div className="flex justify-between text-[11px] text-[#adc6ff]/60 uppercase font-black tracking-[0.2em]">
-                         <span>Mean Grain Size ($d$) Equilibrium</span>
-                         <span className="text-blue-400 font-mono font-bold">{microstructure.averageGrainSize_um.toFixed(6)} μm</span>
+                         <span>Microstructure Fidelity Equilibrium</span>
+                         <span className="text-blue-400 font-mono font-bold">{(microstructureFidelity * 100).toFixed(6)}%</span>
                       </div>
                       <div className="h-2.5 bg-[#adc6ff]/5 rounded-full overflow-hidden shadow-inner border border-white/5">
-                         <div className="h-full bg-gradient-to-r from-blue-400 to-blue-600 shadow-[0_0_15px_rgba(96,165,250,0.6)] transition-all duration-1000" style={{ width: `${(microstructure.averageGrainSize_um / 50) * 100}%` }} />
+                         <div className="h-full bg-gradient-to-r from-blue-400 to-blue-600 shadow-[0_0_15px_rgba(96,165,250,0.6)] transition-all duration-1000" style={{ width: `${microstructureFidelity * 100}%` }} />
                       </div>
                    </div>
                 </div>
@@ -299,7 +305,7 @@ const MaterialIntelligencePanel = () => {
           <button className="flex-1 bg-gradient-to-r from-blue-600/20 to-blue-500/10 text-blue-400 py-5 rounded-[24px] text-[12px] font-black uppercase tracking-[0.4em] hover:from-blue-600/30 transition-all shadow-[0_0_40px_rgba(96,165,250,0.2)] border border-blue-500/20 flex items-center justify-center gap-4 group overflow-hidden relative"
             onClick={() => {
               pushEvent?.('MATERIAL_FINALIZATION_TRIGGERED', { timestamp: Date.now() });
-              updateCompositePly?.({});
+              updateMaterial?.({});
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />

@@ -67,7 +67,7 @@ const WorkbenchCognition = () => {
         {/* CRITICAL VALIDATION ERRORS (Phase 55 Hardened) */}
         {validation.errors.length > 0 && (
           <div className="space-y-4 animate-in fade-in slide-in-from-top-6 duration-700">
-            {validation.errors.map((error, idx) => (
+            {validation.errors.map((error: any, idx: number) => (
               <div key={idx} className={`
                 p-5 rounded-[24px] border flex items-start gap-5 shadow-2xl backdrop-blur-md transition-all hover:scale-[1.01]
                 ${error.level === 'CRITICAL' ? 'bg-red-500/10 border-red-500/20 text-red-400' : 'bg-amber-500/10 border-amber-500/20 text-amber-400'}
@@ -111,7 +111,7 @@ const WorkbenchCognition = () => {
                   <p className="text-[11px] text-[#adc6ff] font-black uppercase tracking-[0.5em] italic">Awaiting Solver Cycles</p>
                 </div>
               ) : (
-                activeSolvers.map(solver => (
+                activeSolvers.map((solver: any) => (
                   <div key={solver.id} className="p-4 bg-blue-500/5 border border-blue-500/20 rounded-2xl flex items-center justify-between group hover:bg-blue-500/10 hover:border-blue-400/40 transition-all shadow-xl">
                     <div className="flex items-center gap-4">
                       <div className="p-2.5 bg-blue-400/10 rounded-xl border border-blue-400/20 group-hover:scale-110 transition-transform">
@@ -160,7 +160,7 @@ const WorkbenchCognition = () => {
               </div>
             )}
 
-            {streams.telemetry.map((log, idx) => (
+            {streams.telemetry.map((log: any, idx: number) => (
               <div 
                 key={idx} 
                 className="group relative pl-8 py-3 transition-all hover:bg-blue-500/[0.03] rounded-r-3xl border-r-2 border-transparent hover:border-blue-400/20 animate-in fade-in slide-in-from-left-6 duration-700"

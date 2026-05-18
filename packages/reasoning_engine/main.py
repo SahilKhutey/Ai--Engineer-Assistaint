@@ -11,19 +11,19 @@ from .explainer import ExplanationGenerator
 from ml.failure_predictor import FailurePredictor
 import time
 
-/**
- * ReasoningEngine v3.2 (Phase 55 Hardened - Sovereign Symbolic Runtime)
- * 
- * The master sovereign reasoning core for Antigravity OS.
- * Features reality-linked symbolic derivation, multiversal risk prediction, 
- * and Phase 55 mission-control logic orchestration.
- * 
- * v3.2 Updates:
- * - Sovereign Multiversal Risk Prediction
- * - Sub-picowatt residual confidence estimation
- * - Phase 55 Symbolic Explanation logic
- * - Integrated load-path manifold stability analysis
- */
+"""
+ReasoningEngine v3.2 (Phase 55 Hardened - Sovereign Symbolic Runtime)
+
+The master sovereign reasoning core for Antigravity OS.
+Features reality-linked symbolic derivation, multiversal risk prediction, 
+and Phase 55 mission-control logic orchestration.
+
+v3.2 Updates:
+- Sovereign Multiversal Risk Prediction
+- Sub-picowatt residual confidence estimation
+- Phase 55 Symbolic Explanation logic
+- Integrated load-path manifold stability analysis
+"""
 class ReasoningEngine:
     def __init__(self):
         self.intent_parser = IntentParser()

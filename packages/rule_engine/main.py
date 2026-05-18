@@ -1,17 +1,17 @@
 from typing import List, Dict
 
-/**
- * RuleEngine v3.2 (Phase 55 Hardened - Sovereign Deterministic Guardrails)
- * 
- * Deterministic engineering rule engine to prevent hallucinations.
- * Implements sovereign physical constraints for the Sovereign Engineering Intelligence Loop.
- * 
- * v3.2 Updates:
- * - Sovereign structural margin enforcement
- * - Sub-picowatt residual validation for safety factors
- * - Phase 55 Mission-Control recommendation logic
- * - Integrated manufacturing and material sovereign rules
- */
+"""
+RuleEngine v3.2 (Phase 55 Hardened - Sovereign Deterministic Guardrails)
+
+Deterministic engineering rule engine to prevent hallucinations.
+Implements sovereign physical constraints for the Sovereign Engineering Intelligence Loop.
+
+v3.2 Updates:
+- Sovereign structural margin enforcement
+- Sub-picowatt residual validation for safety factors
+- Phase 55 Mission-Control recommendation logic
+- Integrated manufacturing and material sovereign rules
+"""
 class RuleEngine:
     @staticmethod
     def evaluate_structural_rules(features: dict, physics_results: dict) -> List[Dict]:

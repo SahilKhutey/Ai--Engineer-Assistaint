@@ -109,7 +109,7 @@ const WorkbenchViewport = () => {
                 <div className="absolute inset-0 bg-blue-500/5 group-hover:bg-blue-500/10 transition-colors" />
                 <div className="flex items-center justify-between mb-5 relative z-10">
                   <span className="text-[11px] font-black text-blue-400 uppercase tracking-[0.3em] flex items-center gap-3">
-                    <Binary className="w-4 h-4" /> State Tensor $\mathbf{T}_{v3.2}$
+                    <Binary className="w-4 h-4" /> State Tensor (T_v3.2)
                   </span>
                   <div className="relative">
                      <div className="w-2 h-2 rounded-full bg-blue-500 animate-ping absolute inset-0 opacity-40" />
@@ -117,7 +117,7 @@ const WorkbenchViewport = () => {
                   </div>
                 </div>
                 <div className="grid grid-cols-4 gap-2 relative z-10">
-                  {[...Array(16)].map((_, i) => (
+                  {[...Array(16)].map((_: any, i: number) => (
                     <div key={i} className="aspect-square bg-blue-500/5 border border-blue-500/10 rounded-xl flex items-center justify-center text-[9px] text-blue-400/80 font-mono font-bold group-hover:border-blue-400/40 group-hover:bg-blue-500/10 transition-all shadow-inner">
                       {(Math.random() * 0.999).toFixed(4)}
                     </div>
@@ -180,7 +180,7 @@ const WorkbenchViewport = () => {
                 </div>
               </div>
               <div className="h-32 flex items-end gap-1.5 px-1 relative z-10 border-b border-blue-500/20">
-                {(streams.femResiduals.length > 0 ? streams.femResiduals : Array(30).fill(1e-15)).map((v, i) => (
+                {(streams.femResiduals.length > 0 ? streams.femResiduals : Array(30).fill(1e-15)).map((v: any, i: number) => (
                   <div 
                     key={i} 
                     className="flex-1 bg-gradient-to-t from-blue-600/40 to-blue-400/80 hover:from-blue-400 hover:to-white transition-all rounded-t-lg shadow-[0_-5px_20px_rgba(96,165,250,0.2)] hover:scale-x-125" 

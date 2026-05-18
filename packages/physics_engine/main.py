@@ -1,19 +1,19 @@
 import numpy as np
 import time
 
-/**
- * SovereignPhysicsEngine v3.2 (Phase 55 Hardened - Sovereign Deterministic Solver)
- * 
- * High-fidelity symbolic physics solver for Antigravity OS.
- * Implements advanced Euler-Bernoulli and Timoshenko beam theories with 
- * multiversal state synchronization and sub-picowatt residual tracking.
- * 
- * v3.2 Updates:
- * - Sovereign Multiversal Buckling Analysis
- * - Sub-nanometer deflection residual tracking
- * - Phase 55 Mission-Control safety baselines
- * - Integrated hertzian contact stress residuals
- */
+"""
+SovereignPhysicsEngine v3.2 (Phase 55 Hardened - Sovereign Deterministic Solver)
+
+High-fidelity symbolic physics solver for Antigravity OS.
+Implements advanced Euler-Bernoulli and Timoshenko beam theories with 
+multiversal state synchronization and sub-picowatt residual tracking.
+
+v3.2 Updates:
+- Sovereign Multiversal Buckling Analysis
+- Sub-nanometer deflection residual tracking
+- Phase 55 Mission-Control safety baselines
+- Integrated hertzian contact stress residuals
+"""
 class SovereignBeamAnalyzer:
     @staticmethod
     def calculate_cantilever_deflection(force_n, length_m, youngs_modulus_pa, moment_inertia_m4):
@@ -135,3 +135,7 @@ def run_sovereign_analysis(material, geometry_data, load_n):
             "residual_tolerance": 1e-15
         }
     }
+
+# Backward compatibility alias for legacy tests
+run_analysis_heuristics = run_sovereign_analysis
+

@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   /* Master Engineering OS Color Palette (v3.1 Hardened) */
@@ -28,15 +26,15 @@
   --engos-glass-bg: rgba(8, 11, 16, 0.7);
   --engos-glass-blur: blur(20px) saturate(180%);
   
-  /* Layout Constants */
-  --engos-topbar-h: 52px;
-  --engos-sidebar-w: 64px;
-  --engos-inspector-w: 360px;
+  /* Layout Constants (v3.2 Scaled - Hardened Proportions) */
+  --engos-topbar-h: 64px;
+  --engos-sidebar-w: 220px;
+  --engos-inspector-w: 340px;
 }
 
 @layer base {
   * {
-    @apply box-border margin-0 padding-0;
+    @apply box-border m-0 p-0;
     scrollbar-width: thin;
     scrollbar-color: var(--engos-border-medium) transparent;
   }
@@ -77,7 +75,7 @@
 
   /* Interactive Buttons */
   .eng-btn-primary {
-    @apply px-6 py-2.5 bg-blue-500/10 border border-blue-500/20 rounded-xl text-blue-400 text-[11px] font-bold uppercase tracking-[0.2em] transition-all hover:bg-blue-500/20 hover:border-blue-400/40 hover:shadow-[0_0_20px_rgba(59,130,246,0.2)];
+    @apply px-6 py-3 bg-blue-500/10 border border-blue-500/20 rounded-xl text-blue-400 text-[13px] font-black uppercase tracking-[0.2em] transition-all hover:bg-blue-500/20 hover:border-blue-400/40 hover:shadow-[0_0_25px_rgba(59,130,246,0.3)];
   }
 
   .eng-btn-ghost {
@@ -125,4 +123,65 @@
 
 .animate-convergence {
   animation: convergence 2s ease-in-out infinite;
+}
+/* 
+ * SOVEREIGN SCREEN DETOX (v3.2 Hardened) 
+ * Strips redundant mockup headers/navs from dynamically injected Stitch nodes.
+ */
+.sovereign-screen-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: transparent;
+}
+
+/* Hide all fixed/absolute navigation in mockups (Hardened v3.2) */
+.sovereign-screen-wrapper header,
+.sovereign-screen-wrapper nav,
+.sovereign-screen-wrapper footer,
+.sovereign-screen-wrapper aside,
+.sovereign-screen-wrapper [class*="absolute"][class*="top-0"][class*="bg-surface"],
+.sovereign-screen-wrapper [class*="fixed"][class*="top-0"][class*="bg-surface"],
+.sovereign-screen-wrapper [class*="fixed"][class*="bottom-0"][class*="bg-surface"] {
+  display: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Force layout reset on mockup main containers */
+.sovereign-screen-wrapper main {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 2rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 100% !important;
+  transform: none !important;
+}
+
+/* Standardize dashboard block proportions */
+.sovereign-screen-wrapper section {
+  border-radius: 32px !important;
+}
+
+.sovereign-screen-wrapper .glass-panel {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(64px) !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Ensure images and visualizations are proportional */
+.sovereign-screen-wrapper img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.sovereign-screen-wrapper svg {
+  max-width: 100%;
+  height: auto;
 }

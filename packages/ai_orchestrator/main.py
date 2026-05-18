@@ -10,19 +10,19 @@ from prompt_layer.filters import PhysicsFilter
 from .memory_engine import DesignMemoryEngine
 from llm.engineering_llm import EngineeringLLM
 
-/**
- * EngineeringOrchestrator v3.2 (Phase 55 Hardened - Sovereign Intelligence Orchestrator)
- * 
- * The master sovereign orchestration engine for Antigravity OS.
- * Features reality-linked symbolic derivation, sub-picowatt residual monitoring, 
- * and Phase 55 mission-control reasoning pipelines.
- * 
- * v3.2 Updates:
- * - Sovereign Intent Pre-Cognition
- * - High-fidelity physics-grounded reasoning
- * - Sub-nanometer residual validation
- * - Phase 55 Mission-Control system prompts
- */
+"""
+EngineeringOrchestrator v3.2 (Phase 55 Hardened - Sovereign Intelligence Orchestrator)
+
+The master sovereign orchestration engine for Antigravity OS.
+Features reality-linked symbolic derivation, sub-picowatt residual monitoring, 
+and Phase 55 mission-control reasoning pipelines.
+
+v3.2 Updates:
+- Sovereign Intent Pre-Cognition
+- High-fidelity physics-grounded reasoning
+- Sub-nanometer residual validation
+- Phase 55 Mission-Control system prompts
+"""
 class EngineeringOrchestrator:
     def __init__(self, mode: str = "sovereign_hybrid"):
         self.llm = EngineeringLLM(mode=mode)

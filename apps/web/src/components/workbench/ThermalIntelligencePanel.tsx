@@ -149,16 +149,16 @@ const ThermalIntelligencePanel = () => {
               
               <div className="grid grid-cols-2 gap-6">
                 <ThermalMetric 
-                  label="Efficiency ($\eta$)" 
-                  value={thermodynamics.efficiency_pct.toFixed(4)} 
+                  label="Efficiency (eta)" 
+                  value={(thermodynamics.efficiency_pct as any).toFixed(4)} 
                   unit="%" 
                   icon={Activity}
                   color="blue"
                   status="CARNOT_LIMIT_SYNC"
                 />
                 <ThermalMetric 
-                  label="System Pressure ($P$)" 
-                  value={thermodynamics.systemPressure_MPa.toFixed(6)} 
+                  label="System Pressure (P)" 
+                  value={(thermodynamics.systemPressure_MPa as any).toFixed(6)} 
                   unit="MPa" 
                   icon={Zap}
                   color="amber"
@@ -179,8 +179,8 @@ const ThermalIntelligencePanel = () => {
                 <div className="space-y-10 relative z-10">
                    <div className="space-y-4">
                       <div className="flex justify-between text-[11px] text-[#adc6ff]/60 uppercase font-black tracking-[0.2em]">
-                         <span>Entropy Rate ($\dot{S}$) Equilibrium</span>
-                         <span className="text-blue-400 font-mono font-bold">{thermodynamics.entropy_JK.toFixed(6)} J/K·s</span>
+                         <span>Entropy Rate (S_dot) Equilibrium</span>
+                         <span className="text-blue-400 font-mono font-bold">{(thermodynamics.entropy_JK as any).toFixed(6)} J/K·s</span>
                       </div>
                       <div className="h-2.5 bg-[#adc6ff]/5 rounded-full overflow-hidden shadow-inner border border-white/5">
                          <div className="h-full bg-gradient-to-r from-blue-400 to-blue-600 shadow-[0_0_20px_rgba(96,165,250,0.6)] transition-all duration-1000" style={{ width: '58%' }} />

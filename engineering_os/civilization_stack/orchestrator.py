@@ -1,38 +1,59 @@
 import logging
+from typing import Dict, List, Any
 import asyncio
-from typing import Dict, Any, List
+import time
+import uuid
 
-class AdvancedCivilizationOrchestrator:
+class PlanetaryOrchestrator:
     """
-    Advanced Engineering OS Civilization Orchestrator (v2.0).
-    Sovereign planetary management with Strategic Consensus and Conflict Resolution.
+    Antigravity OS Planetary Orchestrator (Level 11).
+    Synchronizes the local sovereign kernel with distributed civilization nodes.
+    Ensures multi-node consensus on the unified physical state of a mission.
     """
-    def __init__(self):
-        self.logger = logging.getLogger("engos_civilization")
-        self.consensus_threshold = 0.67 # Two-thirds majority
-        self.active_nodes: Dict[str, Any] = {}
+    def __init__(self, kernel):
+        self.kernel = kernel
+        self.logger = logging.getLogger("ag_planetary")
+        self.remote_nodes: Dict[str, Dict[str, Any]] = {}
+        self.consensus_state: Dict[str, Any] = {}
+        self.sync_active = False
 
-    async def achieve_strategic_consensus(self, mission_plan: Dict[str, Any]):
-        """Achieves consensus across all planetary nodes for major missions."""
-        self.logger.info("CivilizationOrchestrator: Initiating planetary consensus protocol...")
-        # Simulated consensus gathering
-        votes = [True] * 100 # In a real system, nodes would verify and vote
-        if sum(votes) / len(votes) >= self.consensus_threshold:
-            self.logger.info("CivilizationOrchestrator: STRATEGIC CONSENSUS ACHIEVED.")
-            return True
-        return False
+    async def discover_nodes(self):
+        """Discovers other sovereign OS kernels on the global/planetary network."""
+        self.logger.info("Planetary: Initiating Node Discovery protocol...")
+        # Simulated discovery of 2 remote nodes
+        nodes = [
+            {"id": "NODE_EUROPE_A", "latency_ms": 45, "trust_score": 0.99},
+            {"id": "NODE_MARS_SURFACE_01", "latency_ms": 780000, "trust_score": 0.98}
+        ]
+        for node in nodes:
+            self.remote_nodes[node["id"]] = node
+            self.logger.info(f"Planetary: Discovered node {node['id']} (Latency: {node['latency_ms']}ms)")
 
-    async def resolve_node_conflict(self, node_a: str, node_b: str, resource_id: str):
-        """Resolves engineering resource conflicts between civilization nodes."""
-        self.logger.warning(f"CivilizationOrchestrator: Conflict detected between {node_a} and {node_b} over {resource_id}.")
-        # Automated conflict resolution based on mission priority
-        return {"resolution": "RESOLVED", "priority_node": node_a}
+    async def start_global_sync(self):
+        """Starts the high-frequency state synchronization loop across the planetary mesh."""
+        self.sync_active = True
+        self.logger.info("Planetary: Global State Synchronization Active.")
+        
+        while self.sync_active:
+            # 1. Pull local state
+            local_state = await self.kernel.state.get_full_snapshot()
+            
+            # 2. Push to remote nodes and pull their states
+            # (Simulated consensus logic)
+            self.consensus_state = local_state # Local node is currently the master
+            
+            # 3. Broadcast sync pulse
+            await self.kernel.broadcast_telemetry("PLANETARY_SYNC", {
+                "active_nodes": list(self.remote_nodes.keys()),
+                "sync_ts": time.time(),
+                "consensus_hash": "H_" + uuid.uuid4().hex[:12]
+            })
+            
+            await asyncio.sleep(1.0) # Lower frequency for planetary sync
 
-    async def initiate_civilization_mission(self, intent: str):
-        """Advanced mission initiation with consensus and validation."""
-        self.logger.info(f"CivilizationOrchestrator: Initiating Phase 42 planetary mission: '{intent}'")
-        if await self.achieve_strategic_consensus({"intent": intent}):
-            return {"mission_id": "CIV_PROXIMA_02", "status": "COORDINATING"}
-        return {"status": "FAILED_CONSENSUS"}
+    def stop_global_sync(self):
+        """Terminates the planetary synchronization loop."""
+        self.sync_active = False
+        self.logger.info("Planetary: Global State Synchronization Terminated.")
 
-master_orchestrator = AdvancedCivilizationOrchestrator()
+planetary_orchestrator = None # Initialized by Kernel

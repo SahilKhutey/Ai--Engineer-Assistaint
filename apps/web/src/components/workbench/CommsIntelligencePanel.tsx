@@ -48,7 +48,7 @@ const CommsMetric = ({ label, value, unit, icon: Icon, color = 'blue', status }:
  */
 const CommsIntelligencePanel = () => {
    const { 
-     commsEngine, 
+     commsState, 
      updateComms, 
      pushEvent, 
      addNotification, 
@@ -57,7 +57,7 @@ const CommsIntelligencePanel = () => {
    
    const [activeTab, setActiveTab] = useState<'SIGNALS' | 'SPECTRUM' | 'TRANSPORT' | 'PROTOCOLS' | 'SYSTEM' | 'QUANTUM' | 'ANTENNA' | 'SHANNON_SOLVER' | 'NYQUIST_SOLVER' | 'MIMO_SOLVER' | 'LDPC_SOLVER' | 'SNR_SOLVER' | 'ENCODING_SOLVER' | 'QUANTUM_KEY_SOLVER' | 'SPECTRAL_SOLVER'>('SIGNALS');
 
-   const { status, signals, protocols, transport } = commsEngine;
+   const { status, signals, protocols, transport } = commsState;
 
    const tabs = useMemo(() => [
       { id: 'SIGNALS', label: 'Signal Stream', icon: Wifi },

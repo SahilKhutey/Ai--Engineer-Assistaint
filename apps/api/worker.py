@@ -1,7 +1,20 @@
 from celery import Celery
 import os
 import asyncio
-from orchestrator.engineering_orchestrator import EngineeringOrchestrator
+import sys
+# Add the workspace root and API path to sys.path
+root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if root_path not in sys.path:
+    sys.path.append(root_path)
+
+# Add Engineering OS Kernel paths
+kernel_path = os.path.join(root_path, "engineering_os", "kernel")
+if kernel_path not in sys.path:
+    sys.path.append(kernel_path)
+    sys.path.append(os.path.join(kernel_path, "orchestration"))
+    sys.path.append(os.path.join(kernel_path, "ag_kernel"))
+
+from engineering_orchestrator import EngineeringOrchestrator
 
 # Import Core Engineering Components
 from packages.physics_engine.engine import PhysicsEngine

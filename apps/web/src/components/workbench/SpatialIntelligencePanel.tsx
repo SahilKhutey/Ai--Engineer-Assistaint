@@ -49,7 +49,7 @@ const SpatialMetric = ({ label, value, unit, icon: Icon, color = 'blue', status 
  */
 const SpatialIntelligencePanel = () => {
    const { 
-     spatialEngine, 
+     spatialState, 
      updateSpatial, 
      pushEvent, 
      addNotification, 
@@ -58,7 +58,7 @@ const SpatialIntelligencePanel = () => {
    
    const [activeTab, setActiveTab] = useState<'TRANSFORMS' | 'MANIFOLD' | 'OCCUPANCY' | 'SDF_SOLVER' | 'SYSTEM' | 'GEODESIC' | 'POINT_CLOUD' | 'SLAM_SOLVER' | 'ICP_SOLVER' | 'OCTREE_SOLVER' | 'PLANNING' | 'QUATERNION_SOLVER' | 'HOMOGRAPHY_SOLVER'>('TRANSFORMS');
 
-   const { status, transforms, coordinateSystem, boundingBox } = spatialEngine;
+   const { status, transforms, coordinateSystem, boundingBox } = spatialState;
 
    const tabs = useMemo(() => [
       { id: 'TRANSFORMS', label: 'Matrix Logic', icon: Move },

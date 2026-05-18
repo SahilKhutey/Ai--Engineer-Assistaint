@@ -51,7 +51,7 @@ const GravityMetric = ({ label, value, unit, icon: Icon, color = 'blue', status 
 const GravityIntelligencePanel = () => {
   const { 
     gravityState, 
-    updateRelativity, 
+    updateGravity, 
     pushEvent, 
     addNotification, 
     validationEngine 
@@ -81,7 +81,7 @@ const GravityIntelligencePanel = () => {
       title: `${type} CONVERGENCE`,
       message: `Solving Einstein's field equations for ${type} verification.`,
       type: 'INFO',
-      domain: 'PHYSICS'
+      domain: 'GRAVITY'
     });
   };
 
@@ -159,7 +159,7 @@ const GravityIntelligencePanel = () => {
                 />
                 <GravityMetric 
                   label="Eccentricity ($e$)" 
-                  value={orbitalElements.eccentricity.toFixed(8)} 
+                  value={(orbitalElements.eccentricity as any).toFixed(8)} 
                   unit="Ratio" 
                   icon={Zap}
                   color="amber"
@@ -186,10 +186,10 @@ const GravityIntelligencePanel = () => {
                      <div key={i} className="space-y-4">
                         <div className="flex justify-between text-[11px] text-[#adc6ff]/60 uppercase font-black tracking-[0.2em]">
                            <span>{el.label}</span>
-                           <span className="text-blue-400 font-mono font-bold">{el.value.toFixed(4)}{el.unit}</span>
+                           <span className="text-blue-400 font-mono font-bold">{(el.value as any).toFixed(4)}{el.unit}</span>
                         </div>
                         <div className="h-2 bg-[#adc6ff]/5 rounded-full overflow-hidden shadow-inner border border-white/5">
-                           <div className="h-full bg-gradient-to-r from-blue-400 to-blue-600 shadow-[0_0_15px_rgba(96,165,250,0.4)] transition-all duration-1000" style={{ width: `${(el.value / 360) * 100}%` }} />
+                           <div className="h-full bg-gradient-to-r from-blue-400 to-blue-600 shadow-[0_0_15px_rgba(96,165,250,0.4)] transition-all duration-1000" style={{ width: `${((el.value as any) / 360) * 100}%` }} />
                         </div>
                      </div>
                    ))}
@@ -304,7 +304,7 @@ const GravityIntelligencePanel = () => {
           <button className="flex-1 bg-gradient-to-r from-blue-600/20 to-blue-500/10 text-blue-400 py-5 rounded-[24px] text-[12px] font-black uppercase tracking-[0.4em] hover:from-blue-600/30 transition-all shadow-[0_0_40px_rgba(96,165,250,0.2)] border border-blue-500/20 flex items-center justify-center gap-4 group overflow-hidden relative"
             onClick={() => {
               pushEvent?.('SPACETIME_SYNC_TRIGGERED', { timestamp: Date.now() });
-              updateRelativity?.({});
+              updateGravity?.({});
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />

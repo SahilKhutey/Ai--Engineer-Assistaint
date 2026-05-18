@@ -1,19 +1,19 @@
 import numpy as np
 import time
 
-/**
- * SovereignTwinEngine v3.2 (Phase 55 Hardened - Sovereign Digital Twin)
- * 
- * Real-time Digital Twin & Sovereign Multi-Sensor Fusion.
- * Fuses sovereign telemetry with multiversal physics models using 
- * sub-picowatt residual Kalman filtering.
- * 
- * v3.2 Updates:
- * - Sovereign State Estimation (Phase 55)
- * - Sub-nanometer residual fusion logic
- * - Multiversal RUL (Remaining Useful Life) prediction
- * - Reality persistence auditing
- */
+"""
+SovereignTwinEngine v3.2 (Phase 55 Hardened - Sovereign Digital Twin)
+
+Real-time Digital Twin & Sovereign Multi-Sensor Fusion.
+Fuses sovereign telemetry with multiversal physics models using 
+sub-picowatt residual Kalman filtering.
+
+v3.2 Updates:
+- Sovereign State Estimation (Phase 55)
+- Sub-nanometer residual fusion logic
+- Multiversal RUL (Remaining Useful Life) prediction
+- Reality persistence auditing
+"""
 class SovereignSignalConditioner:
     """Sovereign noise reduction and signal cleaning for raw sensor telemetry."""
     @staticmethod

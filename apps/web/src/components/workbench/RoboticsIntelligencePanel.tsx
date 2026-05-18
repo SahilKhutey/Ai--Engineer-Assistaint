@@ -49,16 +49,17 @@ const RobotMetric = ({ label, value, unit, icon: Icon, color = 'blue', status }:
  */
 const RoboticsIntelligencePanel = () => {
    const { 
-     roboticsEngine, 
+     roboticsState, 
+     motionState,
      updateRobotics, 
      pushEvent, 
      addNotification, 
      validationEngine 
    } = useEngineeringStore();
    
-   const [activeTab, setActiveTab] = useState<'KINEMATICS' | 'ACTUATORS' | 'PATH' | 'VISION' | 'SYSTEM' | 'HAPTICS' | 'IK_SOLVER' | 'DYNAMICS_SOLVER' | 'LAGRANGE_SOLVER' | 'JACOBIAN_SOLVER' | 'GRASPING_SOLVER' | 'URDF_SOLVER' | 'PATH_SOLVER'>('KINEMATICS');
+   const [activeTab, setActiveTab] = useState<'KINEMATICS' | 'DYNAMICS' | 'CONTROL' | 'PLANNING' | 'GRASPING' | 'VISION' | 'SYSTEM' | 'IK_SOLVER' | 'FK_SOLVER' | 'JACOBIAN_SOLVER' | 'TRAJECTORY_SOLVER' | 'IMPEDANCE_SOLVER' | 'TORQUE_SOLVER' | 'COLLISION_SOLVER'>('KINEMATICS');
 
-   const { status, kinematics, actuators, battery, sensors } = roboticsEngine;
+   const { status, kinematics, joints, controllers } = roboticsState;
 
    const tabs = useMemo(() => [
       { id: 'KINEMATICS', label: 'Joint State', icon: Move },
@@ -176,19 +177,23 @@ const RoboticsIntelligencePanel = () => {
                            <RotateCw className="w-10 h-10 text-blue-400 shadow-[0_0_20px_rgba(96,165,250,0.4)] animate-spin-slow" />
                         </div>
                         
-                        <div className="grid grid-cols-3 gap-8 relative z-10">
-                           {['J1', 'J2', 'J3', 'J4', 'J5', 'J6'].map((joint, i) => (
-                              <div key={joint} className="space-y-4 group/joint">
-                                 <div className="flex justify-between text-[11px] text-[#adc6ff]/40 uppercase font-black tracking-[0.2em] group-hover/joint:text-blue-400 transition-colors">
-                                    <span>{joint} State</span>
-                                    <span className="text-white font-mono font-bold">{(Math.random() * 90).toFixed(3)}°</span>
-                                 </div>
-                                 <div className="h-2 bg-[#adc6ff]/5 rounded-full overflow-hidden shadow-inner border border-white/5">
-                                    <div className="h-full bg-gradient-to-r from-blue-400 to-blue-600 shadow-[0_0_15px_rgba(96,165,250,0.6)] transition-all duration-700" style={{ width: `${Math.random() * 100}%` }} />
-                                 </div>
-                              </div>
-                           ))}
-                        </div>
+                         <div className="grid grid-cols-2 gap-8 relative z-10">
+                            {(motionState.joints || []).map((joint: any, i: number) => (
+                               <div key={joint.id} className="space-y-4 group/joint">
+                                  <div className="flex justify-between text-[11px] text-[#adc6ff]/40 uppercase font-black tracking-[0.2em] group-hover/joint:text-blue-400 transition-colors">
+                                     <span>{joint.id} State</span>
+                                     <span className="text-white font-mono font-bold">{joint.angle.toFixed(3)}°</span>
+                                  </div>
+                                  <div className="h-2 bg-[#adc6ff]/5 rounded-full overflow-hidden shadow-inner border border-white/5">
+                                     <div className="h-full bg-gradient-to-r from-blue-400 to-blue-600 shadow-[0_0_15px_rgba(96,165,250,0.6)] transition-all duration-700" style={{ width: `${Math.abs(joint.angle) + 50}%` }} />
+                                  </div>
+                                  <div className="flex justify-between text-[9px] text-white/20 font-mono">
+                                     <span>Torque</span>
+                                     <span>{joint.torque.toFixed(2)} Nm</span>
+                                  </div>
+                               </div>
+                            ))}
+                         </div>
                         
                         <button 
                           onClick={() => runRoboticsSolver('INVERSE_KINEMATICS_SOLVE')}

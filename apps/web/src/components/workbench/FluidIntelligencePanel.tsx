@@ -150,19 +150,19 @@ const FluidIntelligencePanel = () => {
               
               <div className="grid grid-cols-2 gap-6">
                 <FluidMetric 
-                  label="Mach Number ($M$)" 
-                  value={physics.machNumber.toFixed(6)} 
-                  unit="Mach" 
-                  icon={Activity}
-                  color="blue"
-                  status="SUPERSONIC_SYNC"
+                  label="Fluid Density (rho)" 
+                  value={solver.density_kgm3.toFixed(3)} 
+                  unit="kg/m3" 
+                  icon={Box}
+                  color="emerald"
+                  status="STABLE_INCOMPRESSIBLE"
                 />
                 <FluidMetric 
-                  label="Reynolds ($Re$)" 
-                  value={physics.reynoldsNumber.toExponential(4)} 
-                  unit="Ratio" 
-                  icon={Zap}
-                  color="amber"
+                  label="Reynolds Number (Re)" 
+                  value={solver.reynolds.toLocaleString()} 
+                  unit="Index" 
+                  icon={TrendingUp}
+                  color="blue"
                   status="TURBULENT_SYNC"
                 />
               </div>
@@ -178,10 +178,10 @@ const FluidIntelligencePanel = () => {
                 </div>
                 
                 <div className="h-48 bg-[#080B10] border border-blue-400/10 rounded-2xl relative overflow-hidden flex items-end p-8 gap-4 relative z-10 shadow-inner group-hover:border-blue-400/60 transition-all">
-                   {solver.residuals.map((r, i) => (
+                   {(solver.residuals as any[]).map((r: any, i: number) => (
                      <div key={i} className="flex-1 bg-blue-500/40 rounded-t-sm transition-all hover:bg-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.4)] cursor-crosshair group/res" style={{ height: `${Math.log10(1/r) * 11}%` }}>
                         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-black/80 border border-blue-400/20 rounded text-[8px] text-blue-400 opacity-0 group-hover/res:opacity-100 transition-opacity font-mono">
-                           {r.toExponential(2)}
+                           {(r as number).toExponential(2)}
                         </div>
                      </div>
                    ))}

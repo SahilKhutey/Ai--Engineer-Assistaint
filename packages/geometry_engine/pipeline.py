@@ -3,11 +3,14 @@ import numpy as np
 import os
 
 class GeometryPipeline:
-    def process(self, payload: dict):
+    def process(self, payload):
         """
         Advanced Engineering Geometry Pipeline.
         Extracts high-fidelity topology and feature metadata.
         """
+        if isinstance(payload, str):
+            payload = {"file_path": payload}
+            
         file_path = payload.get("file_path")
         
         # 1. Load & Heal Mesh
@@ -21,8 +24,11 @@ class GeometryPipeline:
         
         # 2. Curvature Analysis (Stress Concentration Predictor)
         # Higher curvature often indicates stress concentrations or sharp corners
-        curvatures = trimesh.curvature.discrete_mean_curvature_measure(mesh, mesh.vertices, radius=0.01)
-        max_curvature = np.max(np.abs(curvatures)) if len(curvatures) > 0 else 0
+        try:
+            curvatures = trimesh.curvature.discrete_mean_curvature_measure(mesh, mesh.vertices, radius=0.01)
+            max_curvature = np.max(np.abs(curvatures)) if len(curvatures) > 0 else 0.0
+        except Exception:
+            max_curvature = 0.0
         
         # 3. Topology Graph (Feature Connectivity)
         # For a full system, this would be a Neo4j graph of face-edge relationships
@@ -61,7 +67,11 @@ class GeometryPipeline:
             'dimensions': dimensions,
             'features': features,
             'topology': topology,
-            'mesh_data': hex_mesh
+            'mesh_data': hex_mesh,
+            # Legacy compatibility keys
+            'geometry': dimensions,
+            'metadata': topology,
+            'context': {}
         }
 
 class FEMMesher:

@@ -151,7 +151,7 @@ const AcousticIntelligencePanel = () => {
                      
                      <div className="grid grid-cols-2 gap-6">
                         <AcousticMetric 
-                          label="Sound Pressure ($P$)" 
+                          label="Sound Pressure (P)" 
                           value={waves.amplitude_dB.toFixed(2)} 
                           unit="dB" 
                           icon={Volume2}
@@ -181,7 +181,7 @@ const AcousticIntelligencePanel = () => {
                         <div className="space-y-10 relative z-10">
                            <div className="space-y-4">
                               <div className="flex justify-between text-[11px] text-[#adc6ff]/60 uppercase font-black tracking-[0.2em]">
-                                 <span>Impedance ($Z$)</span>
+                                 <span>Impedance (Z)</span>
                                  <span className="text-blue-400 font-mono font-bold">{waves.impedance_Rayls.toLocaleString()} Rayls</span>
                               </div>
                               <div className="h-2.5 bg-[#adc6ff]/5 rounded-full overflow-hidden shadow-inner border border-white/5">

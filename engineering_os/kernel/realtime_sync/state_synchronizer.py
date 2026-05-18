@@ -1,6 +1,6 @@
 from typing import Dict, Any
 import logging
-from .system_bus import system_bus
+from engineering_os.kernel.orchestration.system_bus import system_bus
 
 class GlobalStateSynchronizer:
     """
@@ -13,23 +13,39 @@ class GlobalStateSynchronizer:
             "physics": {},
             "cognition": {},
             "digital_twin": {},
+            "geometry": {},
+            "spatial": {},
             "xr": {}
         }
         self.logger = logging.getLogger("ag_state_sync")
 
     async def update_state(self, layer: str, delta: Dict[str, Any]):
         """Updates a specific layer's state and broadcasts the change across the bus."""
-        if layer in self.master_state:
-            self.master_state[layer].update(delta)
+        # Normalize layer to master state structure
+        if layer not in self.master_state:
+            self.master_state[layer] = {}
             
-            # Publish update to the Master System Bus
-            await system_bus.publish(f"STATE_UPDATE:{layer}", delta)
-            
-            # Mirror to Visualization Layer via Kernel
-            await self.kernel.broadcast_telemetry("STATE_SYNC", {
-                "layer": layer,
-                "delta": delta
-            })
+        self.master_state[layer].update(delta)
+        
+        # 1. Local System Bus Update (Internal OS Layers)
+        await system_bus.publish(f"STATE_UPDATE:{layer}", delta)
+        
+        # 2. Bridge to Dashboard Telemetry (External UI Layer)
+        # Map kernel layers to frontend domain topics
+        topic_map = {
+            "physics": "TELEMETRY_UPDATE",
+            "fluid": "FLUID_UPDATE",
+            "structural": "STRUCTURAL_UPDATE",
+            "thermal": "THERMAL_UPDATE",
+            "spatial": "SPATIAL_UPDATE",
+            "geometry": "GEOMETRY_UPDATE",
+            "cognition": "REASONING_TRACE",
+            "distributed": "DISTRIBUTED_UPDATE",
+            "materialization": "MANUFACTURING_UPDATE"
+        }
+        
+        topic = topic_map.get(layer, f"{layer.upper()}_UPDATE")
+        await self.kernel.broadcast_telemetry(topic, delta)
 
     def get_state(self, layer: str = None) -> Dict[str, Any]:
         """Retrieves the current deterministic state."""

@@ -1,5 +1,10 @@
-from geometry_engine.pipeline import GeometryPipeline
+import sys
 import os
+
+# Ensure packages is in path
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", "packages"))
+
+from geometry_engine.pipeline import GeometryPipeline
 
 def test_geometry_pipeline():
     pipeline = GeometryPipeline()

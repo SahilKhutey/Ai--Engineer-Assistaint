@@ -5,32 +5,49 @@ import logging
 class TelemetryManager:
     """
     Antigravity OS Telemetry Manager.
-    Handles high-speed ingestion, buffering, and routing of physical sensor streams.
+    Handles high-speed ingestion, mission recording, and UI-aware aggregation.
+    Interfaces directly with the Kernel Memory Pools.
     """
     def __init__(self, kernel):
         self.kernel = kernel
-        self.sensor_buffer: Dict[str, List[float]] = {}
         self.logger = logging.getLogger("ag_telemetry")
+        self.recording = False
+        self.mission_log: List[Dict[str, Any]] = []
 
     async def ingest_stream(self, sensor_id: str, value: float):
-        """Ingests a single data point from a physical sensor."""
-        if sensor_id not in self.sensor_buffer:
-            self.sensor_buffer[sensor_id] = []
+        """Ingests high-fidelity data and synchronizes with kernel memory."""
+        # 1. Store in Kernel Simulation Memory (Circular Buffer)
+        await self.kernel.memory.sync_sensor_data(sensor_id, value)
         
-        self.sensor_buffer[sensor_id].append(value)
-        # Keep buffer size manageable
-        if len(self.sensor_buffer[sensor_id]) > 100:
-            self.sensor_buffer[sensor_id].pop(0)
+        # 2. Mission Recording
+        if self.recording:
+            self.mission_log.append({
+                "id": sensor_id,
+                "val": value,
+                "ts": time.time()
+            })
 
-        # Broadcast real-time pulse to the Visualization Layer
+        # 3. Broadcast real-time pulse (throttled for UI performance if needed)
         await self.kernel.broadcast_telemetry("SENSOR_PULSE", {
             "id": sensor_id,
             "val": value,
             "ts": time.time()
         })
 
-    def get_latest(self, sensor_id: str) -> float:
-        """Retrieves the most recent value for a sensor."""
-        return self.sensor_buffer.get(sensor_id, [0.0])[-1]
+    def start_mission_recording(self):
+        """Initiates persistent archival of all telemetry streams."""
+        self.recording = True
+        self.mission_log = []
+        self.logger.info("OS Telemetry: Mission Recording Started.")
+
+    def stop_mission_recording(self) -> List[Dict[str, Any]]:
+        """Stops recording and returns the full mission log."""
+        self.recording = False
+        self.logger.info(f"OS Telemetry: Mission Recording Stopped. Captured {len(self.mission_log)} samples.")
+        return self.mission_log
+
+    def get_aggregated_state(self) -> Dict[str, Any]:
+        """Returns a snapshot of all active sensors for UI dashboard sync."""
+        return {k: list(v)[-1] if v else 0.0 for k, v in self.kernel.memory.simulation_pool.items()}
 
 telemetry_manager = None

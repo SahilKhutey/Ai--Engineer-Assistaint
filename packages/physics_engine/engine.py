@@ -1,19 +1,19 @@
 import numpy as np
 import time
 
-/**
- * SovereignFEAEngine v3.2 (Phase 55 Hardened - Sovereign Physics Kernel)
- * 
- * High-Fidelity Finite Element Analysis (FEA) Engine.
- * Uses sovereign multiversal solvers for 3D Linear Elasticity and Von Mises stress.
- * Features sub-picowatt residual tracking and reality-linked tensor mapping.
- * 
- * v3.2 Updates:
- * - Sovereign Multiversal Voxel-to-FEM sync
- * - Sub-nanometer residual stress computation
- * - Phase 55 Mission-Control safety standards
- * - Integrated hertzian contact residuals
- */
+"""
+SovereignFEAEngine v3.2 (Phase 55 Hardened - Sovereign Physics Kernel)
+
+High-Fidelity Finite Element Analysis (FEA) Engine.
+Uses sovereign multiversal solvers for 3D Linear Elasticity and Von Mises stress.
+Features sub-picowatt residual tracking and reality-linked tensor mapping.
+
+v3.2 Updates:
+- Sovereign Multiversal Voxel-to-FEM sync
+- Sub-nanometer residual stress computation
+- Phase 55 Mission-Control safety standards
+- Integrated hertzian contact residuals
+"""
 class PhysicsEngine:
     def evaluate(self, geometry_context: dict, load_n: float = 0.0):
         start_time = time.time()

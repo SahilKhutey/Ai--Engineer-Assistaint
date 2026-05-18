@@ -11,14 +11,29 @@ from packages.math_engine.engine import MathEngine
 
 import json
 import os
-from ag_kernel import kernel, XROrchestrator, InteractionEngine
-from cognition import ReasoningEngine, AutonomousDesigner, CertificationEngine
-from physics_runtime import FluidRuntime, StructuralRuntime, ThermalRuntime, EMRuntime
-from digital_twin import TelemetryManager, SensorFusionEngine, AnomalyDetectionEngine
-from distributed import DistributedClusterRuntime
-from security import SecurityManager, SecureAIRuntime
+from engineering_os.kernel.orchestration.kernel_manager import kernel
+from engineering_os.kernel.orchestration.xr_orchestrator import XROrchestrator
+from engineering_os.kernel.orchestration.interaction_engine import InteractionEngine
+
+from engineering_os.ai_runtime.core.reasoning_engine import ReasoningEngine
+from engineering_os.ai_runtime.core.autonomous_designer import AutonomousDesigner
+from engineering_os.ai_runtime.core.certification_engine import CertificationEngine
+
+from engineering_os.physics.physics.fluid_runtime import FluidRuntime
+from engineering_os.physics.physics.structural_runtime import StructuralRuntime
+from engineering_os.physics.physics.thermal_runtime import ThermalRuntime
+from engineering_os.physics.physics.em_runtime import EMRuntime
+
+from engineering_os.realtime.digital_twin.telemetry_manager import TelemetryManager
+from engineering_os.realtime.digital_twin.sensor_fusion import SensorFusionEngine
+from engineering_os.realtime.digital_twin.anomaly_detection import AnomalyDetectionEngine
+
+from infrastructure.distributed.cluster_runtime import DistributedClusterRuntime
+from engineering_os.security.security.security_manager import SecurityManager
+from engineering_os.security.security.secure_ai_runtime import SecureAIRuntime
+
 from research.discovery_engine import ScientificDiscoveryEngine
-from civilization.planetary_orchestrator import PlanetaryOrchestrator
+from engineering_os.civilization_stack.orchestrator import PlanetaryOrchestrator
 
 class EngineeringOrchestrator:
     """
@@ -102,17 +117,13 @@ class EngineeringOrchestrator:
             "message": "Executing Antigravity OS coupled multi-physics loop..."
         })
         
-        # Execute specialized OS runtimes
+        # Dispatch specialized OS runtimes (Now kernel-orchestrated)
         fluid_results = await self.physics_fluid.solve_cfd({}, {})
         structural_results = await self.physics_structural.solve_fea({}, {})
         thermal_results = await self.physics_thermal.solve_thermal("Ti-6Al-4V", 298, 500)
         
-        # Integrate with legacy Celery jobs (if needed)
-        fem_job = solve_fem_task.delay(geom_results, limits["structural"])
-        physics_results = await self._wait_for_task(fem_job, "PHYSICS")
-        
-        # Merge results
-        combined_physics = {**physics_results, **fluid_results, **structural_results, **thermal_results}
+        # Merge results for downstream optimization
+        combined_physics = {**fluid_results, **structural_results, **thermal_results}
         
         # --- PHASE 4: Failure Analysis (Level 3) ---
         await self.kernel.broadcast_telemetry("STATUS_UPDATE", {

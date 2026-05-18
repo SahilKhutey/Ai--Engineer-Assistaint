@@ -1,0 +1,858 @@
+[
+  {
+    "id": "b1e133v32orbitaldynamicsv4",
+    "title": "Orbital Dynamics V4 - Sovereign OS",
+    "componentName": "OrbitalDynamicsV4_SovereignOS",
+    "deviceType": "DESKTOP"
+  },
+
+
+
+  {
+    "id": "ddb6407b0a4b49939aaaadbaa4e7fe2f",
+    "title": "System Initialization - Engineering OS",
+    "componentName": "SystemInitializationEngineeringOS_ddb640",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "dd99af7e9b7c46cb8dfb03caa13d1640",
+    "title": "Ray & Wave Optics - Engineering OS",
+    "componentName": "RayWaveOpticsEngineeringOS_dd99af",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "e7d436b7e78446adb3ed318ec591b170",
+    "title": "Quantum States - Engineering OS",
+    "componentName": "QuantumStatesEngineeringOS_e7d436",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "922991cfefba458e9bcfb92d9399cb7a",
+    "title": "Computational Solver Workspace - Engineering OS",
+    "componentName": "ComputationalSolverWorkspaceEngineeringOS_922991",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "f5c320a3fa6a492998998aa9649931c7",
+    "title": "Sovereign Compute Fabric - Engineering OS",
+    "componentName": "SovereignComputeFabricEngineeringOS_f5c320",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "d59d17db07fd46deb177c82efa6ed25e",
+    "title": "Circuit Engine - Engineering OS",
+    "componentName": "CircuitEngineEngineeringOS_d59d17",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "f2802bc4321549f2ae8e8bae3dca5f6f",
+    "title": "Fission Reactor Engine - Engineering OS",
+    "componentName": "FissionReactorEngineEngineeringOS_f2802b",
+    "deviceType": "MOBILE"
+  },
+
+  {
+    "id": "04f163af568b4d7e8f804f4f64ae41aa",
+    "title": "Flow Field Analytics - Engineering OS",
+    "componentName": "FlowFieldAnalyticsEngineeringOS_04f163",
+    "deviceType": "MOBILE"
+  },
+
+  {
+    "id": "fc40ede02939460d87da16e1128f269f",
+    "title": "Tensor & Mechanics Engine - Engineering OS",
+    "componentName": "TensorMechanicsEngineEngineeringOS_fc40ed",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "4fc4f75505dc4b7fba671d728a5114b5",
+    "title": "XR HUD: Orbital Overlay - Engineering OS",
+    "componentName": "XRHUDOrbitalOverlayEngineeringOS_4fc4f7",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "5fc0eb3de4364bfdbf1fe7cb05a3512b",
+    "title": "Structural Math Input - Engineering OS",
+    "componentName": "StructuralMathInputEngineeringOS_5fc0eb",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "69f80ea1559642629488136bad791a6b",
+    "title": "Computational Imaging & Metrology - Engineering OS",
+    "componentName": "ComputationalImagingMetrologyEngineeringOS_69f80e",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "598dfad0092a496bb8f2217b84c9ef1e",
+    "title": "Control Dynamics - Engineering OS",
+    "componentName": "ControlDynamicsEngineeringOS_598dfa",
+    "deviceType": "MOBILE"
+  },
+
+  {
+    "id": "7095c8ce7efa42759547900671b15df0",
+    "title": "Antigravity OS Spec",
+    "componentName": "AntigravityOSSpec_7095c8",
+    "deviceType": "DESKTOP"
+  },
+
+  {
+    "id": "098f513651a14d5889bbb48acd43dc62",
+    "title": "Molecular Forge Diagnostics - Engineering OS",
+    "componentName": "MolecularForgeDiagnosticsEngineeringOS_098f51",
+    "deviceType": "MOBILE"
+  },
+
+  {
+    "id": "2513dafc864243338a24d550006fb091",
+    "title": "Heat Transfer & Thermodynamics - Engineering OS",
+    "componentName": "HeatTransferThermodynamicsEngineeringOS_2513da",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "1a401dee585449e59704cfef18193538",
+    "title": "Global Search - Engineering OS",
+    "componentName": "GlobalSearchEngineeringOS_1a401d",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "d883f376faad400c8e0b0607e35d1a70",
+    "title": "Electrical & Control Math - Engineering OS",
+    "componentName": "ElectricalControlMathEngineeringOS_d883f3",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "d728b57d2ab44c53878217bca0882caa",
+    "title": "Adaptive Optics & Wavefront Correction - Engineering OS",
+    "componentName": "AdaptiveOpticsWavefrontCorrectionEngineeringOS_d728b5",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "28293a3c7cd54c53bd93deb470a9e1f8",
+    "title": "Aircraft Design Engine - Engineering OS",
+    "componentName": "AircraftDesignEngineEngineeringOS_28293a",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "11f1649e55154495a3c959c9479d3dc9",
+    "title": "Orbital Fabrication Queue - Engineering OS",
+    "componentName": "OrbitalFabricationQueueEngineeringOS_11f164",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "43be18da810e46259cc48742de3e85b4",
+    "title": "Imaging & Quantum Photonics - Engineering OS",
+    "componentName": "ImagingQuantumPhotonicsEngineeringOS_43be18",
+    "deviceType": "MOBILE"
+  },
+
+  {
+    "id": "dafdd66a1e304a719fa8a765cb8b4c63",
+    "title": "Thermal & Shielding - Engineering OS",
+    "componentName": "ThermalShieldingEngineeringOS_dafdd6",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "b03a4b44d8ce4fafbf6adbc5ce3aac7e",
+    "title": "Login Terminal - Engineering OS",
+    "componentName": "LoginTerminalEngineeringOS_b03a4b",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "6085f71184cd4c6dbe13e63544dcc0df",
+    "title": "Notification Settings - Engineering OS",
+    "componentName": "NotificationSettingsEngineeringOS_6085f7",
+    "deviceType": "MOBILE"
+  },
+
+  {
+    "id": "5a029ef5d4ae4df0be95a3cb033eb688",
+    "title": "Materials Science - Engineering OS",
+    "componentName": "MaterialsScienceEngineeringOS_5a029e",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "b357184db51a4b6ba8c1e482d792e7af",
+    "title": "Hypersonics & Compressible Flow - Engineering OS",
+    "componentName": "HypersonicsCompressibleFlowEngineeringOS_b35718",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "7a0cef3c96da4fbeabe989d825f0c69c",
+    "title": "Alert Detail: Thermal Hotspot - Engineering OS",
+    "componentName": "AlertDetailThermalHotspotEngineeringOS_7a0cef",
+    "deviceType": "MOBILE"
+  },
+
+  {
+    "id": "39f91773c2f244f2afc4066a2a71ff72",
+    "title": "Motion Planning - Engineering OS",
+    "componentName": "MotionPlanningEngineeringOS_39f917",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "f4af4350e19c476ab340081385adb539",
+    "title": "Hybrid Intelligence - Engineering OS",
+    "componentName": "HybridIntelligenceEngineeringOS_f4af43",
+    "deviceType": "MOBILE"
+  },
+
+  {
+    "id": "a3c58edfccfd4b21ae16a535250c9ff2",
+    "title": "Manufacturing Workspace - Engineering OS",
+    "componentName": "ManufacturingWorkspaceEngineeringOS_a3c58e",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "7d1330392929455094990a878d2fe722",
+    "title": "Deep Space Signal Hub - Engineering OS",
+    "componentName": "DeepSpaceSignalHubEngineeringOS_7d1330",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "bddb4fac6ea244a18e60e900cb32fd91",
+    "title": "XR Engineering Mode - Engineering OS",
+    "componentName": "XREngineeringModeEngineeringOS_bddb4f",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "0b4703500327409296878ae41ae451d9",
+    "title": "Satellite Health Telemetry - Engineering OS",
+    "componentName": "SatelliteHealthTelemetryEngineeringOS_0b4703",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "b1581b2bbf974a79a37cc5cd17977a28",
+    "title": "Quantum Command - Engineering OS",
+    "componentName": "QuantumCommandEngineeringOS_b1581b",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "eddefc5d2477424cb96055914702a787",
+    "title": "Optimization Workspace - Engineering OS",
+    "componentName": "OptimizationWorkspaceEngineeringOS_eddefc",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "ff1949e8a8644b66b54472f37878658f",
+    "title": "Relativity & Spacetime Curvature - Engineering OS",
+    "componentName": "RelativitySpacetimeCurvatureEngineeringOS_ff1949",
+    "deviceType": "MOBILE"
+  },
+
+  {
+    "id": "c95ba16391ec4813a9ec0c0f7174e7fd",
+    "title": "Physics & Mathematical Solver - Engineering OS",
+    "componentName": "PhysicsMathematicalSolverEngineeringOS_c95ba1",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "87ccdefcac434ed4bed511b4b9ec717b",
+    "title": "Knowledge Graph - Engineering OS",
+    "componentName": "KnowledgeGraphEngineeringOS_87ccde",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "cc2cb6e5412f4392a1df56c5fcc2204f",
+    "title": "Thermal Math Input - Engineering OS",
+    "componentName": "ThermalMathInputEngineeringOS_cc2cb6",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "faa8043d3693416a90194c74ec9601a1",
+    "title": "CAD Upload Workspace - Engineering OS",
+    "componentName": "CADUploadWorkspaceEngineeringOS_faa804",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "f0de0af4a882415fa646e28b125f42a7",
+    "title": "Solver Convergence - Engineering OS",
+    "componentName": "SolverConvergenceEngineeringOS_f0de0a",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "52a7cf3e50134b09a6ca72fa51371436",
+    "title": "Dynamic Stability & Force Analysis - Engineering OS",
+    "componentName": "DynamicStabilityForceAnalysisEngineeringOS_52a7cf",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "1cde6e459d7d4144bd5137e651b94b94",
+    "title": "Global Knowledge Base - Engineering OS",
+    "componentName": "GlobalKnowledgeBaseEngineeringOS_1cde6e",
+    "deviceType": "DESKTOP"
+  },
+  {
+    "id": "799b3f2f679f454a94a6103795ff2b66",
+    "title": "Cryogenic & Low-Temp Systems - Engineering OS",
+    "componentName": "CryogenicLowTempSystemsEngineeringOS_799b3f",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "4ebd17a100b74d0f998169a19bb22da8",
+    "title": "System Settings & Cluster Management - Engineering OS",
+    "componentName": "SystemSettingsClusterManagementEngineeringOS_4ebd17",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "b5da04b7cf7d4ba88146140398b5bebd",
+    "title": "Terminal Command Center - Engineering OS",
+    "componentName": "TerminalCommandCenterEngineeringOS_b5da04",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "b32d357c221a4aae894e7943efe57dd0",
+    "title": "RF & Microwave - Engineering OS",
+    "componentName": "RFMicrowaveEngineeringOS_b32d35",
+    "deviceType": "MOBILE"
+  },
+
+
+  {
+    "id": "2ae6d272cb2b4598852641d189a05b5f",
+    "title": "Knowledge Detail - Engineering OS",
+    "componentName": "KnowledgeDetailEngineeringOS_2ae6d2",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "f095429b8b5640af950241e9987f9e74",
+    "title": "Flight Dynamics & Avionics - Engineering OS",
+    "componentName": "FlightDynamicsAvionicsEngineeringOS_f09542",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "dc7d6ecdd1e44c8183786906b2fc80fa",
+    "title": "Satellite Constellation Manager - Engineering OS",
+    "componentName": "SatelliteConstellationManagerEngineeringOS_dc7d6e",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "355f82eac6a348a2a09c52b892b55e37",
+    "title": "Simulation Configurator - Engineering OS",
+    "componentName": "SimulationConfiguratorEngineeringOS_355f82",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "a7fc85acea3d4dc7bf953e21086a602b",
+    "title": "Actuator Health & Telemetry - Engineering OS",
+    "componentName": "ActuatorHealthTelemetryEngineeringOS_a7fc85",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "f61313b037904b3d84019f6af293bd27",
+    "title": "Orbital Assembly Control - Engineering OS",
+    "componentName": "OrbitalAssemblyControlEngineeringOS_f61313",
+    "deviceType": "MOBILE"
+  },
+
+  {
+    "id": "fb85ba5d1e6f4c5d87920fdf5d779950",
+    "title": "Spatial Telemetry Deck - Engineering OS",
+    "componentName": "SpatialTelemetryDeckEngineeringOS_fb85ba",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "e447e7de6f564d7eb1e871b91c1d930c",
+    "title": "Quantum Materials - Engineering OS",
+    "componentName": "QuantumMaterialsEngineeringOS_e447e7",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "2938dc9604ce4a28a7ef77b8e1277a69",
+    "title": "Geometric & Wave Optics Solver - Engineering OS",
+    "componentName": "GeometricWaveOpticsSolverEngineeringOS_2938dc",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "ce0be41fb4ea4134b123ffa4042b83d7",
+    "title": "Photonic Command Center - Engineering OS",
+    "componentName": "PhotonicCommandCenterEngineeringOS_ce0be4",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "644c8392326949b99098c01df77069cf",
+    "title": "Asset Not Found - Engineering OS",
+    "componentName": "AssetNotFoundEngineeringOS_644c83",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "c036fffedd52455e8157f246984d402b",
+    "title": "Digital Twin Command Center - Engineering OS",
+    "componentName": "DigitalTwinCommandCenterEngineeringOS_c036ff",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "807158ac80ad4ce49bf6c2019ecf14f9",
+    "title": "Mission Fleet Overview - Engineering OS",
+    "componentName": "MissionFleetOverviewEngineeringOS_807158",
+    "deviceType": "MOBILE"
+  },
+
+
+  {
+    "id": "f09b32f20d894620af0c1df27c104468",
+    "title": "Vehicle Dynamics - Engineering OS",
+    "componentName": "VehicleDynamicsEngineeringOS_f09b32",
+    "deviceType": "MOBILE"
+  },
+
+  {
+    "id": "8f0fa8b01d40486fa2f73f262e83058e",
+    "title": "Kernel Debugger - Engineering OS",
+    "componentName": "KernelDebuggerEngineeringOS_8f0fa8",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "065d6b52948e464a9bf8be7c89590f12",
+    "title": "Master Math Workspace - Engineering OS",
+    "componentName": "MasterMathWorkspaceEngineeringOS_065d6b",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "240a07c3fa914ab09015c86686075812",
+    "title": "Fusion Plasma Engine - Engineering OS",
+    "componentName": "FusionPlasmaEngineEngineeringOS_240a07",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "aabe9dd6d95d4bb99748fbdab76ffc0e",
+    "title": "Holographic Mission Control - Engineering OS",
+    "componentName": "HolographicMissionControlEngineeringOS_aabe9d",
+    "deviceType": "MOBILE"
+  },
+
+  {
+    "id": "b7ea065fc86e46d7bb893e96465d434f",
+    "title": "AI-Guided Manipulation Terminal - Engineering OS",
+    "componentName": "AIGuidedManipulationTerminalEngineeringOS_b7ea06",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "4331e9f8fce448b6bf03d88f491a8546",
+    "title": "Vector Algebra & Dynamics - Engineering OS",
+    "componentName": "VectorAlgebraDynamicsEngineeringOS_4331e9",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "734220fbca0c4730a4d49e0f4f710125",
+    "title": "Simulation Sync & Conflict Resolver - Engineering OS",
+    "componentName": "SimulationSyncConflictResolverEngineeringOS_734220",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "aafd8b4647cd4575917329ef88cc626c",
+    "title": "Fatigue & Fracture - Engineering OS",
+    "componentName": "FatigueFractureEngineeringOS_aafd8b",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "7c68555e70f04de6b6e0cd6d2b6c7a00",
+    "title": "Notification Center - Engineering OS",
+    "componentName": "NotificationCenterEngineeringOS_7c6855",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "72e867ab548c481781ebed71f82d8187",
+    "title": "Telemetry & Analytics - Engineering OS",
+    "componentName": "TelemetryAnalyticsEngineeringOS_72e867",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "f4850ddd0e9e4cc79db446ce2478b21f",
+    "title": "Geometry Reconstruction Visualization - Engineering OS",
+    "componentName": "GeometryReconstructionVisualizationEngineeringOS_f4850d",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "d56e12e1d6b54f2cb31b1c25ad1e88ed",
+    "title": "Synchronized Viewport - Engineering OS",
+    "componentName": "SynchronizedViewportEngineeringOS_d56e12",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "e74dfdf309fe4b9696e1bfa58543411f",
+    "title": "Turbulence & Mesh - Engineering OS",
+    "componentName": "TurbulenceMeshEngineeringOS_e74dfd",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "2b63ad4d440046cf97cb5b1721742faa",
+    "title": "Truss Modal Analysis - Engineering OS",
+    "componentName": "TrussModalAnalysisEngineeringOS_2b63ad",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "cb8e808a8b4e47d593672c8fd28abe07",
+    "title": "Combustion & Propulsion - Engineering OS",
+    "componentName": "CombustionPropulsionEngineeringOS_cb8e80",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "1dcdf6615cec40128501b809acad5de9",
+    "title": "Quantum Circuit - Engineering OS",
+    "componentName": "QuantumCircuitEngineeringOS_1dcdf6",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "4debcf82f26940d688b2c7495cc9bbf0",
+    "title": "Collaboration Settings - Engineering OS",
+    "componentName": "CollaborationSettingsEngineeringOS_4debcf",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "563c2f5fab284c2ba40dbadbe4a211b5",
+    "title": "Laser & LiDAR Systems - Engineering OS",
+    "componentName": "LaserLiDARSystemsEngineeringOS_563c2f",
+    "deviceType": "MOBILE"
+  },
+
+
+  {
+    "id": "7d2c668cb047405c9157473b1ec9017e",
+    "title": "Orbital Mechanics - Engineering OS",
+    "componentName": "OrbitalMechanicsEngineeringOS_7d2c66",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "300186a84e5f470896896187d9b7b919",
+    "title": "Cluster Orchestrator - Engineering OS",
+    "componentName": "ClusterOrchestratorEngineeringOS_300186",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "c8c15075f92d4b4e9e40b5f223e0f45d",
+    "title": "Orbital Mechanics Workspace - Engineering OS",
+    "componentName": "OrbitalMechanicsWorkspaceEngineeringOS_c8c150",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "991ee4e3cf08475daf7fd88d60c71838",
+    "title": "Material Twin - Engineering OS",
+    "componentName": "MaterialTwinEngineeringOS_991ee4",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "3f113e29b4734b3586326c019e062374",
+    "title": "Coordinate & Field Engine - Engineering OS",
+    "componentName": "CoordinateFieldEngineEngineeringOS_3f113e",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "69e98af84f0b442da96c055df0e3c0fe",
+    "title": "Engineering Repository - Knowledge Base",
+    "componentName": "EngineeringRepositoryKnowledgeBase_69e98a",
+    "deviceType": "DESKTOP"
+  },
+  {
+    "id": "8b2df6ac4afc45b283815add86763a31",
+    "title": "Search Analytics - Engineering OS",
+    "componentName": "SearchAnalyticsEngineeringOS_8b2df6",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "0c8e49eeb7904aa08b8dee5786e9d702",
+    "title": "Inverse Kinematics - Engineering OS",
+    "componentName": "InverseKinematicsEngineeringOS_0c8e49",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "fd295efcff27491797b2a65e1cffa15b",
+    "title": "Flow Optimization & Digital Twin - Engineering OS",
+    "componentName": "FlowOptimizationDigitalTwinEngineeringOS_fd295e",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "b6435fb0a653457a9160527be6396f61",
+    "title": "Certification Compliance - Engineering OS",
+    "componentName": "CertificationComplianceEngineeringOS_b6435f",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "6055e89a8a5d482197876e210b566ebe",
+    "title": "CAD/PLM Part Browser - Engineering OS",
+    "componentName": "CADPLMPartBrowserEngineeringOS_6055e8",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "759ea72c57764da5b69361df38c5fe6e",
+    "title": "Optics Command Center - Engineering OS",
+    "componentName": "OpticsCommandCenterEngineeringOS_759ea7",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "257ffe6a5a264c19b378947349b8a9df",
+    "title": "Optimization Math Input - Engineering OS",
+    "componentName": "OptimizationMathInputEngineeringOS_257ffe",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "4584f592b90b4086a7ef32c60f94a647",
+    "title": "Propulsion Engine - Engineering OS",
+    "componentName": "PropulsionEngineEngineeringOS_4584f5",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "e80b517660954ed7b1de3ab9daf7f510",
+    "title": "Simulation Workspace - Engineering OS",
+    "componentName": "SimulationWorkspaceEngineeringOS_e80b51",
+    "deviceType": "MOBILE"
+  },
+
+  {
+    "id": "2d1d60f0798a4ea292360a019bc946b3",
+    "title": "Docking Interface & FEA - Engineering OS",
+    "componentName": "DockingInterfaceFEAEngineeringOS_2d1d60",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "0028ffa1b43a43bd911a8c03fc358579",
+    "title": "Composite Engineering - Engineering OS",
+    "componentName": "CompositeEngineeringEngineeringOS_0028ff",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "796e2e64d37d4af7b64b3f4bc279048a",
+    "title": "EM Command Center - Engineering OS",
+    "componentName": "EMCommandCenterEngineeringOS_796e2e",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "cbb5621d775b4659be0118c8f980e879",
+    "title": "Planetary Asset Logistics - Engineering OS",
+    "componentName": "PlanetaryAssetLogisticsEngineeringOS_cbb562",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "c7c90bd155484957bdeeb6d59d923993",
+    "title": "Critical System Error - Engineering OS",
+    "componentName": "CriticalSystemErrorEngineeringOS_c7c90b",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "6c3fdb720e0d4aa99d45418b7ebb5402",
+    "title": "AI Engineering Cognition - Engineering OS",
+    "componentName": "AIEngineeringCognitionEngineeringOS_6c3fdb",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "cfa4a19961144172a8751145ed22c827",
+    "title": "Manufacturing Logistics Queue - Engineering OS",
+    "componentName": "ManufacturingLogisticsQueueEngineeringOS_cfa4a1",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "8bc14c40c2a544f48f746cdcffb05b63",
+    "title": "Kinematic Solver & Path Planner - Engineering OS",
+    "componentName": "KinematicSolverPathPlannerEngineeringOS_8bc14c",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "e4c49fd8c9d5438b983d7b1fa04d5c32",
+    "title": "AI Reasoning Trace - Engineering OS",
+    "componentName": "AIReasoningTraceEngineeringOS_e4c49f",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "8219223624aa4a448bb09383cca95e81",
+    "title": "XR Remote Ops: Command Shell - Engineering OS",
+    "componentName": "XRRemoteOpsCommandShellEngineeringOS_821922",
+    "deviceType": "MOBILE"
+  },
+
+  {
+    "id": "520c82c073264d0b9198f92e033a598e",
+    "title": "Material Library - Engineering OS",
+    "componentName": "MaterialLibraryEngineeringOS_520c82",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "a8265cd65a9941cdb1e50e87329d6ec0",
+    "title": "Global Mission Log - Engineering OS",
+    "componentName": "GlobalMissionLogEngineeringOS_a8265c",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "35e0437777834459b11dd90fbec5c5b3",
+    "title": "Nuclear Command Center - Engineering OS",
+    "componentName": "NuclearCommandCenterEngineeringOS_35e043",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "90308bed8f964960aed2267ddd5bc709",
+    "title": "Aerospace Command Center - Engineering OS",
+    "componentName": "AerospaceCommandCenterEngineeringOS_90308b",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "ed746e64c52a41e8b23e34410ca65aed",
+    "title": "Reentry & Atmospheric Gravity - Engineering OS",
+    "componentName": "ReentryAtmosphericGravityEngineeringOS_ed746e",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "3edafba8eba64017af098c2db1408d8d",
+    "title": "Manufacturing Resource Logistics - Engineering OS",
+    "componentName": "ManufacturingResourceLogisticsEngineeringOS_3edafb",
+    "deviceType": "MOBILE"
+  },
+
+  {
+    "id": "0f3781829add4841800a9d3be26a26e2",
+    "title": "Global Home Dashboard - Engineering OS",
+    "componentName": "GlobalHomeDashboardEngineeringOS_0f3781",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "0d5bdfce736e42dc88f1f0c4f6b84632",
+    "title": "Engineering Agent Orchestrator - Engineering OS",
+    "componentName": "EngineeringAgentOrchestratorEngineeringOS_0d5bdf",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "5b08ff87826641b7aed6b2b49fb62e32",
+    "title": "CFD Math Input - Engineering OS",
+    "componentName": "CFDMathInputEngineeringOS_5b08ff",
+    "deviceType": "MOBILE"
+  },
+
+  {
+    "id": "e1e49adf7bdf4bd4809dc8462648feae",
+    "title": "Space Systems Math Input - Engineering OS",
+    "componentName": "SpaceSystemsMathInputEngineeringOS_e1e49a",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "9cb0890331ad437bad9b63c5bac9a6f2",
+    "title": "Spectroscopy & Spectrum Engine - Engineering OS",
+    "componentName": "SpectroscopySpectrumEngineEngineeringOS_9cb089",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "65887a458a8a4e5097bae501e4e64d6c",
+    "title": "Fabric Handshake - Engineering OS",
+    "componentName": "FabricHandshakeEngineeringOS_65887a",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "b02f73372b3d4e35a6ecdf7132f1770f",
+    "title": "Physics Derivation & Proofs - Engineering OS",
+    "componentName": "PhysicsDerivationProofsEngineeringOS_b02f73",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "62021cdcf360422b80f7b83720d79b1c",
+    "title": "Orbital Mechanics & N-Body Solver - Engineering OS",
+    "componentName": "OrbitalMechanicsNBodySolverEngineeringOS_62021c",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "ed1939911d494013b0fcdba5872a26d7",
+    "title": "Power Systems - Engineering OS",
+    "componentName": "PowerSystemsEngineeringOS_ed1939",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "e18b242ac26c4575b08370337468729c",
+    "title": "Structural Health Monitoring - Engineering OS",
+    "componentName": "StructuralHealthMonitoringEngineeringOS_e18b24",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "69f1fc5018974c8da385a806a9c26562",
+    "title": "Multi-Agent Trade-off Explorer - Engineering OS",
+    "componentName": "MultiAgentTradeoffExplorerEngineeringOS_69f1fc",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "cd7d912acb3d47f68c464838737af226",
+    "title": "Vector Command Center - Engineering OS",
+    "componentName": "VectorCommandCenterEngineeringOS_cd7d91",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "37dc9f01b5c64cf6ab71e0377f89bd1e",
+    "title": "Thermal Command Center - Engineering OS",
+    "componentName": "ThermalCommandCenterEngineeringOS_37dc9f",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "d2a34e35496a4bed95d6c650fb12f1c1",
+    "title": "Kinematics Dashboard - Engineering OS",
+    "componentName": "KinematicsDashboardEngineeringOS_d2a34e",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "0183c35fe61c4089acc6c008fa95bb50",
+    "title": "Signal Analytics - Engineering OS",
+    "componentName": "SignalAnalyticsEngineeringOS_0183c3",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "95c3b7e2607549a285e0c34b5d7f1351",
+    "title": "Link Budget & Comms Analysis - Engineering OS",
+    "componentName": "LinkBudgetCommsAnalysisEngineeringOS_95c3b7",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "d13d48c54da749b086e4cbb44ec1f449",
+    "title": "Gravity Command Center - Engineering OS",
+    "componentName": "GravityCommandCenterEngineeringOS_d13d48",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "5211d77f9f154a64b7fab0e96c5c4abf",
+    "title": "Fluid Dynamics Dashboard - Engineering OS",
+    "componentName": "FluidDynamicsDashboardEngineeringOS_5211d7",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "2781d6f35af9458da941d5f12068a41f",
+    "title": "CFD Simulation Dashboard - Engineering OS",
+    "componentName": "CFDSimulationDashboardEngineeringOS_2781d6",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "82c192e99e934abb925e5bada91bdb1e",
+    "title": "Swarm Orchestration Dashboard - Engineering OS",
+    "componentName": "SwarmOrchestrationDashboardEngineeringOS_82c192",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "96d4d61f739c4b4d8aeae0de54c1fc20",
+    "title": "Optimization & Pareto Workspace",
+    "componentName": "OptimizationParetoWorkspace_96d4d6",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "a205f50182114ea2b7c4fec22327fe8e",
+    "title": "Cognition Sync - Engineering OS",
+    "componentName": "CognitionSyncEngineeringOS_a205f5",
+    "deviceType": "MOBILE"
+  },
+
+
+  {
+    "id": "7d6dfe9233ea422da6e3f8cc209b876e",
+    "title": "System Process Monitor - Engineering OS",
+    "componentName": "SystemProcessMonitorEngineeringOS_7d6dfe",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "6205c6be36a2414f99930109adec39cd",
+    "title": "Combustion & High-Temp Systems - Engineering OS",
+    "componentName": "CombustionHighTempSystemsEngineeringOS_6205c6",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "8b3c348046b545bc83600e454c7c3ca7",
+    "title": "Zero-G Alloy Synthesis - Engineering OS",
+    "componentName": "ZeroGAlloySynthesisEngineeringOS_8b3c34",
+    "deviceType": "MOBILE"
+  },
+  {
+    "id": "a2bfaceb4f65474fba743f0ea9c940e3",
+    "title": "Plasma & Advanced Flows - Engineering OS",
+    "componentName": "PlasmaAdvancedFlowsEngineeringOS_a2bfac",
+    "deviceType": "MOBILE"
+  }
+]

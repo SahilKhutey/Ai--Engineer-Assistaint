@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Terminal, Zap, Info, Calculator, MessageSquare, History, Sparkles, ChevronRight, Cpu } from 'lucide-react';
+import { Terminal, Zap, Info, Calculator, MessageSquare, History, Sparkles, ChevronRight, Cpu, RefreshCw } from 'lucide-react';
 import { useEngineeringStore } from '@/store/useEngineeringStore';
 
 /**

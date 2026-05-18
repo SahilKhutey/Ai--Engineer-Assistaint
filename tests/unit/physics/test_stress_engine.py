@@ -1,3 +1,9 @@
+import sys
+import os
+
+# Ensure packages is in path
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", "..", "packages"))
+
 from physics_engine.main import run_analysis_heuristics
 
 def test_normal_stress():

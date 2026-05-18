@@ -183,10 +183,10 @@ const AerospaceIntelligencePanel = () => {
                      <div key={axis} className="space-y-4">
                         <div className="flex justify-between text-[11px] text-[#adc6ff]/40 uppercase font-black tracking-[0.2em]">
                            <span>{axis} Vector</span>
-                           <span className="text-blue-400 font-mono font-bold">{val.toFixed(4)}°</span>
+                           <span className="text-blue-400 font-mono font-bold">{(val as any).toFixed(4)}°</span>
                         </div>
                         <div className="h-2 bg-[#adc6ff]/5 rounded-full overflow-hidden shadow-inner border border-white/5">
-                           <div className="h-full bg-gradient-to-r from-blue-400 to-blue-600 shadow-[0_0_15px_rgba(96,165,250,0.6)] transition-all duration-1000" style={{ width: `${Math.abs(val) / 1.8}%` }} />
+                           <div className="h-full bg-gradient-to-r from-blue-400 to-blue-600 shadow-[0_0_15px_rgba(96,165,250,0.6)] transition-all duration-1000" style={{ width: `${Math.abs(val as any) / 1.8}%` }} />
                         </div>
                      </div>
                    ))}

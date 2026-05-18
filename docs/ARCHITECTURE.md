@@ -31,5 +31,15 @@ Phase 55 standards require that every numerical claim be traceable to a residual
 - Ultra-low noise signal conditioning in the Digital Twin.
 - Deterministic sampling in the LLM reasoning interface.
 
+## 5. Strict-Mode Compilation & Hardening (v3.2 Phase 58)
+To satisfy rigorous, production-grade automated deployment pipelines, the system enforces strict TypeScript and Next.js compiler rules:
+- **Type-Safety Aliasing**: To avoid legacy store mutations, the unified telemetry `notifications` array is safely aliased to `Bell` during destructured imports without breaking backward compatibility:
+  ```typescript
+  const { notifications: Bell } = useEngineeringStore();
+  ```
+- **Unified Array Casting**: Concat operations between store streams and custom static mock generators are type-locked to `any[]` to prevent string/number type mismatches in timestamps.
+- **Icon Namespace Standardizations**: Replaces legacy, undeclared elements (e.g., `SearchIcon`, `SatelliteIcon`) with official, production-grade Lucide components (`Search`, `Satellite`).
+- **Union Validation**: Enforces standard notification types (`'INFO' | 'SUCCESS' | 'WARNING' | 'ERROR' | 'CRITICAL'`) and sanitizes out-of-spec assignments.
+
 ---
 © 2026 Antigravity Intelligence Systems | Architecture v3.2
