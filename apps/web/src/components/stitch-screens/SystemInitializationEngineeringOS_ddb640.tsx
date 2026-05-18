@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
 import {
@@ -26,16 +26,23 @@ import { useEngineeringStore } from '@/store/useEngineeringStore';
  * 
  * High-fidelity system bootloader and initialization environment.
  * Features holographic rotating HUDs, real-time kernel log streaming, and hardware telemetry.
- * Integrated with osStatus for real-time HardDrive and CPU clustering.
+ * Integrated with osStatus, distributedCompute, orchestrationState, and quantumState for live telemetry.
  */
 const SystemInitializationEngineeringOS_ddb640 = () => {
-  const { osStatus, pushEvent } = useEngineeringStore();
+  const { osStatus, distributedCompute, orchestrationState, quantumState, pushEvent } = useEngineeringStore();
   const [bootProgress, setBootProgress] = useState(0);
   const [logs, setLogs] = useState<string[]>([]);
   const logEndRef = useRef<HTMLDivElement>(null);
 
-  const gpuLoad = ((osStatus?.kernelLoad || 0.94) * 100).toFixed(0);
-  const uptime = osStatus?.uptime || '142:08:12:04';
+  const gpuLoad = ((osStatus?.kernelLoad || 0.05) * 100).toFixed(0);
+  const uptime = osStatus?.uptime ? `${Math.floor(osStatus.uptime / 3600)}h ${Math.floor((osStatus.uptime % 3600) / 60)}m ${osStatus.uptime % 60}s` : '142:08:12:04';
+
+  // Cohesive calculations from store telemetry
+  const ramUsagePercent = Math.max(10, Math.min(100, Math.floor((osStatus?.kernelLoad || 0.15) * 60) + 12));
+  const cpuThreadLoad = Math.max(5, Math.min(100, Math.floor((osStatus?.kernelLoad || 0.15) * 100)));
+  const activeNodesCount = distributedCompute?.nodeDistribution?.length || 4;
+  const latency = orchestrationState?.latency_ms || 14.2;
+  const quantumFidelity = quantumState?.fidelity || 0.9999;
 
   const bootSequence = [
     "[ 0.000000] Linux version 6.5.0-quantum-Terminal (gcc version 12.3.0)",
@@ -62,7 +69,7 @@ const SystemInitializationEngineeringOS_ddb640 = () => {
       } else {
         clearInterval(interval);
       }
-    }, 800);
+    }, 500);
 
     return () => clearInterval(interval);
   }, []);
@@ -87,7 +94,7 @@ const SystemInitializationEngineeringOS_ddb640 = () => {
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-[#4cd7f6] animate-pulse shadow-[0_0_8px_#4cd7f6]" />
-            <span className="text-[10px] font-mono font-bold text-[#adc6ff] tracking-widest uppercase">CORE_TEMP: 34.2°C</span>
+            <span className="text-[10px] font-mono font-bold text-[#adc6ff] tracking-widest uppercase">FIDELITY: {(quantumFidelity * 100).toFixed(4)}%</span>
           </div>
           <div className="flex items-center gap-2">
             <Settings2 className="w-3.5 h-3.5 text-[#8c909f]" />
@@ -170,8 +177,8 @@ const SystemInitializationEngineeringOS_ddb640 = () => {
           
           <FooterMetric 
             label="MEMORY_UTIL" 
-            value="12.4GB / 64GB" 
-            percent={19} 
+            value={`${((ramUsagePercent/100) * 64).toFixed(1)}GB / 64GB`} 
+            percent={ramUsagePercent} 
             color="bg-[#adc6ff]" 
             subValue="ECC_ENABLED // SWAP: 0.0%" 
           />
@@ -179,12 +186,15 @@ const SystemInitializationEngineeringOS_ddb640 = () => {
           <div className="flex flex-col gap-2">
             <header className="flex justify-between items-center text-[10px] font-bold text-[#8c909f] uppercase tracking-widest">
               <span>CPU_THREAD_LOAD</span>
-              <span className="text-[#4cd7f6]">42%</span>
+              <span className="text-[#4cd7f6]">{cpuThreadLoad}%</span>
             </header>
             <div className="flex gap-1 h-2">
-              {[1, 1, 1, 1, 0, 0, 0, 0].map((v, i) => (
-                <div key={i} className={`flex-1 rounded-sm ${v ? 'bg-[#4cd7f6]' : 'bg-[#202b3c]'} ${v ? 'opacity-' + (100 - i * 10) : ''}`} />
-              ))}
+              {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
+                const active = (cpuThreadLoad / 12.5) > i;
+                return (
+                  <div key={i} className={`flex-1 rounded-sm ${active ? 'bg-[#4cd7f6]' : 'bg-[#202b3c]'} transition-colors duration-300`} />
+                );
+              })}
             </div>
             <span className="text-[9px] font-mono text-[#8c909f] uppercase">AVG_FREQ: 4.85GHz</span>
           </div>
@@ -192,12 +202,15 @@ const SystemInitializationEngineeringOS_ddb640 = () => {
           <div className="flex flex-col gap-2">
             <span className="text-[10px] font-bold text-[#8c909f] uppercase tracking-widest mb-1">ACTIVE_NODES</span>
             <div className="flex gap-2">
-              {[1, 1, 1, 0, 0, 0].map((v, i) => (
-                <div key={i} className={`w-3 h-3 rounded-full ${v ? 'bg-[#4cd7f6] shadow-[0_0_8px_#4cd7f6]' : 'bg-[#202b3c]'}`} />
-              ))}
+              {[0, 1, 2, 3, 4, 5].map((i) => {
+                const active = activeNodesCount > i;
+                return (
+                  <div key={i} className={`w-3 h-3 rounded-full ${active ? 'bg-[#4cd7f6] shadow-[0_0_8px_#4cd7f6]' : 'bg-[#202b3c]'} transition-colors duration-300`} />
+                );
+              })}
             </div>
             <div className="flex justify-between items-center text-[9px] font-mono text-[#8c909f] uppercase">
-              <span>LATENCY: 4ms</span>
+              <span>LATENCY: {latency.toFixed(1)}ms</span>
               <span className="text-[#adc6ff]">SYNC_OK</span>
             </div>
           </div>
@@ -208,14 +221,14 @@ const SystemInitializationEngineeringOS_ddb640 = () => {
               <svg className="w-full h-full" viewBox="0 0 100 20">
                 <polyline 
                   fill="none" 
-                  points="0,15 10,12 20,18 30,5 40,8 50,2 60,10 70,5 80,12 90,8 100,10" 
+                  points={`0,${15 - 5 * Math.sin(uptime ? parseInt(uptime.split(' ').pop() || '0') * 0.1 : 0)} 10,12 20,18 30,5 40,8 50,2 60,10 70,5 80,12 90,8 100,10`} 
                   stroke="#adc6ff" 
                   strokeWidth="1.5" 
                   className="animate-[dash_10s_linear_infinite]"
                 />
               </svg>
             </div>
-            <span className="text-[9px] font-mono text-[#8c909f] uppercase">VAR: 0.0024</span>
+            <span className="text-[9px] font-mono text-[#8c909f] uppercase">FIDELITY: {quantumFidelity.toFixed(6)}</span>
           </div>
 
         </div>
@@ -252,7 +265,7 @@ const FooterMetric = ({ label, value, percent, color, subValue }: any) => (
       <span className="text-[#e1e2ec] font-mono">{value}</span>
     </header>
     <div className="h-2 w-full bg-[#202b3c] rounded-full overflow-hidden border border-[#202b3c]">
-      <div className={`h-full ${color} transition-all duration-1000 shadow-[0_0_8px_currentcolor]`} style={{ width: `${percent}%` }} />
+      <div className={`h-full ${color} transition-all duration-500 shadow-[0_0_8px_currentcolor]`} style={{ width: `${percent}%` }} />
     </div>
     <span className="text-[9px] font-mono text-[#8c909f] uppercase">{subValue}</span>
   </div>

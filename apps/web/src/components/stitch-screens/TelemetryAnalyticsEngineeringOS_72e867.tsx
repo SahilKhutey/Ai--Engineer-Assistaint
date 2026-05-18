@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import {
@@ -33,21 +33,36 @@ import { useEngineeringStore } from '@/store/useEngineeringStore';
  */
 const TelemetryAnalyticsEngineeringOS_72e867 = () => {
   const { physicsState, thermalState, osStatus, pushEvent } = useEngineeringStore();
-  const [sparklineData, setSparklineData] = useState<number[]>(Array(24).fill(0).map(() => Math.random() * 100));
+  
+  // Rolling time-series buffers for dynamic telemetry rendering
+  const [vibrationHistory, setVibrationHistory] = useState<number[]>(Array(24).fill(40));
+  const [thermalHistory, setThermalHistory] = useState<number[]>(Array(24).fill(60));
+  const [pressureHistory, setPressureHistory] = useState<number[]>(Array(24).fill(50));
 
-  // Dynamic values mapped from store
-  const gpuLoad = ((osStatus?.kernelLoad || 0.94) * 100).toFixed(0);
-  const uptime = osStatus?.uptime || '142:08:12:04';
+  // Dynamic values mapped from store with premium defaults
+  const gpuLoad = ((osStatus?.kernelLoad || 0.05) * 100).toFixed(0);
+  const uptime = osStatus?.uptime ? `${Math.floor(osStatus.uptime / 3600)}h ${Math.floor((osStatus.uptime % 3600) / 60)}m ${osStatus.uptime % 60}s` : '142:08:12:04';
+  
   const vibration = physicsState?.vitals?.vibration || 314.52;
-  const thermalFlux = thermalState?.flux || 6428.1;
+  const thermalFlux = thermalState?.physics?.heatFlux || 45.2;
   const pressure = physicsState?.vitals?.pressure || 101.3;
 
+  // Append new telemetry inputs to history buffers on change
   useEffect(() => {
-    const interval = setInterval(() => {
-      setSparklineData(prev => [...prev.slice(1), Math.random() * 100]);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+    // Standardize to percentage heights for Sparkline rendering
+    const normalizedVibration = Math.max(10, Math.min(100, ((vibration - 250) / 150) * 100));
+    setVibrationHistory(prev => [...prev.slice(1), normalizedVibration]);
+  }, [vibration]);
+
+  useEffect(() => {
+    const normalizedThermal = Math.max(10, Math.min(100, ((thermalFlux - 30) / 30) * 100));
+    setThermalHistory(prev => [...prev.slice(1), normalizedThermal]);
+  }, [thermalFlux]);
+
+  useEffect(() => {
+    const normalizedPressure = Math.max(10, Math.min(100, ((pressure - 90) / 20) * 100));
+    setPressureHistory(prev => [...prev.slice(1), normalizedPressure]);
+  }, [pressure]);
 
   const handleRefresh = () => {
     pushEvent?.('TELEMETRY_REFRESH', { timestamp: Date.now(), source: 'ANALYTICS_BOARD' });
@@ -90,27 +105,27 @@ const TelemetryAnalyticsEngineeringOS_72e867 = () => {
               value={vibration.toFixed(2)} 
               unit="HZ" 
               subValue="MAX: 442.8 | MIN: 12.1"
-              data={sparklineData}
+              data={vibrationHistory}
               color="text-[#adc6ff]"
               barColor="bg-[#adc6ff]"
             />
 
             <AnalyticsChart 
               label="Thermal Flux (W/m²)" 
-              value={thermalFlux.toLocaleString()} 
+              value={thermalFlux.toFixed(2)} 
               unit="W/m²" 
               subValue="CRIT_THRESHOLD: 8.5K"
-              data={sparklineData.map(d => d * 1.2)}
+              data={thermalHistory}
               color="text-[#ffb786]"
               barColor="bg-[#ffb786]"
             />
 
             <AnalyticsChart 
               label="Atmospheric Pressure (Pa)" 
-              value={`${pressure}k`} 
+              value={`${pressure.toFixed(2)}`} 
               unit="PA" 
               subValue="DELTA_Δ: -0.04%"
-              data={sparklineData.map(d => 50 + d * 0.1)}
+              data={pressureHistory}
               color="text-[#4cd7f6]"
               barColor="bg-[#4cd7f6]"
             />
@@ -158,9 +173,9 @@ const TelemetryAnalyticsEngineeringOS_72e867 = () => {
                   <tbody className="divide-y divide-[#202b3c]/50">
                     <EventRow time="12:44:02.1" event="FLUX_SPIKE_SECTOR_7" prio="CRITICAL" color="text-[#ffb4ab] bg-[#93000a]/20 border-[#ffb4ab]/30" />
                     <EventRow time="12:44:08.4" event="RESONANCE_PASSIVE" prio="NOMINAL" color="text-[#adc6ff] bg-[#adc6ff]/10 border-[#adc6ff]/20" />
-                    <EventRow time="12:44:15.9" event="VALVE_04_MICRO_LEAK" prio="AlertTriangle" color="text-[#ffb786] bg-[#df7412]/20 border-[#ffb786]/30" />
+                    <EventRow time="12:44:15.9" event="VALVE_04_MICRO_LEAK" prio="WARNING" color="text-[#ffb786] bg-[#df7412]/20 border-[#ffb786]/30" />
                     <EventRow time="12:44:22.0" event="BUFFER_SYNC_DONE" prio="INFO" color="text-[#4cd7f6] bg-[#4cd7f6]/10 border-[#4cd7f6]/20" />
-                    <EventRow time="12:44:28.2" event="CORE_TEMP_LIMIT" prio="AlertTriangle" color="text-[#ffb786] bg-[#df7412]/20 border-[#ffb786]/30" />
+                    <EventRow time="12:44:28.2" event="CORE_TEMP_LIMIT" prio="WARNING" color="text-[#ffb786] bg-[#df7412]/20 border-[#ffb786]/30" />
                   </tbody>
                 </table>
               </div>

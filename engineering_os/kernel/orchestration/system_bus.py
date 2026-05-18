@@ -32,7 +32,29 @@ class MasterSystemBus:
             "SPATIAL_UPDATE",
             "GEOMETRY_UPDATE",
             "DISTRIBUTED_UPDATE",
-            "MANUFACTURING_UPDATE"
+            "MANUFACTURING_UPDATE",
+            "AEROSPACE_UPDATE",
+            "COMMS_UPDATE",
+            "MOLECULAR_UPDATE",
+            "ACOUSTIC_UPDATE",
+            "GRAVITY_UPDATE",
+            "MATERIAL_UPDATE",
+            "QUANTUM_UPDATE",
+            "NUCLEAR_UPDATE",
+            "OPTICS_UPDATE",
+            "ROBOTICS_UPDATE",
+            "SECURITY_UPDATE",
+            "SIGNAL_UPDATE",
+            "CRYOGENIC_UPDATE",
+            "COMBUSTION_UPDATE",
+            "TERMINAL_UPDATE",
+            "HOME_UPDATE",
+            "SIMULATION_UPDATE",
+            "ORCHESTRATION_UPDATE",
+            "TWIN_UPDATE",
+            "SYMBOLIC_UPDATE",
+            "CIRCUIT_UPDATE",
+            "PROPULSION_UPDATE"
         }
         self.mirroring_enabled = True
 
