@@ -1,4 +1,5 @@
 Physics.md — AI Engineering Assistant
+
 # AI Engineering Assistant — Physics Engine Foundations
 
 ## Purpose
@@ -57,27 +58,31 @@ The goal IS:
 
 # Initial Physics Domains
 
-| Domain | Purpose | Key Concept |
-|---|---|---|
-| statics | structural equilibrium | Force/Moment balance |
-| mechanics of materials | stress/strain | Material yielding |
-| beam mechanics | deflection analysis | Slenderness/Flexibility |
-| rigid body physics | mass/inertia | Center of Gravity |
+| Domain                 | Purpose                | Key Concept             |
+| ---------------------- | ---------------------- | ----------------------- |
+| statics                | structural equilibrium | Force/Moment balance    |
+| mechanics of materials | stress/strain          | Material yielding       |
+| beam mechanics         | deflection analysis    | Slenderness/Flexibility |
+| rigid body physics     | mass/inertia           | Center of Gravity       |
 
 ---
 
 # 3. Structural Physics Principles
 
 # A. Load Paths
+
 The system must identify how force travels from a point of application to the supports.
+
 - **Direct Load Path:** Simple compression/tension.
 - **Bending Load Path:** Moment propagation.
 - **Shear Load Path:** Transverse force transfer.
 
 # B. Stress Concentrations
+
 Physics rules for detecting geometric features that amplify stress (notches, sharp corners, holes).
 
 # C. Failure Modes (Structural)
+
 1. **Yielding:** Permanent deformation.
 2. **Buckling:** Elastic instability in slender members.
 3. **Shear Failure:** Tearing or sliding of material.
@@ -88,9 +93,11 @@ Physics rules for detecting geometric features that amplify stress (notches, sha
 # 4. Material Behavior Physics
 
 # Linear Elasticity
+
 Assuming materials return to original shape after load removal ($E$ = Young's Modulus).
 
 # Isotropic vs Anisotropic
+
 - **Isotropic:** Metals (equal properties in all directions).
 - **Anisotropic:** 3D Printed parts / Composites (layer-dependent properties).
 
@@ -99,11 +106,13 @@ Assuming materials return to original shape after load removal ($E$ = Young's Mo
 # 5. Load & Boundary Conditions
 
 # A. Boundary Conditions (Supports)
+
 - **Fixed:** No movement, no rotation.
 - **Pinned:** No movement, rotation allowed.
 - **Roller:** One direction movement allowed.
 
 # B. Load Types
+
 - **Point Load:** Force at a specific coordinate.
 - **Distributed Load:** Force over an area or line.
 - **Moment/Torque:** Twisting force.
@@ -113,12 +122,15 @@ Assuming materials return to original shape after load removal ($E$ = Young's Mo
 # 6. Approximation Physics (The Heuristics)
 
 # Section Properties
+
 Extracting cross-sections of 3D geometry to calculate:
+
 - Area ($A$)
 - Moment of Inertia ($I$)
 - Section Modulus ($Z$)
 
 # Structural Analogy
+
 Mapping complex geometry to "Beam Analogies" for $O(1)$ physics estimates.
 
 ---
@@ -126,10 +138,12 @@ Mapping complex geometry to "Beam Analogies" for $O(1)$ physics estimates.
 # 7. Simulation Physics (FEM)
 
 # Meshing Principles
+
 - **Tetrahedral (Tet):** For complex, organic forms.
 - **Hexahedral (Hex):** For regular, blocky structural forms.
 
 # Convergence
+
 Physics rules for determining if a simulation result is mathematically stable.
 
 ---
@@ -137,6 +151,7 @@ Physics rules for determining if a simulation result is mathematically stable.
 # 8. Physical Constraints for AI Reasoning
 
 The AI engine is constrained by these "Physical Truths":
+
 1. **Conservation of Energy/Mass.**
 2. **Newton’s Laws of Motion.**
 3. **Material Strength Limits.**

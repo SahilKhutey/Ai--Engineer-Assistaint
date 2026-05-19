@@ -60,7 +60,9 @@ class KernelManager:
     async def initialize(self):
         """Asynchronous initialization of kernel services (e.g., Redis Bridge)."""
         await self.bus.connect_redis()
-        self.logger.info("OS Kernel: Sovereign initialization complete.")
+        # Start the background task execution scheduler loop (deterministic 60Hz tick strategy)
+        asyncio.create_task(self.scheduler.run_scheduler_loop())
+        self.logger.info("OS Kernel: Sovereign initialization complete. Task execution scheduler spawned.")
 
     async def schedule_task(self, task_id: str, task_type: str, priority: int = 1, workload: Dict[str, Any] = None):
         """Schedules an engineering task and archives it in the kernel memory."""

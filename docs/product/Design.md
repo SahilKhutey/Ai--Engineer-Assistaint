@@ -1,4 +1,5 @@
 Design.md — AI Engineering Assistant
+
 # AI Engineering Assistant — Design System & UX Architecture
 
 ## Design Philosophy
@@ -11,6 +12,7 @@ The product should feel like:
 - a trustworthy engineering tool
 
 NOT:
+
 - a generic chatbot
 - a consumer AI app
 - a cluttered CAD interface
@@ -59,10 +61,12 @@ The UI should emphasize:
 # D. Progressive Complexity
 
 Beginners:
+
 - simplified outputs
 - guided explanations
 
 Experts:
+
 - advanced controls
 - raw simulation data
 - configurable assumptions
@@ -93,6 +97,7 @@ System: `Inter` (UI elements, readability)
 Technical: `JetBrains Mono` (Dimensions, coordinates, code, metadata)
 
 Hierarchy:
+
 - H1: 24px Bold (JetBrains Mono)
 - H2: 18px Semi-bold (Inter)
 - Body: 14px Regular (Inter)
@@ -145,16 +150,20 @@ Hierarchy:
 # 4. Interactive Feedback Loops
 
 # A. Real-time Analysis
+
 As the user selects a material or changes a load, the AI should provide immediate, low-latency "heuristic feedback" in the bottom corner (e.g., "Buckling risk detected").
 
 # B. Confidence Meters
+
 Every AI engineering report must include a confidence score (0-100%) based on:
+
 - geometry quality
 - material data completeness
 - query ambiguity
 - simulation availability
 
 # C. Assumption Highlighting
+
 Assumptions made by the AI (e.g., "Assuming 316 Stainless Steel") should be highlighted as clickable tags that allow the user to override them instantly.
 
 ---

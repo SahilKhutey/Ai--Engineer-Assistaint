@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "../index.css";
-import EngineeringOSShell from "../components/EngineeringOSShell";
-import { EngineeringRuntimeOrchestrator } from "../services/EngineeringRuntimeOrchestrator";
-import { Providers } from "./providers";
-
-const inter = Inter({ subsets: ["latin"] });
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Antigravity | Engineering OS",
-  description: "Sovereign Engineering Intelligence Infrastructure",
+  title: "Antigravity Engineering Intelligence OS",
+  description: "Sovereign AI-Native Workstation & CAD Simulation cockpit, Phase 55 Hardened Operations Interface.",
 };
 
 export default function RootLayout({
@@ -18,14 +12,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <Providers>
-          <EngineeringRuntimeOrchestrator />
-          <EngineeringOSShell>
-            {children}
-          </EngineeringOSShell>
-        </Providers>
+    <html lang="en">
+      <body>
+        {children}
       </body>
     </html>
   );

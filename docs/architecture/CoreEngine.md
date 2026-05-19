@@ -1,4 +1,5 @@
 CoreEngine.md — AI Engineering Assistant
+
 # AI Engineering Assistant — Core Engine Architecture
 
 ## Purpose
@@ -103,30 +104,37 @@ The Core Engine IS:
 # 3. Component Details
 
 ## A. Intent Engine
+
 - **Purpose:** Identifies the user's engineering goal.
 - **Example:** "Can this take 50kg?" → `INTENT: Structural Validation`, `LOAD: 500N`, `TARGET: Global Failure`.
 
 ## B. Geometry Engine (Intelligence Layer)
+
 - **Purpose:** Maps pixels/mesh to engineering features.
 - **Example:** Sees a vertical cylinder → `FEATURE: Hole/Boss`, `ROLE: Support/Interface`.
 
 ## C. Physics Engine (Symbolic)
+
 - **Purpose:** Runs $O(1)$ symbolic engineering math.
 - **Formula Library:** Euler-Bernoulli, Von Mises, Euler Buckling.
 
 ## D. Rule Engine (Deterministic)
+
 - **Purpose:** Absolute guardrails.
 - **Rule:** `IF SF < 1.0 THEN FAIL` (overrides any AI prediction).
 
 ## E. Structural Reasoner (The Brain)
+
 - **Purpose:** Synthesizes intent, geometry, and physics into a coherent engineering argument.
 - **Approach:** Chain-of-Thought (CoT) reasoning grounded in first principles.
 
 ## F. Simulation Coordinator
+
 - **Purpose:** Manages the transition to high-fidelity FEM (CalculiX).
 - **Trigger:** Low confidence or high criticality.
 
 ## G. Confidence Engine
+
 - **Purpose:** Scores the reliability of the output.
 - **Metrics:** Data completeness, geometric integrity, physics alignment.
 

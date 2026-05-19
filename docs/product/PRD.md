@@ -11,8 +11,9 @@ identifies weak points
 explains engineering tradeoffs
 suggests design improvements
 connects with CAD + simulation workflows
+
 1. Product Overview
-Example User Flow
+   Example User Flow
 
 User uploads:
 
@@ -33,8 +34,7 @@ likely failure points
 confidence level
 material assumptions
 design modifications
-optional simulation preview
-2. Core Problem
+optional simulation preview 2. Core Problem
 
 Mechanical analysis tools are:
 
@@ -48,8 +48,7 @@ Most engineers need:
 fast feasibility checks
 iterative guidance
 design intuition
-manufacturability validation
-3. Key Features (MVP)
+manufacturability validation 3. Key Features (MVP)
 A. Geometry Intelligence
 
 Extract dimensions, volume, mass properties.
@@ -69,20 +68,17 @@ D. Visual Overlay
 
 3D heatmap overlays for stress/risk zones.
 Interactive geometry inspection.
-Simulation job management.
-4. Target Audience
+Simulation job management. 4. Target Audience
 
 Mechanical Engineers (Speed)
 Robotics Teams (Rapid iteration)
 Hardware Startups (Cost reduction)
 Industrial Designers (Engineering feasibility)
-Engineering Students (Learning tool)
-5. Success Metrics
+Engineering Students (Learning tool) 5. Success Metrics
 
 Speed to Insight: Initial analysis in < 5 seconds.
 Accuracy: Within 15% of high-fidelity FEM for standard beam-like structures.
 Human Trust: Confidence level reporting and explanation quality.
-Retention: Engineers using it for daily design checks.
-6. The “Real Moat”
+Retention: Engineers using it for daily design checks. 6. The “Real Moat”
 
 The moat is the Engineering Reasoning Layer—the ability to map semantic engineering intent to deterministic physical calculations.

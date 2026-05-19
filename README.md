@@ -15,12 +15,14 @@ The Antigravity OS operates on the principle of **Deterministic Truth**. Unlike 
 ## 🛠 High-Density Infrastructure
 
 ### 1. Workbench Kernels
+
 - **Cognition Kernel**: Sovereign intent parsing and pre-cognition reasoning.
 - **Physics Kernel**: SovereignFEA with sub-nanometer residual stress computation.
 - **Materialization Engine**: Autonomous toolpath generation and voxel-to-reality sync.
 - **Variable Console**: Sub-picowatt observability into system constraints and margins.
 
 ### 2. Sovereign Orchestration
+
 - **Runtime Orchestrator**: 20Hz cognition loop for real-time synchronization.
 - **Sovereign API**: Hardened backend for distributed multiversal compute.
 - **State Bus**: Unified event-driven architecture with deterministic locking.
@@ -28,12 +30,14 @@ The Antigravity OS operates on the principle of **Deterministic Truth**. Unlike 
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js v20+
 - Python 3.10+
 - Ollama (with DeepSeek-v3.2 Sovereign model)
 - Docker (for distributed clusters)
 
 ### Local Deployment
+
 ```bash
 # Clone the sovereign repository
 git clone https://github.com/SahilKhutey/Ai--Engineer-Assistaint.git
@@ -53,15 +57,18 @@ npm run dev
 ## 📖 Documentation Structure
 
 Detailed documentation is available in the [`docs/`](./docs/) directory:
+
 - [**Architecture**](./docs/ARCHITECTURE.md): Deep dive into the sovereign kernel bus and multiversal state.
 - [**Sovereign Protocols**](./docs/SOVEREIGN_PROTOCOLS.md): Details on sub-picowatt residual monitoring and Phase 55 standards.
 - [**Workflow Orchestration**](./docs/WORKFLOW.md): How the master engineering cognition loop works.
 - [**API Reference**](./docs/API_REFERENCE.md): Documentation for sovereign backend routes.
 
 ## 🛡 Security & Compliance
+
 - **Phase 55 Locked**: System is hardened against reality-drift and AI hallucination.
 - **Sovereign Isolation**: Kernels operate in deterministic sandboxes with sub-picowatt observability.
 - **Deterministic Derivation**: Every output is verified against symbolic physical limits.
 
 ---
+
 © 2026 Antigravity Intelligence Systems | Phase 55 Mission Control

@@ -1,4 +1,5 @@
 Working.md — AI Engineering Assistant
+
 # AI Engineering Assistant — Internal Working System
 
 ## Purpose
@@ -86,6 +87,7 @@ It is:
 # Heuristic Calculations
 
 The system uses **Simplified Physics Models** for instant feedback:
+
 - **Beam Theory:** Approximating parts as collections of beams.
 - **Shell Theory:** For thin-walled enclosures.
 - **Material Heuristics:** Estimating yielding based on Von Mises approximations.
@@ -111,6 +113,7 @@ Confidence ($C$) is calculated as:
 $C = (G \times 0.3) + (M \times 0.2) + (R \times 0.3) + (S \times 0.2)$
 
 Where:
+
 - $G$ = Geometry Quality (watertight, manifold)
 - $M$ = Material Certainty (verified properties)
 - $R$ = Rule Coverage (did equations cover the intent?)
@@ -130,6 +133,7 @@ Where:
 # The "Traceability" Requirement
 
 The system must never just say "It's safe." It must say:
+
 - "The safety factor is 2.5."
 - "Based on the Euler-Bernoulli beam equation..."
 - "Assuming a fixed support at the base..."
@@ -153,7 +157,8 @@ The system must never just say "It's safe." It must say:
 # Optimization Logic
 
 If failure is detected, the engine runs "What-If" scenarios:
+
 - "What if thickness increases by 20%?"
 - "What if we add a rib at point X?"
 - "What if we change to Steel?"
-The best outcome is presented as a **Design Recommendation**.
+  The best outcome is presented as a **Design Recommendation**.

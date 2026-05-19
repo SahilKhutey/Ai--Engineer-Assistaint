@@ -57,6 +57,10 @@ class StructuralSolver(BaseSolver):
         
         self.state = {
             "status": "MONITORING",
+            "maxStressPa": round(max_stress * 1e6, 2),
+            "deflectionMeters": round(0.0012 + 0.0001 * math.sin(t), 10),
+            "safetyFactor": round(fos, 2),
+            "bucklingRisk": fos < 1.2,
             "mesh": { "nodes": 1240500, "elements": 450200, "quality": 0.998 },
             "stress": {
                 "max_MPa": round(max_stress, 2),

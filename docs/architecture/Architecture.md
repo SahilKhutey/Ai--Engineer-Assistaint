@@ -1,4 +1,5 @@
 Architecture.md — AI Engineering Assistant
+
 # AI Engineering Assistant — System Architecture
 
 ## Vision
@@ -61,41 +62,53 @@ The system combines:
 # 2. Key Components
 
 ## A. API Gateway (FastAPI)
+
 The central orchestrator that handles:
+
 - User authentication
 - Request routing
 - WebSocket for real-time analysis updates
 - File upload management (S3 / Local)
 
 ## B. Geometry Engine (Python / Trimesh / OCC)
+
 Responsible for:
+
 - Parsing STL, STEP, and CAD files
 - Feature extraction (ribs, holes, cantilevers, thin walls)
 - Topological analysis
 - Mesh cleaning and repair
 
 ## C. Core AI Engine (Gemini / Claude)
+
 The reasoning layer that:
+
 - Understands natural language engineering queries
 - Maps user intent to physical constraints
 - Synthesizes engineering reports
 - Manages the conversation state
 
 ## D. Engineering Engine (Deterministic Python)
+
 The "Truth" layer that:
+
 - Implements deterministic engineering rules
 - Runs symbolic physics calculations (Beam theory, buckling)
 - Validates AI suggestions against material properties
 - Provides safety factor estimations
 
 ## E. Simulation Service (Distributed FEM)
+
 For heavy workloads:
+
 - Manages simulation jobs (CalculiX, OpenFOAM)
 - Orchestrates worker nodes (Celery / Redis)
 - Post-processes results for visual overlays
 
 ## F. Web Frontend (Next.js / Three.js)
+
 The workspace:
+
 - 3D interactive viewer for stress heatmaps
 - Natural language chat interface
 - Material and constraint management dashboard
